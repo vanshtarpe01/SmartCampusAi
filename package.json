@@ -1,0 +1,11 @@
+{
+  "name": "smartcampus-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SmartCampus AI - Intelligent Student Assistant (Python + Streamlit)",
+  "scripts": {
+    "dev": "streamlit run app.py --server.port 3000 --server.address 0.0.0.0 --server.headless true --browser.gatherUsageStats false",
+    "build": "python3 -m py_compile app.py data.py utils/*.py pages/*.py",
+    "start": "streamlit run app.py --server.port 3000 --server.address 0.0.0.0 --server.headless true --browser.gatherUsageStats false"
+  }
+}
