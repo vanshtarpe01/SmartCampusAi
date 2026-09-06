@@ -49,10 +49,9 @@ def render_planner():
     with st.container():
         st.markdown(
             """
-            <div class="smart-glass-card" style="padding: 20px; margin-bottom: 20px;">
-                <h4 style="margin: 0 0 14px 0; color: #1a1a2e; font-size: 1.1rem; font-weight: 700;">
-                    ⚙️ Plan Parameters & Target Configuration
-                </h4>
+            <h4 style="margin: 0 0 14px 0; color: #0f172a; font-size: 1.1rem; font-weight: 700;">
+                ⚙️ Plan Parameters & Target Configuration
+            </h4>
             """,
             unsafe_allow_html=True
         )
@@ -98,8 +97,7 @@ def render_planner():
                 index=1
             )
 
-        btn_clicked = st.button("🚀 Generate AI Study Plan", type="primary", use_container_width=True)
-        st.markdown("</div>", unsafe_allow_html=True)
+        btn_clicked = st.button("🚀 Generate AI Study Plan", type="primary", width="stretch")
 
     if btn_clicked:
         st.session_state.generated_plan = generate_study_plan(

@@ -40,7 +40,7 @@ def render_assistant():
                 "content": (
                     "Hello! I am your SmartCampus AI Study Companion.\n\n"
                     "Ask me any question about Artificial Intelligence, search algorithms, "
-                    "or exam subjects (e.g. *What is BFS?*, *Explain A\**). How can I assist you today?"
+                    r"or exam subjects (e.g. *What is BFS?*, *Explain A*\*). How can I assist you today?"
                 ),
                 "timestamp": datetime.datetime.now().strftime("%I:%M %p"),
                 "category": "Welcome"
@@ -63,7 +63,7 @@ def render_assistant():
     selected_quick_prompt = None
     for idx, (col, chip_text) in enumerate(zip(chip_cols, chips)):
         with col:
-            if st.button(chip_text, key=f"quick_chip_{idx}", use_container_width=True):
+            if st.button(chip_text, key=f"quick_chip_{idx}", width="stretch"):
                 selected_quick_prompt = chip_text
 
     st.markdown("<hr style='border: none; border-top: 1px solid rgba(0, 180, 216, 0.15); margin: 16px 0;'>", unsafe_allow_html=True)
@@ -71,7 +71,7 @@ def render_assistant():
     # Controls row: Clear chat & Export
     col_ctrl1, col_ctrl2, col_info = st.columns([1, 1, 3])
     with col_ctrl1:
-        if st.button("🗑️ Clear Conversation", use_container_width=True):
+        if st.button("🗑️ Clear Conversation", width="stretch"):
             st.session_state.chat_messages = [
                 {
                     "role": "assistant",
@@ -83,21 +83,27 @@ def render_assistant():
             st.rerun()
 
     with col_ctrl2:
-        # Build text for export
+        if "show_export_log" not in st.session_state:
+            st.session_state.show_export_log = False
+        if st.button("📥 Export Chat Log", width="stretch"):
+            st.session_state.show_export_log = not st.session_state.show_export_log
+
+    with col_info:
+        st.caption("ℹ️ SmartCampus AI Engine: Knowledge base of 12 AI topics, academic diagnostics, and real-time student context evaluation.")
+
+    if st.session_state.get("show_export_log", False):
         export_text = "\n\n".join([
             f"[{msg.get('timestamp', '')}] {msg['role'].upper()}: {msg['content']}"
             for msg in st.session_state.chat_messages
         ])
-        st.download_button(
-            label="📥 Export Chat Log",
-            data=export_text,
-            file_name=f"smartcampus_chat_{datetime.date.today()}.txt",
-            mime="text/plain",
-            use_container_width=True
-        )
-
-    with col_info:
-        st.caption("ℹ️ SmartCampus AI Engine: Knowledge base of 12 AI topics, academic diagnostics, and real-time student context evaluation.")
+        with st.expander("📄 Exported Chat Transcript", expanded=True):
+            st.text_area(
+                "Copy conversation transcript:",
+                value=export_text,
+                height=160,
+                help="Select all and copy (Ctrl+C / Cmd+C) to save your session."
+            )
+            st.caption(f"📝 {len(st.session_state.chat_messages)} message(s) formatted • Export date: {datetime.date.today()}")
 
     st.markdown("<div style='margin-top: 14px;'></div>", unsafe_allow_html=True)
 

@@ -105,49 +105,51 @@ def render_knowledge():
         col_left, col_right = st.columns(2)
 
         with col_left:
+            concepts_html = "".join([f"<li style='margin-bottom: 4px;'>{kc}</li>" for kc in topic_info["key_concepts"]])
             st.markdown(
-                """
+                f"""
                 <div class="smart-glass-card" style="padding: 20px; height: 100%;">
                     <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
                         <span style="font-size: 1.25rem;">🔑</span>
-                        <h4 style="margin: 0; color: #1a1a2e; font-size: 1.05rem; font-weight: 700;">
+                        <h4 style="margin: 0; color: #0f172a; font-size: 1.05rem; font-weight: 700;">
                             Key Concepts & Mechanisms
                         </h4>
                     </div>
                     <ul style="margin: 0; padding-left: 20px; line-height: 1.7; color: #334155; font-size: 0.94rem;">
+                        {concepts_html}
+                    </ul>
+                </div>
                 """,
                 unsafe_allow_html=True
             )
-            for kc in topic_info["key_concepts"]:
-                st.markdown(f"<li>{kc}</li>", unsafe_allow_html=True)
-            st.markdown("</ul></div>", unsafe_allow_html=True)
 
         with col_right:
+            apps_html = "".join([f"<li style='margin-bottom: 4px;'>{app}</li>" for app in topic_info["applications"]])
             st.markdown(
-                """
+                f"""
                 <div class="smart-glass-card" style="padding: 20px; height: 100%;">
                     <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
                         <span style="font-size: 1.25rem;">🎯</span>
-                        <h4 style="margin: 0; color: #1a1a2e; font-size: 1.05rem; font-weight: 700;">
+                        <h4 style="margin: 0; color: #0f172a; font-size: 1.05rem; font-weight: 700;">
                             Real-World Applications
                         </h4>
                     </div>
                     <ul style="margin: 0; padding-left: 20px; line-height: 1.7; color: #334155; font-size: 0.94rem;">
+                        {apps_html}
+                    </ul>
+                </div>
                 """,
                 unsafe_allow_html=True
             )
-            for app in topic_info["applications"]:
-                st.markdown(f"<li>{app}</li>", unsafe_allow_html=True)
-            st.markdown("</ul></div>", unsafe_allow_html=True)
 
         # Illustrative Example Box
         st.markdown("<div style='margin-top: 18px;'></div>", unsafe_allow_html=True)
         st.markdown(
             f"""
-            <div class="smart-glass-card" style="border-left: 4px solid #f4a261; padding: 18px 22px;">
+            <div class="smart-glass-card" style="border-left: 4px solid #b45309; padding: 18px 22px;">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
                     <span style="font-size: 1.25rem;">💡</span>
-                    <h4 style="margin: 0; color: #1a1a2e; font-size: 1.05rem; font-weight: 700;">
+                    <h4 style="margin: 0; color: #0f172a; font-size: 1.05rem; font-weight: 700;">
                         Illustrative Academic Example
                     </h4>
                 </div>
@@ -163,11 +165,11 @@ def render_knowledge():
         st.markdown("<div style='margin-top: 18px;'></div>", unsafe_allow_html=True)
         qa1, qa2 = st.columns(2)
         with qa1:
-            if st.button(f"💬 Ask AI Study Companion about {topic_info['title']}", use_container_width=True):
+            if st.button(f"💬 Ask AI Study Companion about {topic_info['title']}", width="stretch"):
                 st.session_state.current_page = "AI Assistant"
                 st.rerun()
         with qa2:
-            if st.button(f"📅 Add {topic_info['title']} to Study Planner", use_container_width=True):
+            if st.button(f"📅 Add {topic_info['title']} to Study Planner", width="stretch"):
                 st.session_state.current_page = "Study Planner"
                 st.rerun()
 

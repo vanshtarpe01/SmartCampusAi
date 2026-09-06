@@ -108,7 +108,7 @@ def render_performance():
 
     btn_col1, btn_col2 = st.columns([0.25, 0.75])
     with btn_col1:
-        run_analysis = st.button("🚀 Analyze Performance", type="primary", use_container_width=True)
+        run_analysis = st.button("🚀 Analyze Performance", type="primary", width="stretch")
 
     st.markdown("<div style='margin-top: 14px;'></div>", unsafe_allow_html=True)
 
@@ -228,14 +228,21 @@ def render_performance():
         st.markdown("### 📊 SECTION 3: Important Factors")
         st.caption("Calculated dynamically from the Decision Tree model's Gini importance values.")
         feat_fig = build_feature_importance_chart(ml_prediction["feature_importance"])
-        st.plotly_chart(feat_fig, use_container_width=True)
+        st.plotly_chart(feat_fig, width="stretch")
 
     with sec_col4:
         st.markdown("### 💡 SECTION 4: AI Insight & Explainability")
+        reasons_items = "".join([
+            f"""<div style="display: flex; align-items: flex-start; gap: 8px; font-size: 0.86rem; margin-bottom: 6px;">
+                <span style="color: {'#065f46' if r['type'] == 'positive' else ('#b91c1c' if r['type'] == 'warning' else '#64748b')}; font-weight: 800;">{'✓' if r['type'] == 'positive' else ('⚠' if r['type'] == 'warning' else '•')}</span>
+                <span style="color: #334155;">{r['text']}</span>
+            </div>"""
+            for r in combined_ai["reasons"]
+        ])
         st.markdown(
             f"""
-            <div class="smart-glass-card" style="padding: 18px; border-left: 4px solid #00b4d8; height: 93%;">
-                <div style="font-weight: 700; color: #1a1a2e; margin-bottom: 8px; font-size: 1.05rem;">
+            <div class="smart-glass-card" style="padding: 18px; border-left: 4px solid #0077b6; height: 93%;">
+                <div style="font-weight: 700; color: #0f172a; margin-bottom: 8px; font-size: 1.05rem;">
                     🤖 Automated AI Synthesis
                 </div>
                 <p style="color: #334155; font-size: 0.95rem; line-height: 1.5; margin-bottom: 12px;">
@@ -247,26 +254,16 @@ def render_performance():
                 <p style="font-size: 0.88rem; color: #475569; margin-bottom: 12px;">
                     {combined_ai['consensus_text']}
                 </p>
-                <div style="font-size: 0.88rem; font-weight: 600; color: #1e293b; margin-bottom: 6px;">
+                <div style="font-size: 0.88rem; font-weight: 600; color: #0f172a; margin-bottom: 8px;">
                     Key Contributing Factors:
                 </div>
-                <div style="display: flex; flex-direction: column; gap: 6px;">
+                <div style="display: flex; flex-direction: column;">
+                    {reasons_items}
+                </div>
+            </div>
             """,
             unsafe_allow_html=True
         )
-        for reason in combined_ai["reasons"]:
-            symbol = "✓" if reason["type"] == "positive" else ("⚠" if reason["type"] == "warning" else "•")
-            color = "#2a9d8f" if reason["type"] == "positive" else ("#e76f51" if reason["type"] == "warning" else "#64748b")
-            st.markdown(
-                f"""
-                <div style="display: flex; align-items: flex-start; gap: 8px; font-size: 0.86rem;">
-                    <span style="color: {color}; font-weight: 800;">{symbol}</span>
-                    <span style="color: #334155;">{reason['text']}</span>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-        st.markdown("</div></div>", unsafe_allow_html=True)
 
     st.markdown("<div style='margin-top: 24px;'></div>", unsafe_allow_html=True)
 
@@ -314,7 +311,7 @@ def render_performance():
         cm_data = metrics.get("confusion_matrix", [[0]])
         cm_classes = metrics.get("classes", ["Average", "Excellent", "Good", "Needs Improvement"])
         cm_fig = build_confusion_matrix_heatmap(cm_data, cm_classes)
-        st.plotly_chart(cm_fig, use_container_width=True)
+        st.plotly_chart(cm_fig, width="stretch")
 
     with col_diag_right:
         st.markdown("#### ❓ How does the prediction work?")
@@ -343,12 +340,12 @@ def render_performance():
 
     with col_chart_left:
         fig_timeline = build_performance_timeline_chart(perf_data["timeline"])
-        st.plotly_chart(fig_timeline, use_container_width=True)
+        st.plotly_chart(fig_timeline, width="stretch")
         st.caption("Weekly trajectory generated from continuous evaluation and assignment records.")
 
     with col_chart_right:
         fig_wellness = build_wellness_radar(perf_data["wellness"])
-        st.plotly_chart(fig_wellness, use_container_width=True)
+        st.plotly_chart(fig_wellness, width="stretch")
 
     st.markdown("<div style='margin-top: 24px;'></div>", unsafe_allow_html=True)
 
@@ -367,7 +364,7 @@ def render_performance():
             "Academic Status": det["status"]
         })
     df_details = pd.DataFrame(records)
-    st.dataframe(df_details, use_container_width=True, hide_index=True)
+    st.dataframe(df_details, width="stretch", hide_index=True)
 
 
 if __name__ == "__main__":

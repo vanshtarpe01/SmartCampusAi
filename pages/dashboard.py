@@ -136,17 +136,17 @@ def render_dashboard():
         chart_tab1, chart_tab2 = st.tabs(["📈 Bar Chart", "🧭 Knowledge Radar"])
         with chart_tab1:
             fig_bar = build_subject_bar_chart(subject_perf)
-            st.plotly_chart(fig_bar, use_container_width=True)
+            st.plotly_chart(fig_bar, width="stretch")
         with chart_tab2:
             fig_radar = build_subject_radar_chart(subject_perf)
-            st.plotly_chart(fig_radar, use_container_width=True)
+            st.plotly_chart(fig_radar, width="stretch")
 
         # Subject breakdown table
         sub_df = pd.DataFrame([
             {"Subject": k, "Score": f"{v}%", "Target": "75%", "Status": "On Track" if v >= 74 else "Action Needed"}
             for k, v in subject_perf.items()
         ])
-        st.dataframe(sub_df, use_container_width=True, hide_index=True)
+        st.dataframe(sub_df, width="stretch", hide_index=True)
 
     with col_chart2:
         st.markdown(
@@ -161,14 +161,14 @@ def render_dashboard():
             unsafe_allow_html=True
         )
         fig_week = build_weekly_activity_chart(weekly_activity)
-        st.plotly_chart(fig_week, use_container_width=True)
+        st.plotly_chart(fig_week, width="stretch")
 
         # Weekly Activity summary table
         week_df = pd.DataFrame([
             {"Day": d, "Hours": f"{h:.1f} hrs", "Goal Status": "✓ Met" if h >= 2.5 else "⚠ Review"}
             for d, h in weekly_activity.items()
         ])
-        st.dataframe(week_df, use_container_width=True, hide_index=True)
+        st.dataframe(week_df, width="stretch", hide_index=True)
 
     st.markdown("<div style='margin-top: 24px;'></div>", unsafe_allow_html=True)
 
@@ -215,44 +215,35 @@ def render_dashboard():
     with col_actions:
         st.markdown(
             """
-            <h3 style="font-size: 1.15rem; font-weight: 700; color: #1a1a2e; margin-bottom: 12px;">
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: #1a1a2e; margin-bottom: 8px;">
                 ⚡ Quick Actions & Study Hub
             </h3>
-            """,
-            unsafe_allow_html=True
-        )
-
-        st.markdown(
-            """
-            <div class="smart-glass-card" style="padding: 16px;">
-                <p style="font-size: 0.88rem; color: #475569; margin: 0 0 14px 0;">
-                    Jump directly into high-impact academic actions curated by your AI companion.
-                </p>
+            <p style="font-size: 0.88rem; color: #475569; margin: 0 0 14px 0;">
+                Jump directly into high-impact academic actions curated by your AI companion.
+            </p>
             """,
             unsafe_allow_html=True
         )
 
         b1, b2 = st.columns(2)
         with b1:
-            if st.button("📝 Start Study Session", use_container_width=True):
+            if st.button("📝 Start Study Session", width="stretch"):
                 st.session_state.current_page = "Study Planner"
                 st.rerun()
         with b2:
-            if st.button("🤖 Ask AI Assistant", use_container_width=True):
+            if st.button("🤖 Ask AI Assistant", width="stretch"):
                 st.session_state.current_page = "AI Assistant"
                 st.rerun()
 
         b3, b4 = st.columns(2)
         with b3:
-            if st.button("📊 View Performance", use_container_width=True):
+            if st.button("📊 View Performance", width="stretch"):
                 st.session_state.current_page = "Performance"
                 st.rerun()
         with b4:
-            if st.button("🎯 Priority Focus", use_container_width=True):
+            if st.button("🎯 Priority Focus", width="stretch"):
                 st.session_state.current_page = "Recommendations"
                 st.rerun()
-
-        st.markdown("</div>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     from utils.styles import CUSTOM_CSS
