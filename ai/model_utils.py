@@ -15,9 +15,9 @@ def validate_student_inputs(
 ) -> Tuple[bool, Optional[str]]:
     """Validates student inputs against allowable academic ranges.
 
-    Returns:
-        (is_valid: bool, error_message: Optional[str])
-    """
+Returns:
+(is_valid: bool, error_message: Optional[str])
+"""
     if not (0.0 <= attendance <= 100.0):
         return False, f"Attendance must be between 0% and 100%. (Provided: {attendance})"
 
@@ -127,9 +127,9 @@ def combine_rule_and_ml(
 ) -> Dict[str, Any]:
     """Combines Rule-Based analysis with Machine Learning prediction.
 
-    Evaluates whether both systems reach consensus or diverge,
-    and produces an actionable student summary.
-    """
+Evaluates whether both systems reach consensus or diverge,
+and produces an actionable student summary.
+"""
     rule_level = rule_result.get("level", "Average")
     ml_level = ml_result.get("predicted_level", "Average")
     inputs = ml_result.get("input_features", {})

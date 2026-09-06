@@ -4,8 +4,8 @@
   "private": true,
   "description": "SmartCampus AI - Intelligent Student Assistant (Python + Streamlit)",
   "scripts": {
-    "dev": "streamlit run app.py --server.port 3000 --server.address 0.0.0.0 --server.headless true --server.enableCORS false --server.enableXsrfProtection false --browser.gatherUsageStats false",
-    "build": "python3 -m py_compile app.py data.py utils/*.py pages/*.py ai/*.py",
+    "dev": "python3 -m pip install -r requirements.txt --break-system-packages && streamlit run app.py --server.port 3000 --server.address 0.0.0.0 --server.headless true --server.enableCORS false --server.enableXsrfProtection false --browser.gatherUsageStats false",
+    "build": "python3 -m pip install -r requirements.txt --break-system-packages && python3 -m py_compile app.py data.py utils/*.py pages/*.py ai/*.py",
     "start": "streamlit run app.py --server.port 3000 --server.address 0.0.0.0 --server.headless true --server.enableCORS false --server.enableXsrfProtection false --browser.gatherUsageStats false"
   }
 }

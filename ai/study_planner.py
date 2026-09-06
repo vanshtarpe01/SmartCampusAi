@@ -17,16 +17,16 @@ def generate_study_plan(
 ) -> Dict[str, Any]:
     """Generates an optimal, time-blocked study plan tailored to the student's constraints.
 
-    Args:
-        exam_date: Date of the target examination.
-        available_hours: Hours available to study today (e.g., 1.0 to 8.0).
-        subject: Target course/subject (e.g. 'Artificial Intelligence', 'Networking').
-        weak_topic: Focus area identified by the student or rule engine.
-        difficulty: Complexity level ('Beginner', 'Intermediate', 'Advanced').
+Args:
+exam_date: Date of the target examination.
+available_hours: Hours available to study today (e.g., 1.0 to 8.0).
+subject: Target course/subject (e.g. 'Artificial Intelligence', 'Networking').
+weak_topic: Focus area identified by the student or rule engine.
+difficulty: Complexity level ('Beginner', 'Intermediate', 'Advanced').
 
-    Returns:
-        Structured dictionary with slots, time intervals, topics, and AI notes.
-    """
+Returns:
+Structured dictionary with slots, time intervals, topics, and AI notes.
+"""
     today = date.today()
     days_left = max((exam_date - today).days, 1)
 

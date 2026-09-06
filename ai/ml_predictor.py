@@ -19,22 +19,22 @@ def predict_performance(
 ) -> Dict[str, Any]:
     """Predicts a student's academic performance level using the trained Decision Tree.
 
-    Args:
-        attendance: Attendance percentage (0 - 100)
-        study_hours: Daily study hours (0 - 24)
-        assignment_marks: Continuous assessment assignment score (0 - 10)
-        internal_marks: Internal examination marks (0 - 50)
-        previous_marks: Previous semester / qualifying marks percentage (0 - 100)
+Args:
+attendance: Attendance percentage (0 - 100)
+study_hours: Daily study hours (0 - 24)
+assignment_marks: Continuous assessment assignment score (0 - 10)
+internal_marks: Internal examination marks (0 - 50)
+previous_marks: Previous semester / qualifying marks percentage (0 - 100)
 
-    Returns:
-        Dict containing:
-            - predicted_level: 'Excellent' | 'Good' | 'Average' | 'Needs Improvement'
-            - confidence: float (0 - 100 percentage)
-            - probabilities: dict of class -> probability
-            - input_features: dictionary of inputs
-            - feature_importance: dict of model feature importances
-            - top_factor: name of the top influencing feature
-    """
+Returns:
+Dict containing:
+- predicted_level: 'Excellent' | 'Good' | 'Average' | 'Needs Improvement'
+- confidence: float (0 - 100 percentage)
+- probabilities: dict of class -> probability
+- input_features: dictionary of inputs
+- feature_importance: dict of model feature importances
+- top_factor: name of the top influencing feature
+"""
     bundle = get_or_train_model()
     model = bundle["model"]
     feature_importance = bundle.get("feature_importance", {})

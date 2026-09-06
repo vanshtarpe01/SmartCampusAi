@@ -10,15 +10,15 @@ from ai.rule_engine import evaluate_student_rules
 
 def analyze_student(student: Dict[str, Any]) -> Dict[str, Any]:
     """Analyzes a student's academic record and computes weighted performance,
-    risk level, diagnostic rules, and subject estimates.
+risk level, diagnostic rules, and subject estimates.
 
-    Args:
-        student: Dict containing attendance, study_hours, assignment_marks,
-                 internal_marks, previous_marks, and optionally name, student_id.
+Args:
+student: Dict containing attendance, study_hours, assignment_marks,
+internal_marks, previous_marks, and optionally name, student_id.
 
-    Returns:
-        Structured analysis dict with all scores, levels, strengths, and warnings.
-    """
+Returns:
+Structured analysis dict with all scores, levels, strengths, and warnings.
+"""
     # Extract metrics safely with standard fallbacks
     attendance = float(student.get("attendance", 75.0))
     study_hours = float(student.get("study_hours", 2.5))

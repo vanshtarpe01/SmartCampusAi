@@ -10,13 +10,13 @@ from typing import Dict, List, Any
 def generate_recommendations(student_data: Dict[str, Any], analysis: Dict[str, Any] = None) -> List[Dict[str, Any]]:
     """Produces prioritized recommendations tailored to the student's metrics.
 
-    Args:
-        student_data: Raw student record or profile dictionary.
-        analysis: Optional precomputed analysis dict from ai.performance.analyze_student.
+Args:
+student_data: Raw student record or profile dictionary.
+analysis: Optional precomputed analysis dict from ai.performance.analyze_student.
 
-    Returns:
-        List of structured recommendation items.
-    """
+Returns:
+List of structured recommendation items.
+"""
     attendance = float(student_data.get("attendance", 75.0))
     study_hours = float(student_data.get("study_hours", 2.5))
     assignment_marks = float(student_data.get("assignment_marks", 7.0))

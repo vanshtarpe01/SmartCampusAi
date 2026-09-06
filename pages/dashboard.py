@@ -80,13 +80,13 @@ def render_dashboard():
 
     st.markdown(
         """
-        <div style="margin-top: 18px; margin-bottom: 8px;">
-            <h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: #1a1a2e; display: flex; align-items: center; gap: 8px;">
-                <span>🤖</span> AI Performance Prediction
-                <span class="smart-chip chip-indigo" style="font-size: 0.75rem;">Decision Tree Model</span>
-            </h3>
-        </div>
-        """,
+<div style="margin-top: 18px; margin-bottom: 8px;">
+<h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: #1a1a2e; display: flex; align-items: center; gap: 8px;">
+<span>🤖</span> AI Performance Prediction
+<span class="smart-chip chip-indigo" style="font-size: 0.75rem;">Decision Tree Model</span>
+</h3>
+</div>
+""",
         unsafe_allow_html=True
     )
     p1, p2, p3, p4 = st.columns(4)
@@ -123,13 +123,13 @@ def render_dashboard():
     with col_chart1:
         st.markdown(
             """
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: #1a1a2e;">
-                    📊 Subject Performance Matrix
-                </h3>
-                <span class="smart-chip chip-indigo">4 Active Courses</span>
-            </div>
-            """,
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+<h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: #1a1a2e;">
+📊 Subject Performance Matrix
+</h3>
+<span class="smart-chip chip-indigo">4 Active Courses</span>
+</div>
+""",
             unsafe_allow_html=True
         )
 
@@ -151,13 +151,13 @@ def render_dashboard():
     with col_chart2:
         st.markdown(
             """
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: #1a1a2e;">
-                    📅 Weekly Study Activity
-                </h3>
-                <span class="smart-chip chip-teal">Goal: 3.0 hrs/day</span>
-            </div>
-            """,
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+<h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: #1a1a2e;">
+📅 Weekly Study Activity
+</h3>
+<span class="smart-chip chip-teal">Goal: 3.0 hrs/day</span>
+</div>
+""",
             unsafe_allow_html=True
         )
         fig_week = build_weekly_activity_chart(weekly_activity)
@@ -186,10 +186,10 @@ def render_dashboard():
     with col_timeline:
         st.markdown(
             """
-            <h3 style="font-size: 1.15rem; font-weight: 700; color: #1a1a2e; margin-bottom: 12px;">
-                ⏱️ Recent Academic Activity
-            </h3>
-            """,
+<h3 style="font-size: 1.15rem; font-weight: 700; color: #1a1a2e; margin-bottom: 12px;">
+⏱️ Recent Academic Activity
+</h3>
+""",
             unsafe_allow_html=True
         )
 
@@ -197,31 +197,31 @@ def render_dashboard():
             badge_color = "#00b4d8" if act["badge"] in ["Completed", "Verified"] else "#f4a261"
             st.markdown(
                 f"""
-                <div class="smart-glass-card" style="padding: 12px 16px; margin-bottom: 10px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-size: 0.78rem; font-weight: 600; color: #64748b;">{act['time']}</span>
-                        <span style="background: rgba(0, 180, 216, 0.12); color: {badge_color}; padding: 2px 8px; border-radius: 10px; font-size: 0.72rem; font-weight: 700;">
-                            {act['badge']}
-                        </span>
-                    </div>
-                    <div style="font-size: 0.92rem; font-weight: 600; color: #1e293b; margin-top: 4px;">
-                        {act['title']}
-                    </div>
-                </div>
-                """,
+<div class="smart-glass-card" style="padding: 12px 16px; margin-bottom: 10px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<span style="font-size: 0.78rem; font-weight: 600; color: #64748b;">{act['time']}</span>
+<span style="background: rgba(0, 180, 216, 0.12); color: {badge_color}; padding: 2px 8px; border-radius: 10px; font-size: 0.72rem; font-weight: 700;">
+{act['badge']}
+</span>
+</div>
+<div style="font-size: 0.92rem; font-weight: 600; color: #1e293b; margin-top: 4px;">
+{act['title']}
+</div>
+</div>
+""",
                 unsafe_allow_html=True
             )
 
     with col_actions:
         st.markdown(
             """
-            <h3 style="font-size: 1.15rem; font-weight: 700; color: #1a1a2e; margin-bottom: 8px;">
-                ⚡ Quick Actions & Study Hub
-            </h3>
-            <p style="font-size: 0.88rem; color: #475569; margin: 0 0 14px 0;">
-                Jump directly into high-impact academic actions curated by your AI companion.
-            </p>
-            """,
+<h3 style="font-size: 1.15rem; font-weight: 700; color: #1a1a2e; margin-bottom: 8px;">
+⚡ Quick Actions & Study Hub
+</h3>
+<p style="font-size: 0.88rem; color: #475569; margin: 0 0 14px 0;">
+Jump directly into high-impact academic actions curated by your AI companion.
+</p>
+""",
             unsafe_allow_html=True
         )
 

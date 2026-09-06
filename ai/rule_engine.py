@@ -16,16 +16,16 @@ def evaluate_student_rules(
 ) -> Dict[str, List[str]]:
     """Evaluates rule-based expert logic on a student's academic metrics.
 
-    Args:
-        attendance: Float percentage (0 to 100)
-        study_hours: Daily study hours (e.g. 1.0 to 6.0)
-        assignment_marks: Assignment score on 0-10 scale
-        internal_marks: Internal test score on 0-50 scale
-        previous_marks: Previous semester score on 0-100 scale
+Args:
+attendance: Float percentage (0 to 100)
+study_hours: Daily study hours (e.g. 1.0 to 6.0)
+assignment_marks: Assignment score on 0-10 scale
+internal_marks: Internal test score on 0-50 scale
+previous_marks: Previous semester score on 0-100 scale
 
-    Returns:
-        Dict containing lists of 'strengths', 'weaknesses', 'warnings', and 'observations'.
-    """
+Returns:
+Dict containing lists of 'strengths', 'weaknesses', 'warnings', and 'observations'.
+"""
     strengths: List[str] = []
     weaknesses: List[str] = []
     warnings: List[str] = []

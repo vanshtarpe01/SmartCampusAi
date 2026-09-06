@@ -12,23 +12,23 @@ def render_assistant():
     """Renders the AI Study Companion chat interface."""
     st.markdown(
         """
-        <div style="margin-bottom: 20px;">
-            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-                <div>
-                    <h2 class="smart-gradient-text" style="font-size: 1.65rem; margin: 0;">
-                        🤖 AI Study Companion
-                    </h2>
-                    <p style="margin: 3px 0 0 0; color: #5a6275; font-size: 0.95rem;">
-                        Your intelligent personal tutor for Artificial Intelligence, search algorithms, and academic diagnostics.
-                    </p>
-                </div>
-                <div style="display: flex; gap: 8px;">
-                    <span class="smart-chip chip-teal">⚡ Local AI Assistant</span>
-                    <span class="smart-chip chip-indigo">Deterministic Rule & KB Engine</span>
-                </div>
-            </div>
-        </div>
-        """,
+<div style="margin-bottom: 20px;">
+<div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+<div>
+<h2 class="smart-gradient-text" style="font-size: 1.65rem; margin: 0;">
+🤖 AI Study Companion
+</h2>
+<p style="margin: 3px 0 0 0; color: #5a6275; font-size: 0.95rem;">
+Your intelligent personal tutor for Artificial Intelligence, search algorithms, and academic diagnostics.
+</p>
+</div>
+<div style="display: flex; gap: 8px;">
+<span class="smart-chip chip-teal">⚡ Local AI Assistant</span>
+<span class="smart-chip chip-indigo">Deterministic Rule & KB Engine</span>
+</div>
+</div>
+</div>
+""",
         unsafe_allow_html=True
     )
 

@@ -12,23 +12,23 @@ def render_planner():
     """Renders the AI Study Planner interface."""
     st.markdown(
         """
-        <div style="margin-bottom: 22px;">
-            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-                <div>
-                    <h2 class="smart-gradient-text" style="font-size: 1.65rem; margin: 0;">
-                        📚 Smart AI Study Planner
-                    </h2>
-                    <p style="margin: 3px 0 0 0; color: #5a6275; font-size: 0.95rem;">
-                        Automated time-blocked revision schedules optimized for active recall and exam readiness.
-                    </p>
-                </div>
-                <div style="display: flex; gap: 8px;">
-                    <span class="smart-chip chip-amber">⚡ Spaced Repetition Engine</span>
-                    <span class="smart-chip chip-teal">📅 Exam Sync Ready</span>
-                </div>
-            </div>
-        </div>
-        """,
+<div style="margin-bottom: 22px;">
+<div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+<div>
+<h2 class="smart-gradient-text" style="font-size: 1.65rem; margin: 0;">
+📚 Smart AI Study Planner
+</h2>
+<p style="margin: 3px 0 0 0; color: #5a6275; font-size: 0.95rem;">
+Automated time-blocked revision schedules optimized for active recall and exam readiness.
+</p>
+</div>
+<div style="display: flex; gap: 8px;">
+<span class="smart-chip chip-amber">⚡ Spaced Repetition Engine</span>
+<span class="smart-chip chip-teal">📅 Exam Sync Ready</span>
+</div>
+</div>
+</div>
+""",
         unsafe_allow_html=True
     )
 
@@ -49,10 +49,10 @@ def render_planner():
     with st.container():
         st.markdown(
             """
-            <h4 style="margin: 0 0 14px 0; color: #0f172a; font-size: 1.1rem; font-weight: 700;">
-                ⚙️ Plan Parameters & Target Configuration
-            </h4>
-            """,
+<h4 style="margin: 0 0 14px 0; color: #0f172a; font-size: 1.1rem; font-weight: 700;">
+⚙️ Plan Parameters & Target Configuration
+</h4>
+""",
             unsafe_allow_html=True
         )
 
@@ -114,25 +114,25 @@ def render_planner():
     if plan:
         st.markdown(
             f"""
-            <div style="background: linear-gradient(135deg, rgba(0, 180, 216, 0.12), rgba(244, 162, 97, 0.12)); border: 1px solid rgba(0, 180, 216, 0.3); border-radius: 14px; padding: 16px 20px; margin-bottom: 22px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-                    <div>
-                        <div style="font-size: 0.8rem; font-weight: 700; color: #0077b6; text-transform: uppercase;">
-                            Target: {plan['primary_subject']} • Days Remaining: {plan['days_until_exam']} Days
-                        </div>
-                        <div style="font-size: 1.15rem; font-weight: 800; color: #1a1a2e; margin-top: 2px;">
-                            Active Daily Timeline ({plan['available_hours']} Hours Scheduled)
-                        </div>
-                    </div>
-                    <div>
-                        <span class="smart-chip chip-amber">Focus: {plan['weak_topic']}</span>
-                    </div>
-                </div>
-                <div style="margin-top: 8px; font-size: 0.88rem; color: #475569;">
-                    💡 <em>{plan['ai_note']}</em>
-                </div>
-            </div>
-            """,
+<div style="background: linear-gradient(135deg, rgba(0, 180, 216, 0.12), rgba(244, 162, 97, 0.12)); border: 1px solid rgba(0, 180, 216, 0.3); border-radius: 14px; padding: 16px 20px; margin-bottom: 22px;">
+<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+<div>
+<div style="font-size: 0.8rem; font-weight: 700; color: #0077b6; text-transform: uppercase;">
+Target: {plan['primary_subject']} • Days Remaining: {plan['days_until_exam']} Days
+</div>
+<div style="font-size: 1.15rem; font-weight: 800; color: #1a1a2e; margin-top: 2px;">
+Active Daily Timeline ({plan['available_hours']} Hours Scheduled)
+</div>
+</div>
+<div>
+<span class="smart-chip chip-amber">Focus: {plan['weak_topic']}</span>
+</div>
+</div>
+<div style="margin-top: 8px; font-size: 0.88rem; color: #475569;">
+💡 <em>{plan['ai_note']}</em>
+</div>
+</div>
+""",
             unsafe_allow_html=True
         )
 
@@ -149,31 +149,31 @@ def render_planner():
             with c_time:
                 st.markdown(
                     f"""
-                    <div style="font-weight: 800; font-size: 1.05rem; color: #1a1a2e; margin-top: 6px;">
-                        {slot['time']}
-                    </div>
-                    <span class="smart-chip chip-indigo" style="font-size: 0.72rem; padding: 2px 8px;">
-                        {slot['difficulty']}
-                    </span>
-                    """,
+<div style="font-weight: 800; font-size: 1.05rem; color: #1a1a2e; margin-top: 6px;">
+{slot['time']}
+</div>
+<span class="smart-chip chip-indigo" style="font-size: 0.72rem; padding: 2px 8px;">
+{slot['difficulty']}
+</span>
+""",
                     unsafe_allow_html=True
                 )
             
             with c_content:
                 st.markdown(
                     f"""
-                    <div class="smart-glass-card" style="padding: 12px 18px; margin-bottom: 8px;">
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <span style="font-size: 1.2rem;">{slot.get('icon', '📚')}</span>
-                            <span style="font-size: 1.05rem; font-weight: 700; color: #0077b6;">
-                                {slot['subject']}
-                            </span>
-                        </div>
-                        <div style="margin-top: 4px; font-size: 0.95rem; font-weight: 600; color: #1e293b;">
-                            {slot['topic']}
-                        </div>
-                    </div>
-                    """,
+<div class="smart-glass-card" style="padding: 12px 18px; margin-bottom: 8px;">
+<div style="display: flex; align-items: center; gap: 8px;">
+<span style="font-size: 1.2rem;">{slot.get('icon', '📚')}</span>
+<span style="font-size: 1.05rem; font-weight: 700; color: #0077b6;">
+{slot['subject']}
+</span>
+</div>
+<div style="margin-top: 4px; font-size: 0.95rem; font-weight: 600; color: #1e293b;">
+{slot['topic']}
+</div>
+</div>
+""",
                     unsafe_allow_html=True
                 )
             

@@ -12,23 +12,23 @@ def render_knowledge():
     """Renders the AI Knowledge Explorer curriculum reference."""
     st.markdown(
         """
-        <div style="margin-bottom: 22px;">
-            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-                <div>
-                    <h2 class="smart-gradient-text" style="font-size: 1.65rem; margin: 0;">
-                        📖 AI Knowledge Explorer
-                    </h2>
-                    <p style="margin: 3px 0 0 0; color: #5a6275; font-size: 0.95rem;">
-                        Rigorous academic knowledge repository covering fundamental AI algorithms and theories.
-                    </p>
-                </div>
-                <div style="display: flex; gap: 8px;">
-                    <span class="smart-chip chip-teal">13 Core Topics</span>
-                    <span class="smart-chip chip-indigo">Curriculum Aligned</span>
-                </div>
-            </div>
-        </div>
-        """,
+<div style="margin-bottom: 22px;">
+<div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+<div>
+<h2 class="smart-gradient-text" style="font-size: 1.65rem; margin: 0;">
+📖 AI Knowledge Explorer
+</h2>
+<p style="margin: 3px 0 0 0; color: #5a6275; font-size: 0.95rem;">
+Rigorous academic knowledge repository covering fundamental AI algorithms and theories.
+</p>
+</div>
+<div style="display: flex; gap: 8px;">
+<span class="smart-chip chip-teal">13 Core Topics</span>
+<span class="smart-chip chip-indigo">Curriculum Aligned</span>
+</div>
+</div>
+</div>
+""",
         unsafe_allow_html=True
     )
 
@@ -49,11 +49,11 @@ def render_knowledge():
         if topic_info:
             st.markdown(
                 f"""
-                <div style="padding-top: 24px; display: flex; gap: 8px; align-items: center;">
-                    <span class="smart-chip chip-teal">Category: {topic_info.get('category', 'Core')}</span>
-                    <span class="smart-chip chip-amber">Verified Syllabus</span>
-                </div>
-                """,
+<div style="padding-top: 24px; display: flex; gap: 8px; align-items: center;">
+<span class="smart-chip chip-teal">Category: {topic_info.get('category', 'Core')}</span>
+<span class="smart-chip chip-amber">Verified Syllabus</span>
+</div>
+""",
                 unsafe_allow_html=True
             )
 
@@ -64,40 +64,40 @@ def render_knowledge():
         # Header Box with Icon & Title
         st.markdown(
             f"""
-            <div class="smart-glass-card" style="border-top: 4px solid #00b4d8; padding: 24px; margin-bottom: 20px;">
-                <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 14px;">
-                    <div style="width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(135deg, #1a1a2e, #00b4d8); display: flex; align-items: center; justify-content: center; font-size: 26px;">
-                        {topic_info.get('icon', '💡')}
-                    </div>
-                    <div>
-                        <h3 style="margin: 0; font-size: 1.45rem; font-weight: 800; color: #1a1a2e;">
-                            {topic_info['title']}
-                        </h3>
-                        <div style="font-size: 0.84rem; color: #64748b; font-weight: 600;">
-                            Field: {topic_info.get('category', 'Artificial Intelligence')}
-                        </div>
-                    </div>
-                </div>
+<div class="smart-glass-card" style="border-top: 4px solid #00b4d8; padding: 24px; margin-bottom: 20px;">
+<div style="display: flex; align-items: center; gap: 14px; margin-bottom: 14px;">
+<div style="width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(135deg, #1a1a2e, #00b4d8); display: flex; align-items: center; justify-content: center; font-size: 26px;">
+{topic_info.get('icon', '💡')}
+</div>
+<div>
+<h3 style="margin: 0; font-size: 1.45rem; font-weight: 800; color: #1a1a2e;">
+{topic_info['title']}
+</h3>
+<div style="font-size: 0.84rem; color: #64748b; font-weight: 600;">
+Field: {topic_info.get('category', 'Artificial Intelligence')}
+</div>
+</div>
+</div>
 
-                <!-- Definition -->
-                <div style="background: rgba(0, 180, 216, 0.08); border-left: 3px solid #0077b6; padding: 12px 16px; border-radius: 8px; margin-bottom: 18px;">
-                    <div style="font-size: 0.78rem; font-weight: 800; text-transform: uppercase; color: #0077b6; margin-bottom: 4px;">
-                        📝 Formal Definition
-                    </div>
-                    <div style="font-size: 1rem; color: #1e293b; font-weight: 600; line-height: 1.5;">
-                        "{topic_info['definition']}"
-                    </div>
-                </div>
+<!-- Definition -->
+<div style="background: rgba(0, 180, 216, 0.08); border-left: 3px solid #0077b6; padding: 12px 16px; border-radius: 8px; margin-bottom: 18px;">
+<div style="font-size: 0.78rem; font-weight: 800; text-transform: uppercase; color: #0077b6; margin-bottom: 4px;">
+📝 Formal Definition
+</div>
+<div style="font-size: 1rem; color: #1e293b; font-weight: 600; line-height: 1.5;">
+"{topic_info['definition']}"
+</div>
+</div>
 
-                <!-- Complexity Section -->
-                <div style="background: rgba(26, 26, 46, 0.05); border: 1px dashed rgba(26, 26, 46, 0.2); padding: 10px 14px; border-radius: 8px; margin-bottom: 18px;">
-                    <span style="font-weight: 800; color: #1a1a2e; font-size: 0.85rem;">📊 Computational Complexity: </span>
-                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.92rem; color: #0077b6; font-weight: 600;">
-                        {topic_info['complexity']}
-                    </span>
-                </div>
-            </div>
-            """,
+<!-- Complexity Section -->
+<div style="background: rgba(26, 26, 46, 0.05); border: 1px dashed rgba(26, 26, 46, 0.2); padding: 10px 14px; border-radius: 8px; margin-bottom: 18px;">
+<span style="font-weight: 800; color: #1a1a2e; font-size: 0.85rem;">📊 Computational Complexity: </span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 0.92rem; color: #0077b6; font-weight: 600;">
+{topic_info['complexity']}
+</span>
+</div>
+</div>
+""",
             unsafe_allow_html=True
         )
 
@@ -108,18 +108,18 @@ def render_knowledge():
             concepts_html = "".join([f"<li style='margin-bottom: 4px;'>{kc}</li>" for kc in topic_info["key_concepts"]])
             st.markdown(
                 f"""
-                <div class="smart-glass-card" style="padding: 20px; height: 100%;">
-                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                        <span style="font-size: 1.25rem;">🔑</span>
-                        <h4 style="margin: 0; color: #0f172a; font-size: 1.05rem; font-weight: 700;">
-                            Key Concepts & Mechanisms
-                        </h4>
-                    </div>
-                    <ul style="margin: 0; padding-left: 20px; line-height: 1.7; color: #334155; font-size: 0.94rem;">
-                        {concepts_html}
-                    </ul>
-                </div>
-                """,
+<div class="smart-glass-card" style="padding: 20px; height: 100%;">
+<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+<span style="font-size: 1.25rem;">🔑</span>
+<h4 style="margin: 0; color: #0f172a; font-size: 1.05rem; font-weight: 700;">
+Key Concepts & Mechanisms
+</h4>
+</div>
+<ul style="margin: 0; padding-left: 20px; line-height: 1.7; color: #334155; font-size: 0.94rem;">
+{concepts_html}
+</ul>
+</div>
+""",
                 unsafe_allow_html=True
             )
 
@@ -127,18 +127,18 @@ def render_knowledge():
             apps_html = "".join([f"<li style='margin-bottom: 4px;'>{app}</li>" for app in topic_info["applications"]])
             st.markdown(
                 f"""
-                <div class="smart-glass-card" style="padding: 20px; height: 100%;">
-                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                        <span style="font-size: 1.25rem;">🎯</span>
-                        <h4 style="margin: 0; color: #0f172a; font-size: 1.05rem; font-weight: 700;">
-                            Real-World Applications
-                        </h4>
-                    </div>
-                    <ul style="margin: 0; padding-left: 20px; line-height: 1.7; color: #334155; font-size: 0.94rem;">
-                        {apps_html}
-                    </ul>
-                </div>
-                """,
+<div class="smart-glass-card" style="padding: 20px; height: 100%;">
+<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+<span style="font-size: 1.25rem;">🎯</span>
+<h4 style="margin: 0; color: #0f172a; font-size: 1.05rem; font-weight: 700;">
+Real-World Applications
+</h4>
+</div>
+<ul style="margin: 0; padding-left: 20px; line-height: 1.7; color: #334155; font-size: 0.94rem;">
+{apps_html}
+</ul>
+</div>
+""",
                 unsafe_allow_html=True
             )
 
@@ -146,18 +146,18 @@ def render_knowledge():
         st.markdown("<div style='margin-top: 18px;'></div>", unsafe_allow_html=True)
         st.markdown(
             f"""
-            <div class="smart-glass-card" style="border-left: 4px solid #b45309; padding: 18px 22px;">
-                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                    <span style="font-size: 1.25rem;">💡</span>
-                    <h4 style="margin: 0; color: #0f172a; font-size: 1.05rem; font-weight: 700;">
-                        Illustrative Academic Example
-                    </h4>
-                </div>
-                <p style="margin: 0; font-size: 0.94rem; color: #475569; line-height: 1.6;">
-                    {topic_info['example']}
-                </p>
-            </div>
-            """,
+<div class="smart-glass-card" style="border-left: 4px solid #b45309; padding: 18px 22px;">
+<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+<span style="font-size: 1.25rem;">💡</span>
+<h4 style="margin: 0; color: #0f172a; font-size: 1.05rem; font-weight: 700;">
+Illustrative Academic Example
+</h4>
+</div>
+<p style="margin: 0; font-size: 0.94rem; color: #475569; line-height: 1.6;">
+{topic_info['example']}
+</p>
+</div>
+""",
             unsafe_allow_html=True
         )
 

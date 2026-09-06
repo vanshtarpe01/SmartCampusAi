@@ -20,24 +20,24 @@ def render_top_brand():
     """Renders the top branding and header section."""
     st.markdown(
         """
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-            <div style="display: flex; align-items: center; gap: 14px;">
-                <div style="width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, #1a1a2e, #00b4d8); display: flex; align-items: center; justify-content: center; font-size: 22px; color: white; box-shadow: 0 4px 14px rgba(0, 180, 216, 0.35);">
-                    🤖
-                </div>
-                <div>
-                    <h1 class="smart-gradient-text" style="font-size: 2rem; margin: 0; line-height: 1.1;">SmartCampus AI</h1>
-                    <p style="margin: 0; color: #5a6275; font-size: 0.95rem; font-weight: 500;">
-                        Intelligent Student Learning & Decision Support System
-                    </p>
-                </div>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <span class="smart-chip chip-teal">⚡ Phase 1: Prototype</span>
-                <span class="smart-chip chip-indigo">🎓 SC-2026</span>
-            </div>
-        </div>
-        """,
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+<div style="display: flex; align-items: center; gap: 14px;">
+<div style="width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, #1a1a2e, #00b4d8); display: flex; align-items: center; justify-content: center; font-size: 22px; color: white; box-shadow: 0 4px 14px rgba(0, 180, 216, 0.35);">
+🤖
+</div>
+<div>
+<h1 class="smart-gradient-text" style="font-size: 2rem; margin: 0; line-height: 1.1;">SmartCampus AI</h1>
+<p style="margin: 0; color: #5a6275; font-size: 0.95rem; font-weight: 500;">
+Intelligent Student Learning & Decision Support System
+</p>
+</div>
+</div>
+<div style="display: flex; align-items: center; gap: 10px;">
+<span class="smart-chip chip-teal">⚡ Phase 1: Prototype</span>
+<span class="smart-chip chip-indigo">🎓 SC-2026</span>
+</div>
+</div>
+""",
         unsafe_allow_html=True
     )
 
@@ -45,21 +45,21 @@ def render_greeting(student_name: str = "Student"):
     """Renders personalized greeting banner."""
     st.markdown(
         f"""
-        <div style="margin-top: 14px; margin-bottom: 22px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
-            <div>
-                <h2 style="font-size: 1.45rem; font-weight: 700; margin: 0; color: #1a1a2e;">
-                    Good Morning, {student_name} 👋
-                </h2>
-                <p style="margin: 2px 0 0 0; color: #64748b; font-size: 0.9rem;">
-                    Here is your real-time academic pulse and AI recommendations for today.
-                </p>
-            </div>
-            <div style="display: flex; gap: 8px;">
-                <span class="smart-chip chip-emerald">Academic Risk: LOW</span>
-                <span class="smart-chip chip-amber">Weekly Goal: 80%</span>
-            </div>
-        </div>
-        """,
+<div style="margin-top: 14px; margin-bottom: 22px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+<div>
+<h2 style="font-size: 1.45rem; font-weight: 700; margin: 0; color: #1a1a2e;">
+Good Morning, {student_name} 👋
+</h2>
+<p style="margin: 2px 0 0 0; color: #64748b; font-size: 0.9rem;">
+Here is your real-time academic pulse and AI recommendations for today.
+</p>
+</div>
+<div style="display: flex; gap: 8px;">
+<span class="smart-chip chip-emerald">Academic Risk: LOW</span>
+<span class="smart-chip chip-amber">Weekly Goal: 80%</span>
+</div>
+</div>
+""",
         unsafe_allow_html=True
     )
 
@@ -76,45 +76,45 @@ def render_academic_health_card(student: Dict[str, Any]):
     risk_color = "#2a9d8f" if risk == "LOW" else "#e76f51"
 
     html = f"""
-    <div class="health-meter-box">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
-            <div>
-                <div style="font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: #00b4d8; font-weight: 700; margin-bottom: 4px;">
-                    ✦ ACADEMIC HEALTH METER
-                </div>
-                <div style="font-size: 1.85rem; font-weight: 800; line-height: 1.2; margin-bottom: 6px;">
-                    Overall Index: {perf}%
-                </div>
-                <div style="display: flex; gap: 8px; align-items: center;">
-                    <span style="background: rgba(0, 180, 216, 0.25); border: 1px solid rgba(0, 180, 216, 0.5); padding: 3px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 700; color: #caf0f8;">
-                        LEVEL: {level}
-                    </span>
-                    <span style="background: rgba(42, 157, 143, 0.25); border: 1px solid {risk_color}; padding: 3px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 700; color: #a7f3d0;">
-                        RISK LEVEL: {risk}
-                    </span>
-                </div>
-            </div>
-            
-            <div style="display: flex; gap: 20px; text-align: center; flex-wrap: wrap;">
-                <div style="background: rgba(255, 255, 255, 0.08); padding: 12px 18px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.12); min-width: 100px;">
-                    <div style="font-size: 0.75rem; color: #94a3b8; font-weight: 600; text-transform: uppercase;">Attendance</div>
-                    <div style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-top: 2px;">{attendance}%</div>
-                    <div style="font-size: 0.7rem; color: #2a9d8f; font-weight: 600;">+2% from baseline</div>
-                </div>
-                <div style="background: rgba(255, 255, 255, 0.08); padding: 12px 18px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.12); min-width: 100px;">
-                    <div style="font-size: 0.75rem; color: #94a3b8; font-weight: 600; text-transform: uppercase;">Study Pace</div>
-                    <div style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-top: 2px;">{study_hours} <span style="font-size: 0.85rem; font-weight: 500;">hrs/day</span></div>
-                    <div style="font-size: 0.7rem; color: #f4a261; font-weight: 600;">Target: 3.5 hrs</div>
-                </div>
-                <div style="background: rgba(255, 255, 255, 0.08); padding: 12px 18px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.12); min-width: 100px;">
-                    <div style="font-size: 0.75rem; color: #94a3b8; font-weight: 600; text-transform: uppercase;">Assignments</div>
-                    <div style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-top: 2px;">{assignments}%</div>
-                    <div style="font-size: 0.7rem; color: #00b4d8; font-weight: 600;">Top 10% Decile</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    """
+<div class="health-meter-box">
+<div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+<div>
+<div style="font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: #00b4d8; font-weight: 700; margin-bottom: 4px;">
+✦ ACADEMIC HEALTH METER
+</div>
+<div style="font-size: 1.85rem; font-weight: 800; line-height: 1.2; margin-bottom: 6px;">
+Overall Index: {perf}%
+</div>
+<div style="display: flex; gap: 8px; align-items: center;">
+<span style="background: rgba(0, 180, 216, 0.25); border: 1px solid rgba(0, 180, 216, 0.5); padding: 3px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 700; color: #caf0f8;">
+LEVEL: {level}
+</span>
+<span style="background: rgba(42, 157, 143, 0.25); border: 1px solid {risk_color}; padding: 3px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 700; color: #a7f3d0;">
+RISK LEVEL: {risk}
+</span>
+</div>
+</div>
+
+<div style="display: flex; gap: 20px; text-align: center; flex-wrap: wrap;">
+<div style="background: rgba(255, 255, 255, 0.08); padding: 12px 18px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.12); min-width: 100px;">
+<div style="font-size: 0.75rem; color: #94a3b8; font-weight: 600; text-transform: uppercase;">Attendance</div>
+<div style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-top: 2px;">{attendance}%</div>
+<div style="font-size: 0.7rem; color: #2a9d8f; font-weight: 600;">+2% from baseline</div>
+</div>
+<div style="background: rgba(255, 255, 255, 0.08); padding: 12px 18px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.12); min-width: 100px;">
+<div style="font-size: 0.75rem; color: #94a3b8; font-weight: 600; text-transform: uppercase;">Study Pace</div>
+<div style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-top: 2px;">{study_hours} <span style="font-size: 0.85rem; font-weight: 500;">hrs/day</span></div>
+<div style="font-size: 0.7rem; color: #f4a261; font-weight: 600;">Target: 3.5 hrs</div>
+</div>
+<div style="background: rgba(255, 255, 255, 0.08); padding: 12px 18px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.12); min-width: 100px;">
+<div style="font-size: 0.75rem; color: #94a3b8; font-weight: 600; text-transform: uppercase;">Assignments</div>
+<div style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-top: 2px;">{assignments}%</div>
+<div style="font-size: 0.7rem; color: #00b4d8; font-weight: 600;">Top 10% Decile</div>
+</div>
+</div>
+</div>
+</div>
+"""
     st.markdown(html, unsafe_allow_html=True)
 
 def render_ai_spotlight(
@@ -123,29 +123,29 @@ def render_ai_spotlight(
 ):
     """Renders the AI Spotlight recommendation card."""
     html = f"""
-    <div class="ai-spotlight-box">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 1.25rem;">🤖</span>
-                <span style="font-size: 0.82rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #0077b6;">
-                    AI INSIGHT & SPOTLIGHT
-                </span>
-            </div>
-            <span class="smart-chip chip-amber">Attention Recommended</span>
-        </div>
-        <p style="margin: 0 0 10px 0; font-size: 0.98rem; font-weight: 600; color: #1e293b; line-height: 1.5;">
-            "{insight}"
-        </p>
-        <div style="background: rgba(255, 255, 255, 0.85); border-left: 3px solid #00b4d8; padding: 10px 14px; border-radius: 6px;">
-            <div style="font-size: 0.76rem; font-weight: 700; text-transform: uppercase; color: #0077b6; margin-bottom: 2px;">
-                Recommended Action:
-            </div>
-            <div style="font-size: 0.92rem; color: #334155; font-weight: 500;">
-                {recommendation}
-            </div>
-        </div>
-    </div>
-    """
+<div class="ai-spotlight-box">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+<div style="display: flex; align-items: center; gap: 8px;">
+<span style="font-size: 1.25rem;">🤖</span>
+<span style="font-size: 0.82rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #0077b6;">
+AI INSIGHT & SPOTLIGHT
+</span>
+</div>
+<span class="smart-chip chip-amber">Attention Recommended</span>
+</div>
+<p style="margin: 0 0 10px 0; font-size: 0.98rem; font-weight: 600; color: #1e293b; line-height: 1.5;">
+"{insight}"
+</p>
+<div style="background: rgba(255, 255, 255, 0.85); border-left: 3px solid #00b4d8; padding: 10px 14px; border-radius: 6px;">
+<div style="font-size: 0.76rem; font-weight: 700; text-transform: uppercase; color: #0077b6; margin-bottom: 2px;">
+Recommended Action:
+</div>
+<div style="font-size: 0.92rem; color: #334155; font-weight: 500;">
+{recommendation}
+</div>
+</div>
+</div>
+"""
     st.markdown(html, unsafe_allow_html=True)
 
 # ============================================================

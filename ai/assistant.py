@@ -12,13 +12,13 @@ from ai.knowledge_base import get_topic, search_topic, get_all_topics
 def get_ai_response(query: str, student_context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """Processes user query and returns a structured academic or conceptual response.
 
-    Args:
-        query: User input string.
-        student_context: Optional student analysis dictionary for contextual performance queries.
+Args:
+query: User input string.
+student_context: Optional student analysis dictionary for contextual performance queries.
 
-    Returns:
-        Dict with 'title', 'category', 'difficulty', 'response', and optional metadata.
-    """
+Returns:
+Dict with 'title', 'category', 'difficulty', 'response', and optional metadata.
+"""
     clean_q = query.strip().lower()
     if not clean_q:
         return {

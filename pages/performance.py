@@ -31,23 +31,23 @@ def render_performance():
 
     st.markdown(
         f"""
-        <div style="margin-bottom: 22px;">
-            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-                <div>
-                    <h2 class="smart-gradient-text" style="font-size: 1.65rem; margin: 0;">
-                        📊 Student Performance Analysis & ML Predictor
-                    </h2>
-                    <p style="margin: 3px 0 0 0; color: #5a6275; font-size: 0.95rem;">
-                        Dual-engine academic diagnostic combining <strong>Rule-Based Expert System</strong> with <strong>Decision Tree Machine Learning</strong> for <strong>{student['full_name']}</strong> ({student['student_id']}).
-                    </p>
-                </div>
-                <div style="display: flex; gap: 8px;">
-                    <span class="smart-chip chip-indigo">Decision Tree ML</span>
-                    <span class="smart-chip chip-teal">Rule Engine Active</span>
-                </div>
-            </div>
-        </div>
-        """,
+<div style="margin-bottom: 22px;">
+<div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+<div>
+<h2 class="smart-gradient-text" style="font-size: 1.65rem; margin: 0;">
+📊 Student Performance Analysis & ML Predictor
+</h2>
+<p style="margin: 3px 0 0 0; color: #5a6275; font-size: 0.95rem;">
+Dual-engine academic diagnostic combining <strong>Rule-Based Expert System</strong> with <strong>Decision Tree Machine Learning</strong> for <strong>{student['full_name']}</strong> ({student['student_id']}).
+</p>
+</div>
+<div style="display: flex; gap: 8px;">
+<span class="smart-chip chip-indigo">Decision Tree ML</span>
+<span class="smart-chip chip-teal">Rule Engine Active</span>
+</div>
+</div>
+</div>
+""",
         unsafe_allow_html=True
     )
 
@@ -152,17 +152,17 @@ def render_performance():
     with sec_col1:
         st.markdown(
             """
-            <div class="smart-glass-card" style="padding: 18px; border-top: 4px solid #0077b6;">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-size: 1.25rem;">📐</span>
-                        <h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: #1a1a2e;">
-                            SECTION 1: Rule-Based Analysis
-                        </h3>
-                    </div>
-                    <span class="smart-chip chip-indigo">Deterministic Rules</span>
-                </div>
-            """,
+<div class="smart-glass-card" style="padding: 18px; border-top: 4px solid #0077b6;">
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+<div style="display: flex; align-items: center; gap: 8px;">
+<span style="font-size: 1.25rem;">📐</span>
+<h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: #1a1a2e;">
+SECTION 1: Rule-Based Analysis
+</h3>
+</div>
+<span class="smart-chip chip-indigo">Deterministic Rules</span>
+</div>
+""",
             unsafe_allow_html=True
         )
         rk1, rk2, rk3 = st.columns(3)
@@ -175,28 +175,28 @@ def render_performance():
 
         st.markdown(
             f"""
-                <div style="margin-top: 10px; font-size: 0.88rem; color: #475569; background: rgba(0, 119, 182, 0.05); padding: 10px; border-radius: 8px;">
-                    <strong>Academic Evaluation Rule:</strong> Score calculated via institutional weighting (Attendance 20%, Study 15%, Assignments 15%, Internal 25%, Previous 25%).
-                </div>
-            </div>
-            """,
+<div style="margin-top: 10px; font-size: 0.88rem; color: #475569; background: rgba(0, 119, 182, 0.05); padding: 10px; border-radius: 8px;">
+<strong>Academic Evaluation Rule:</strong> Score calculated via institutional weighting (Attendance 20%, Study 15%, Assignments 15%, Internal 25%, Previous 25%).
+</div>
+</div>
+""",
             unsafe_allow_html=True
         )
 
     with sec_col2:
         st.markdown(
             """
-            <div class="smart-glass-card" style="padding: 18px; border-top: 4px solid #2a9d8f;">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-size: 1.25rem;">🌲</span>
-                        <h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: #1a1a2e;">
-                            SECTION 2: Machine Learning Prediction
-                        </h3>
-                    </div>
-                    <span class="smart-chip chip-emerald">Decision Tree (Depth 5)</span>
-                </div>
-            """,
+<div class="smart-glass-card" style="padding: 18px; border-top: 4px solid #2a9d8f;">
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+<div style="display: flex; align-items: center; gap: 8px;">
+<span style="font-size: 1.25rem;">🌲</span>
+<h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: #1a1a2e;">
+SECTION 2: Machine Learning Prediction
+</h3>
+</div>
+<span class="smart-chip chip-emerald">Decision Tree (Depth 5)</span>
+</div>
+""",
             unsafe_allow_html=True
         )
         mk1, mk2, mk3 = st.columns(3)
@@ -209,11 +209,11 @@ def render_performance():
 
         st.markdown(
             f"""
-                <div style="margin-top: 10px; font-size: 0.88rem; color: #475569; background: rgba(42, 157, 143, 0.05); padding: 10px; border-radius: 8px;">
-                    <strong>Pattern Recognition:</strong> Decision tree traversal matched historical patterns from {student['name']}'s peer cohort.
-                </div>
-            </div>
-            """,
+<div style="margin-top: 10px; font-size: 0.88rem; color: #475569; background: rgba(42, 157, 143, 0.05); padding: 10px; border-radius: 8px;">
+<strong>Pattern Recognition:</strong> Decision tree traversal matched historical patterns from {student['name']}'s peer cohort.
+</div>
+</div>
+""",
             unsafe_allow_html=True
         )
 
@@ -234,34 +234,34 @@ def render_performance():
         st.markdown("### 💡 SECTION 4: AI Insight & Explainability")
         reasons_items = "".join([
             f"""<div style="display: flex; align-items: flex-start; gap: 8px; font-size: 0.86rem; margin-bottom: 6px;">
-                <span style="color: {'#065f46' if r['type'] == 'positive' else ('#b91c1c' if r['type'] == 'warning' else '#64748b')}; font-weight: 800;">{'✓' if r['type'] == 'positive' else ('⚠' if r['type'] == 'warning' else '•')}</span>
-                <span style="color: #334155;">{r['text']}</span>
-            </div>"""
+<span style="color: {'#065f46' if r['type'] == 'positive' else ('#b91c1c' if r['type'] == 'warning' else '#64748b')}; font-weight: 800;">{'✓' if r['type'] == 'positive' else ('⚠' if r['type'] == 'warning' else '•')}</span>
+<span style="color: #334155;">{r['text']}</span>
+</div>"""
             for r in combined_ai["reasons"]
         ])
         st.markdown(
             f"""
-            <div class="smart-glass-card" style="padding: 18px; border-left: 4px solid #0077b6; height: 93%;">
-                <div style="font-weight: 700; color: #0f172a; margin-bottom: 8px; font-size: 1.05rem;">
-                    🤖 Automated AI Synthesis
-                </div>
-                <p style="color: #334155; font-size: 0.95rem; line-height: 1.5; margin-bottom: 12px;">
-                    {combined_ai['ai_insight']}
-                </p>
-                <div style="font-size: 0.88rem; font-weight: 600; color: #0077b6; margin-bottom: 6px;">
-                    Consensus Evaluation:
-                </div>
-                <p style="font-size: 0.88rem; color: #475569; margin-bottom: 12px;">
-                    {combined_ai['consensus_text']}
-                </p>
-                <div style="font-size: 0.88rem; font-weight: 600; color: #0f172a; margin-bottom: 8px;">
-                    Key Contributing Factors:
-                </div>
-                <div style="display: flex; flex-direction: column;">
-                    {reasons_items}
-                </div>
-            </div>
-            """,
+<div class="smart-glass-card" style="padding: 18px; border-left: 4px solid #0077b6; height: 93%;">
+<div style="font-weight: 700; color: #0f172a; margin-bottom: 8px; font-size: 1.05rem;">
+🤖 Automated AI Synthesis
+</div>
+<p style="color: #334155; font-size: 0.95rem; line-height: 1.5; margin-bottom: 12px;">
+{combined_ai['ai_insight']}
+</p>
+<div style="font-size: 0.88rem; font-weight: 600; color: #0077b6; margin-bottom: 6px;">
+Consensus Evaluation:
+</div>
+<p style="font-size: 0.88rem; color: #475569; margin-bottom: 12px;">
+{combined_ai['consensus_text']}
+</p>
+<div style="font-size: 0.88rem; font-weight: 600; color: #0f172a; margin-bottom: 8px;">
+Key Contributing Factors:
+</div>
+<div style="display: flex; flex-direction: column;">
+{reasons_items}
+</div>
+</div>
+""",
             unsafe_allow_html=True
         )
 
@@ -274,10 +274,10 @@ def render_performance():
     st.markdown("### 🌲 Machine Learning Performance Predictor")
     st.markdown(
         """
-        <p style="color: #475569; font-size: 0.95rem; margin-top: -6px; margin-bottom: 16px;">
-            SmartCampus AI uses a <strong>Decision Tree Machine Learning model</strong> to predict student performance based on academic and learning factors. The model is trained on a realistic local educational dataset and evaluated against an independent test partition.
-        </p>
-        """,
+<p style="color: #475569; font-size: 0.95rem; margin-top: -6px; margin-bottom: 16px;">
+SmartCampus AI uses a <strong>Decision Tree Machine Learning model</strong> to predict student performance based on academic and learning factors. The model is trained on a realistic local educational dataset and evaluated against an independent test partition.
+</p>
+""",
         unsafe_allow_html=True
     )
 
@@ -317,16 +317,16 @@ def render_performance():
         st.markdown("#### ❓ How does the prediction work?")
         st.markdown(
             """
-            <div class="smart-glass-card" style="padding: 16px;">
-                <ol style="margin: 0; padding-left: 20px; color: #334155; font-size: 0.9rem; line-height: 1.6;">
-                    <li><strong>Student enters academic information:</strong> Attendance, daily study hours, continuous assignment marks, internal test scores, and previous marks are gathered.</li>
-                    <li><strong>Feature extraction & normalization:</strong> The system formats input features into a structured vector matching the training schema.</li>
-                    <li><strong>Decision Tree traversal:</strong> The trained model evaluates conditional branch thresholds (e.g. <em>attendance &ge; 75%</em>, <em>internal_marks &ge; 35</em>) learned from historical student records.</li>
-                    <li><strong>Performance category prediction:</strong> The leaf node outputs the predicted academic tier (<em>Excellent</em>, <em>Good</em>, <em>Average</em>, or <em>Needs Improvement</em>) with confidence probability.</li>
-                    <li><strong>Hybrid Rule + ML synthesis:</strong> SmartCampus AI fuses ML pattern recognition with rule-based institutional policies to produce explainable guidance.</li>
-                </ol>
-            </div>
-            """,
+<div class="smart-glass-card" style="padding: 16px;">
+<ol style="margin: 0; padding-left: 20px; color: #334155; font-size: 0.9rem; line-height: 1.6;">
+<li><strong>Student enters academic information:</strong> Attendance, daily study hours, continuous assignment marks, internal test scores, and previous marks are gathered.</li>
+<li><strong>Feature extraction & normalization:</strong> The system formats input features into a structured vector matching the training schema.</li>
+<li><strong>Decision Tree traversal:</strong> The trained model evaluates conditional branch thresholds (e.g. <em>attendance &ge; 75%</em>, <em>internal_marks &ge; 35</em>) learned from historical student records.</li>
+<li><strong>Performance category prediction:</strong> The leaf node outputs the predicted academic tier (<em>Excellent</em>, <em>Good</em>, <em>Average</em>, or <em>Needs Improvement</em>) with confidence probability.</li>
+<li><strong>Hybrid Rule + ML synthesis:</strong> SmartCampus AI fuses ML pattern recognition with rule-based institutional policies to produce explainable guidance.</li>
+</ol>
+</div>
+""",
             unsafe_allow_html=True
         )
 

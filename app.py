@@ -18,6 +18,13 @@ st.set_page_config(
 from utils.styles import CUSTOM_CSS
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
+# Hide Streamlit native sidebar navigation
+st.markdown("""
+<style>
+    [data-testid="stSidebarNav"] {display: none;}
+</style>
+""", unsafe_allow_html=True)
+
 # Import Pages & Utilities
 from utils.helpers import init_session_state
 from utils.ui import render_top_brand
@@ -32,6 +39,14 @@ from data import get_student_data, get_all_student_summaries
 
 # Initialize Session State
 init_session_state()
+
+# ------------------------------------------------------------
+# AUTHENTICATION CHECK
+# ------------------------------------------------------------
+if not st.session_state.get("logged_in", False):
+    from login import render_login_page
+    render_login_page()
+    st.stop()
 
 # Navigation Mapping
 PAGES = {
@@ -49,24 +64,10 @@ PAGES = {
 # ------------------------------------------------------------
 with st.sidebar:
     st.markdown(
-        """
-        <div style="padding: 10px 0 16px 0; text-align: left;">
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
-                <div style="width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, #1a1a2e, #00b4d8); display: flex; align-items: center; justify-content: center; font-size: 20px; color: white;">
-                    🤖
-                </div>
-                <div style="font-size: 1.35rem; font-weight: 800; color: #1a1a2e; letter-spacing: -0.02em;">
-                    SmartCampus AI
-                </div>
-            </div>
-            <div style="font-size: 0.85rem; color: #5a6275; font-weight: 500; margin-left: 2px;">
-                Your Intelligent Student Assistant
-            </div>
-        </div>
-        """,
+        """<div style="padding: 10px 0 16px 0; text-align: left;"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;"><div style="width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, #1a1a2e, #00b4d8); display: flex; align-items: center; justify-content: center; font-size: 20px; color: white;">🤖</div><div style="font-size: 1.35rem; font-weight: 800; color: #1a1a2e; letter-spacing: -0.02em;">SmartCampus AI</div></div><div style="font-size: 0.85rem; color: #5a6275; font-weight: 500; margin-left: 2px;">Your Intelligent Student Assistant</div></div>""",
         unsafe_allow_html=True
     )
-
+    
     # Determine current index in radio from session_state
     page_names = list(PAGES.keys())
     current_stored_page = st.session_state.get("current_page", "Dashboard")
@@ -94,27 +95,7 @@ with st.sidebar:
     st.markdown("<hr style='border: none; border-top: 1px solid rgba(0, 180, 216, 0.2); margin: 18px 0 12px 0;'>", unsafe_allow_html=True)
     st.markdown("<div style='font-size: 0.76rem; font-weight: 700; color: #64748b; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px;'>Active Student Profile</div>", unsafe_allow_html=True)
     
-    all_students = get_all_student_summaries()
-    student_ids = [s["student_id"] for s in all_students]
-    
-    current_selected_id = st.session_state.get("selected_student_id", "SC-2026-001")
-    default_idx = 0
-    if current_selected_id in student_ids:
-        default_idx = student_ids.index(current_selected_id)
-
-    def format_student(sid: str) -> str:
-        s_match = next((s for s in all_students if s["student_id"] == sid), None)
-        if s_match:
-            return f"{s_match['name']} ({sid})"
-        return sid
-
-    selected_student_id = st.selectbox(
-        "Active Student",
-        options=student_ids,
-        index=default_idx,
-        format_func=format_student,
-        label_visibility="collapsed"
-    )
+    selected_student_id = st.session_state.get("student_id")
     st.session_state.selected_student_id = selected_student_id
 
     # Load analyzed student data for the active student
@@ -131,34 +112,19 @@ with st.sidebar:
         risk_color = "#f4a261"
 
     st.markdown(
-        f"""
-        <div style="background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(0, 180, 216, 0.22); border-radius: 12px; padding: 14px; margin-top: 8px;">
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                <div style="width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, #0077b6, #00b4d8); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.82rem;">
-                    {initials}
-                </div>
-                <div>
-                    <div style="font-size: 0.92rem; font-weight: 700; color: #1a1a2e;">{student['full_name']}</div>
-                    <div style="font-size: 0.75rem; color: #64748b;">{student['student_id']} • {student['level']}</div>
-                </div>
-            </div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: #475569; margin-top: 6px; padding-top: 6px; border-top: 1px dashed rgba(0,0,0,0.08);">
-                <span>Att: <strong>{student['attendance']}%</strong></span>
-                <span>Score: <strong>{student['performance']}%</strong></span>
-                <span>Risk: <strong style="color: {risk_color};">{student['risk'].upper()}</strong></span>
-            </div>
-        </div>
-        """,
+        f'''<div style="background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(0, 180, 216, 0.22); border-radius: 12px; padding: 14px; margin-top: 8px;"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;"><div style="width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, #0077b6, #00b4d8); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.82rem;">{initials}</div><div><div style="font-size: 0.92rem; font-weight: 700; color: #1a1a2e;">{student['full_name']}</div><div style="font-size: 0.75rem; color: #64748b;">{student['student_id']} • {student['level']}</div></div></div><div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: #475569; margin-top: 6px; padding-top: 6px; border-top: 1px dashed rgba(0,0,0,0.08);"><span>Att: <strong>{student['attendance']}%</strong></span><span>Score: <strong>{student['performance']}%</strong></span><span>Risk: <strong style="color: {risk_color};">{student['risk'].upper()}</strong></span></div></div>''',
         unsafe_allow_html=True
     )
 
+    st.markdown("<div style='margin-top: 14px;'></div>", unsafe_allow_html=True)
+    if st.button("Logout", use_container_width=True):
+        st.session_state["logged_in"] = False
+        st.session_state["student_id"] = None
+        st.session_state["selected_student_id"] = None
+        st.rerun()
+
     st.markdown(
-        """
-        <div style="text-align: center; margin-top: 16px; font-size: 0.72rem; color: #94a3b8;">
-            SmartCampus AI v2.0.0<br>
-            Python AI Backend • Local Knowledge Base
-        </div>
-        """,
+        '''<div style="text-align: center; margin-top: 16px; font-size: 0.72rem; color: #94a3b8;">SmartCampus AI v2.0.0<br>Python AI Backend • Local Knowledge Base</div>''',
         unsafe_allow_html=True
     )
 
