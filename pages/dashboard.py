@@ -26,7 +26,7 @@ from utils.ui import (
 
 def render_dashboard():
     """Renders the comprehensive student dashboard view."""
-    active_sid = st.session_state.get("selected_student_id", "SC-2026-001")
+    active_sid = st.session_state.get("selected_student_id", "MLU25S211")
     student = get_student_data(active_sid)
     perf_data = get_performance_data(active_sid)
     subject_perf = perf_data["subjects"]

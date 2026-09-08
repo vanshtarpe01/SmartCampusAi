@@ -319,25 +319,142 @@ header[data-testid="stHeader"] {
 background: transparent !important;
 }
 
-/* Tab button enhancement */
+/* Tab button enhancement - Sleek Segmented Pill Design */
+div[data-baseweb="tab-list"] {
+    background: #f1f5f9 !important;
+    padding: 6px !important;
+    border-radius: 12px !important;
+    border: 1px solid #e2e8f0 !important;
+    gap: 6px !important;
+    margin-bottom: 16px !important;
+}
+
 button[data-baseweb="tab"] {
-font-weight: 600 !important;
-border-radius: 8px !important;
-color: #475569 !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    border: none !important;
+    padding: 8px 20px !important;
+    color: #64748b !important;
+    background: transparent !important;
+    transition: all 0.2s ease !important;
+}
+
+button[data-baseweb="tab"]:hover {
+    color: #0077b6 !important;
+    background: rgba(255, 255, 255, 0.7) !important;
 }
 
 button[data-baseweb="tab"][aria-selected="true"] {
-color: #0077b6 !important;
-font-weight: 700 !important;
+    background: #ffffff !important;
+    color: #0077b6 !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08) !important;
 }
 
-/* Form inputs and select dropdowns */
+div[data-baseweb="tab-highlight"],
+div[data-baseweb="tab-border"] {
+    display: none !important;
+}
+
+/* ============================================================ */
+/* SIDEBAR NAVIGATION BUTTON TABS (MODERN SAAS MENU)           */
+/* ============================================================ */
+section[data-testid="stSidebar"] div.stButton > button {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    padding: 10px 14px !important;
+    border-radius: 12px !important;
+    font-size: 0.90rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 5px !important;
+    border: 1px solid #e2e8f0 !important;
+    background: #f8fafc !important;
+    color: #334155 !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: none !important;
+    width: 100% !important;
+}
+
+section[data-testid="stSidebar"] div.stButton > button p,
+section[data-testid="stSidebar"] div.stButton > button div {
+    text-align: left !important;
+    font-size: 0.90rem !important;
+    font-weight: 600 !important;
+    color: #334155 !important;
+}
+
+section[data-testid="stSidebar"] div.stButton > button:hover {
+    background: #f0f9ff !important;
+    border-color: #7dd3fc !important;
+    color: #0077b6 !important;
+    transform: translateX(4px) !important;
+    box-shadow: 0 2px 10px rgba(0, 119, 182, 0.10) !important;
+}
+
+section[data-testid="stSidebar"] div.stButton > button:hover p,
+section[data-testid="stSidebar"] div.stButton > button:hover div {
+    color: #0077b6 !important;
+}
+
+/* Active Navigation Tab (Primary Button in Sidebar) */
+section[data-testid="stSidebar"] div.stButton > button[kind="primary"],
+section[data-testid="stSidebar"] div.stButton > button[data-testid="stBaseButton-primary"] {
+    background: linear-gradient(135deg, #1a1a2e 0%, #0077b6 100%) !important;
+    border-color: transparent !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 14px rgba(0, 119, 182, 0.28) !important;
+    transform: translateX(4px) !important;
+}
+
+section[data-testid="stSidebar"] div.stButton > button[kind="primary"] *,
+section[data-testid="stSidebar"] div.stButton > button[data-testid="stBaseButton-primary"] * {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+div[data-testid="stRadio"] div[role="radiogroup"][aria-orientation="horizontal"] label {
+    width: auto !important;
+    flex: 1 1 auto !important;
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+div[data-testid="stRadio"] div[role="radiogroup"][aria-orientation="horizontal"] label:hover {
+    transform: translateY(-2px) !important;
+}
+
+div[data-testid="stRadio"] div[role="radiogroup"][aria-orientation="horizontal"] label:has(input:checked) {
+    transform: translateY(-2px) !important;
+}
+
+/* Form inputs, select dropdowns & text fields */
+div[data-baseweb="input"] {
+    background-color: #ffffff !important;
+    border-radius: 10px !important;
+    border: 1.5px solid #cbd5e1 !important;
+    transition: all 0.2s ease !important;
+}
+
+div[data-baseweb="input"]:focus-within {
+    border-color: #0077b6 !important;
+    box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.15) !important;
+}
+
+div[data-baseweb="input"] input {
+    color: #0f172a !important;
+    font-size: 0.95rem !important;
+}
+
 div[data-baseweb="select"] {
-background-color: #ffffff !important;
+    background-color: #ffffff !important;
+    border-radius: 10px !important;
 }
 
 div[data-baseweb="select"] * {
-color: #0f172a !important;
+    color: #0f172a !important;
 }
 </style>
 """

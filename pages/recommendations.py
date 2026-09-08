@@ -9,7 +9,7 @@ from utils.ui import render_top_brand
 
 def render_recommendations():
     """Renders the prioritized recommendations view."""
-    active_sid = st.session_state.get("selected_student_id", "SC-2026-001")
+    active_sid = st.session_state.get("selected_student_id", "MLU25S211")
     student = get_student_data(active_sid)
 
     st.markdown(

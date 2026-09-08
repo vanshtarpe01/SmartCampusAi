@@ -115,29 +115,25 @@ with st.sidebar:
         unsafe_allow_html=True
     )
     
-    # Determine current index in radio from session_state
     page_names = list(PAGES.keys())
-    default_page = "Admin Dashboard" if role == "admin" else ("Teacher Dashboard" if role == "teacher" else "Dashboard")
+    default_page = page_names[0]
     current_stored_page = st.session_state.get("current_page", default_page)
     
-    # Match short name to full emoji key
-    selected_index = 0
-    for idx, key in enumerate(page_names):
-        if current_stored_page.lower() in key.lower():
-            selected_index = idx
+    # Resolve current active page key
+    active_page_key = default_page
+    for key in page_names:
+        if current_stored_page.lower() in key.lower() or key.lower() in current_stored_page.lower():
+            active_page_key = key
             break
 
-    nav_choice = st.radio(
-        "Navigation",
-        options=page_names,
-        index=selected_index,
-        label_visibility="collapsed"
-    )
+    st.markdown("<div style='font-size: 0.74rem; font-weight: 700; color: #64748b; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px;'>Navigation Menu</div>", unsafe_allow_html=True)
 
-    # Update session_state if user picked something from sidebar
-    for short_name in ["Dashboard", "AI Assistant", "Performance", "Study Planner", "Recommendations", "AI Knowledge", "About", "Admin Dashboard", "Student Academic Data", "Academic Recommendations", "Skills", "My Projects", "Student Projects", "Notifications", "Teacher Dashboard", "Manage Users", "Manage Students", "Career Analysis", "PDF Reports"]:
-        if short_name.lower() in nav_choice.lower():
-            st.session_state.current_page = short_name
+    for page_key in page_names:
+        is_active = (page_key == active_page_key)
+        btn_type = "primary" if is_active else "secondary"
+        if st.button(page_key, key=f"nav_btn_{page_key}", use_container_width=True, type=btn_type):
+            st.session_state.current_page = page_key
+            st.rerun()
 
     # Sidebar Student Profile Selector & Active Record
     st.markdown("<hr style='border: none; border-top: 1px solid rgba(0, 180, 216, 0.2); margin: 18px 0 12px 0;'>", unsafe_allow_html=True)
@@ -179,7 +175,7 @@ with st.sidebar:
         )
 
     st.markdown("<div style='margin-top: 14px;'></div>", unsafe_allow_html=True)
-    if st.button("Logout"):
+    if st.button("🚪 Sign Out", use_container_width=True):
         st.session_state["logged_in"] = False
         st.session_state["student_id"] = None
         st.session_state["selected_student_id"] = None
@@ -195,10 +191,7 @@ with st.sidebar:
 # ------------------------------------------------------------
 # MAIN CONTENT RENDER
 # ------------------------------------------------------------
-# Top Brand Bar
-render_top_brand()
-
 # Render Selected View
 default_render = render_admin_dashboard if role == "admin" else render_dashboard
-active_page_render = PAGES.get(nav_choice, default_render)
+active_page_render = PAGES.get(active_page_key, default_render)
 active_page_render()

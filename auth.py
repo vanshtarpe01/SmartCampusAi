@@ -91,12 +91,13 @@ def delete_user(user_id):
 
 def get_all_users_by_role(role):
     db = get_db()
-    if not db:
-        users = load_users_fallback()
-        return {uid: u for uid, u in users.items() if u.get("role") == role}
-        
-    try:
-        res = db.table("users").select("*").eq("role", role).execute()
-        return {u["username"]: u for u in res.data}
-    except Exception:
-        return {}
+    if db:
+        try:
+            res = db.table("users").select("*").eq("role", role).execute()
+            if res.data and len(res.data) > 0:
+                return {u["username"]: u for u in res.data}
+        except Exception as e:
+            print(f"Notice: Supabase get_all_users_by_role error: {e}")
+            
+    users = load_users_fallback()
+    return {uid: u for uid, u in users.items() if u.get("role") == role}

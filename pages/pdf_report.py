@@ -86,13 +86,32 @@ def render_pdf_report():
         
     st.markdown("Generate a comprehensive PDF report containing Academic Summary, Project Analysis, and Career Guidance.")
     
-    pdf_buffer = generate_student_pdf(active_sid)
-    
-    st.download_button(
-        label="Download PDF Report",
-        data=pdf_buffer,
-        file_name=f"{active_sid}_Report.pdf",
-        mime="application/pdf"
-    )
+    with st.container():
+        st.markdown(
+            f"""
+            <div style="background: white; border: 1px solid rgba(0, 119, 182, 0.2); border-radius: 14px; padding: 20px; margin-bottom: 18px; box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                    <div style="width: 42px; height: 42px; border-radius: 10px; background: linear-gradient(135deg, #e63946, #b91c1c); display: flex; align-items: center; justify-content: center; font-size: 22px; color: white;">
+                        📄
+                    </div>
+                    <div>
+                        <div style="font-weight: 700; color: #1a1a2e; font-size: 1.05rem;">Student Academic & Career Dossier</div>
+                        <div style="color: #64748b; font-size: 0.85rem;">Formatted A4 PDF ready for export • Student ID: <strong>{active_sid}</strong></div>
+                    </div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        
+        pdf_buffer = generate_student_pdf(active_sid)
+        
+        st.download_button(
+            label="📥 Download PDF Dossier",
+            data=pdf_buffer,
+            file_name=f"{active_sid}_Academic_Report.pdf",
+            mime="application/pdf",
+            use_container_width=True
+        )
     
     st.info("Currently SmartCampus AI uses local/demo academic data. In a future implementation, the system can be integrated with the college ERP through secure APIs so that attendance, internal marks, external marks and other academic records can be fetched automatically.")

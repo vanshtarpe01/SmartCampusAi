@@ -1,121 +1,77 @@
 student_id,name,attendance,study_hours,assignment_marks,internal_marks,previous_marks,performance_level
-SC-2026-001,Aarav Sharma,90.0,5.0,9.0,45.0,85.0,Excellent
-SC-2026-002,Rohan Verma,70.0,2.0,6.0,32.0,55.0,Average
-SC-2026-003,Kavita Rao,50.0,1.0,4.0,20.0,35.0,Needs Improvement
-SC-2026-004,Priya Patel,94.0,5.5,9.5,48.0,92.0,Excellent
-SC-2026-005,Ananya Iyer,85.0,3.8,8.5,40.0,78.0,Good
-SC-2026-006,Aditya Nair,62.0,1.8,5.5,26.0,48.0,Needs Improvement
-SC-2026-007,Sneha Kulkarni,78.0,3.0,7.5,35.0,68.0,Average
-SC-2026-008,Vikram Malhotra,88.0,4.2,8.8,43.0,82.0,Good
-SC-2026-009,Ishaan Gupta,58.0,1.2,4.8,22.0,42.0,Needs Improvement
-SC-2026-010,Diya Menon,92.0,4.8,9.2,46.0,88.0,Excellent
-SC-2026-011,Arjun Deshmukh,74.0,2.5,6.8,33.0,60.0,Average
-SC-2026-012,Meera Nambiar,82.0,3.5,8.0,38.0,75.0,Good
-SC-2026-013,Siddharth Joshi,65.0,1.9,5.8,28.0,52.0,Needs Improvement
-SC-2026-014,Tanvi Saxena,96.0,5.8,9.8,49.0,95.0,Excellent
-SC-2026-015,Devansh Roy,54.0,1.4,4.2,21.0,38.0,Needs Improvement
-SC-2026-016,Rhea Sen,86.0,4.0,8.4,41.0,80.0,Good
-SC-2026-017,Kunal Chatterjee,72.0,2.2,6.5,31.0,58.0,Average
-SC-2026-018,Neha Singhania,89.0,4.5,9.0,44.0,84.0,Good
-SC-2026-019,Varun Reddy,60.0,1.5,5.0,24.0,45.0,Needs Improvement
-SC-2026-020,Pooja Hegde,91.0,5.2,9.3,47.0,89.0,Excellent
-SC-2026-021,Manish Tiwari,68.0,2.1,6.2,29.0,54.0,Needs Improvement
-SC-2026-022,Ritika Das,84.0,3.6,8.2,39.0,76.0,Good
-SC-2026-023,Gaurav Bansal,52.0,1.1,4.5,23.0,39.0,Needs Improvement
-SC-2026-024,Shruti Pillai,93.0,5.4,9.4,48.0,91.0,Excellent
-SC-2026-025,Akash Mehra,76.0,2.8,7.2,34.0,65.0,Average
-SC-2026-026,Kriti Ahuja,87.0,4.1,8.6,42.0,81.0,Good
-SC-2026-027,Harsh Vardhan,59.0,1.6,4.9,25.0,44.0,Needs Improvement
-SC-2026-028,Simran Kaur,80.0,3.2,7.8,37.0,72.0,Good
-SC-2026-029,Nikhil Bhatia,71.0,2.3,6.4,30.0,56.0,Average
-SC-2026-030,Anushka Dixit,95.0,5.6,9.6,49.0,93.0,Excellent
-SC-2026-031,Rahul Pandey,64.0,1.7,5.6,27.0,50.0,Needs Improvement
-SC-2026-032,Tara Srinivasan,83.0,3.7,8.1,39.0,77.0,Good
-SC-2026-033,Ayush Soni,56.0,1.3,4.6,22.0,40.0,Needs Improvement
-SC-2026-034,Ishita Bose,88.0,4.3,8.7,43.0,83.0,Good
-SC-2026-035,Sameer Khan,75.0,2.7,7.0,33.0,63.0,Average
-SC-2026-036,Payal Mehta,90.0,4.9,9.1,45.0,86.0,Excellent
-SC-2026-037,Tushar Mittal,61.0,1.5,5.2,25.0,47.0,Needs Improvement
-SC-2026-038,Radhika Somani,85.0,3.9,8.5,41.0,79.0,Good
-SC-2026-039,Chirag Goel,69.0,2.0,6.1,29.0,53.0,Needs Improvement
-SC-2026-040,Bhavna Chawla,92.0,5.1,9.2,46.0,90.0,Excellent
-SC-2026-041,Mohit Agarwal,55.0,1.2,4.4,21.0,37.0,Needs Improvement
-SC-2026-042,Divya Rangan,81.0,3.4,7.9,36.0,73.0,Good
-SC-2026-043,Yash Saxena,73.0,2.4,6.6,32.0,59.0,Average
-SC-2026-044,Trisha Sen,89.0,4.4,8.9,44.0,85.0,Good
-SC-2026-045,Pranav Swaminathan,63.0,1.6,5.4,26.0,49.0,Needs Improvement
-SC-2026-046,Sanjana Rao,94.0,5.3,9.4,47.0,91.0,Excellent
-SC-2026-047,Alok Mishra,67.0,2.1,6.0,28.0,51.0,Needs Improvement
-SC-2026-048,Nandini Trivedi,82.0,3.3,7.7,37.0,74.0,Good
-SC-2026-049,Deepak Rawat,51.0,1.0,4.1,19.0,34.0,Needs Improvement
-SC-2026-050,Ira Mukherjee,91.0,5.0,9.0,45.0,87.0,Excellent
-SC-2026-051,Abhinav Kulkarni,78.2,3.2,8.4,36.7,70.6,Good
-SC-2026-052,Bhumika Joshi,88.7,4.4,9.2,46.8,91.6,Excellent
-SC-2026-053,Chetan Patil,75.0,2.8,6.4,28.4,55.0,Average
-SC-2026-054,Disha Bhat,95.0,4.9,8.9,48.1,84.4,Excellent
-SC-2026-055,Eshwar Deshpande,74.8,2.6,5.9,29.8,64.9,Average
-SC-2026-056,Farhan Gokhale,94.0,5.7,9.3,49.5,84.3,Excellent
-SC-2026-057,Garima Shukla,90.2,5.0,8.4,47.8,91.6,Excellent
-SC-2026-058,Hardik Pandey,82.1,3.6,7.3,36.0,79.0,Good
-SC-2026-059,Indu Dubey,70.0,2.3,6.8,32.9,62.0,Average
-SC-2026-060,Jatin Chauhan,92.5,5.7,9.2,44.8,90.7,Excellent
-SC-2026-061,Kiran Singh,81.0,3.7,8.6,37.3,68.0,Good
-SC-2026-062,Lavanya Yadav,92.6,4.8,9.0,46.5,87.3,Excellent
-SC-2026-063,Mayank Verma,55.3,0.7,3.7,23.9,41.9,Needs Improvement
-SC-2026-064,Nisha Sharma,86.1,4.5,8.6,45.7,86.3,Excellent
-SC-2026-065,Omkar Mishra,50.0,1.3,4.7,19.3,39.1,Needs Improvement
-SC-2026-066,Pallavi Gupta,80.4,3.9,8.0,39.9,71.4,Good
-SC-2026-067,Qasim Srivastava,49.3,1.5,3.8,23.9,49.0,Needs Improvement
-SC-2026-068,Rupali Saxena,77.3,2.1,6.5,28.8,64.7,Average
-SC-2026-069,Saurabh Tiwari,64.2,1.6,4.4,19.0,45.2,Needs Improvement
-SC-2026-070,Tejas Tripathi,65.5,2.7,6.0,31.6,60.4,Average
-SC-2026-071,Urvashi Bhattacharya,90.3,4.6,8.9,46.7,92.2,Excellent
-SC-2026-072,Varsha Mukherjee,84.0,4.3,8.9,37.2,75.2,Good
-SC-2026-073,Wasim Banerjee,64.5,3.0,7.3,27.8,63.5,Average
-SC-2026-074,Yamini Ghosh,86.6,3.9,8.4,38.4,71.1,Good
-SC-2026-075,Zainab Dutta,94.9,5.7,9.5,43.4,85.0,Excellent
-SC-2026-076,Aniket Sengupta,65.9,2.8,7.3,31.1,64.8,Average
-SC-2026-077,Barkha Chakraborty,67.1,2.6,5.7,28.1,64.5,Average
-SC-2026-078,Chinmay Das,69.9,3.0,6.8,35.0,61.4,Average
-SC-2026-079,Damini Roy,64.7,2.5,5.9,32.4,61.2,Average
-SC-2026-080,Ekansh Barman,81.5,3.8,8.4,36.9,79.1,Good
-SC-2026-081,Falguni Iyer,75.7,2.4,5.9,28.7,63.8,Average
-SC-2026-082,Girish Iyengar,71.4,2.8,7.5,30.6,57.8,Average
-SC-2026-083,Himani Nair,86.0,3.8,8.4,40.7,72.2,Good
-SC-2026-084,Irfan Menon,77.2,2.9,6.1,30.8,62.0,Average
-SC-2026-085,Jaya Pillai,91.6,5.4,9.8,45.5,93.3,Excellent
-SC-2026-086,Kartik Rao,75.4,2.6,6.6,27.1,55.0,Average
-SC-2026-087,Lata Reddy,92.0,4.6,9.1,44.3,82.0,Excellent
-SC-2026-088,Mihir Shetty,92.6,4.8,9.1,43.5,86.7,Excellent
-SC-2026-089,Naveen Hegde,96.5,5.1,9.4,42.7,96.0,Excellent
-SC-2026-090,Ojas Kamath,79.0,3.0,7.0,30.0,62.8,Average
-SC-2026-091,Parth Mehta,94.9,4.7,8.9,41.8,84.9,Excellent
-SC-2026-092,Rashmi Shah,78.5,2.4,6.3,30.8,54.6,Average
-SC-2026-093,Sanket Patel,59.7,1.7,4.7,24.6,35.4,Needs Improvement
-SC-2026-094,Tarun Desai,65.0,1.1,3.5,19.3,51.4,Needs Improvement
-SC-2026-095,Umesh Parikh,53.9,1.0,3.5,19.7,32.0,Needs Improvement
-SC-2026-096,Vidya Modi,87.3,5.8,9.8,45.2,86.1,Excellent
-SC-2026-097,Vivek Gandhi,82.2,4.6,8.2,40.3,75.2,Good
-SC-2026-098,Yogesh Choksi,71.3,2.8,6.6,25.3,66.1,Average
-SC-2026-099,Zeeshan Vora,79.7,4.6,8.3,38.2,77.8,Good
-SC-2026-100,Amrita Doshi,70.5,2.3,6.6,32.2,59.1,Average
-SC-2026-101,Brijesh Kulkarni,79.6,3.7,8.5,41.6,77.4,Good
-SC-2026-102,Chhaya Joshi,57.5,1.1,5.0,21.5,38.4,Needs Improvement
-SC-2026-103,Darshan Patil,43.3,0.9,3.9,23.3,49.8,Needs Improvement
-SC-2026-104,Gautam Bhat,90.1,4.8,9.2,45.5,91.7,Excellent
-SC-2026-105,Hansika Deshpande,80.0,4.2,7.9,40.1,74.9,Good
-SC-2026-106,Jagdish Gokhale,50.3,1.9,5.1,15.0,39.8,Needs Improvement
-SC-2026-107,Kalpesh Shukla,61.2,0.9,4.9,21.9,38.5,Needs Improvement
-SC-2026-108,Leela Pandey,71.0,1.8,7.5,29.2,64.2,Average
-SC-2026-109,Madhav Dubey,84.3,4.3,7.8,38.5,78.2,Good
-SC-2026-110,Nalini Chauhan,74.9,3.0,6.2,28.3,66.4,Average
-SC-2026-111,Prateek Singh,41.8,1.8,4.2,20.0,38.6,Needs Improvement
-SC-2026-112,Rachna Yadav,91.3,5.6,9.5,46.6,88.4,Excellent
-SC-2026-113,Sharad Verma,64.5,2.2,6.3,31.1,61.3,Average
-SC-2026-114,Tanvi Sharma,85.7,4.0,8.0,43.0,77.6,Good
-SC-2026-115,Utkarsh Mishra,90.1,5.9,9.7,49.5,87.6,Excellent
-SC-2026-116,Vandana Gupta,85.7,3.2,8.4,37.6,70.6,Good
-SC-2026-117,Yuvraj Srivastava,85.9,3.1,7.1,38.9,78.3,Good
-SC-2026-118,Zoya Saxena,59.8,1.5,5.4,22.0,41.3,Needs Improvement
-SC-2026-119,Aditi Tiwari,91.3,4.9,9.2,43.1,89.4,Excellent
-SC-2026-120,Bhavesh Tripathi,70.6,2.6,6.7,25.0,57.4,Average
+MLU24F001,Archita Rajesh Tiwari,92.8,4.0,8.6,50.0,82.3,Excellent
+MLU24F002,Avani Yogesh Sawarkar,67.8,2.1,3.5,8.0,46.4,Needs Improvement
+MLU24F003,Babita Manoj Zunzunwala,84.5,5.0,9.8,43.0,86.6,Excellent
+MLU24F004,Dhanashri Gajanan Tayade,70.1,3.2,6.1,31.2,61.6,Average
+MLU24F005,Gauri Arun Bhivagade,93.2,4.8,9.3,46.9,96.0,Excellent
+MLU24F006,Gayatri Santosh Pathare,80.2,3.6,8.9,40.3,81.6,Good
+MLU24F007,Gayatri Chandrashekhar Thokal,82.1,3.9,8.2,39.1,73.1,Good
+MLU24F008,Kasturi Dilip Tidke,87.2,4.1,8.6,43.1,82.8,Excellent
+MLU24F009,Krutika Vijay Deshmukh,45.3,1.0,3.9,8.0,52.7,Needs Improvement
+MLU24F010,Manasvi Sudhir Wankhade,79.7,3.2,7.8,37.0,78.0,Good
+MLU24F011,Namrata Rajesh Pise,92.0,4.6,9.2,45.7,93.6,Excellent
+MLU24F012,Parul Sushil Sahu,79.3,3.2,9.0,38.3,71.5,Good
+MLU24F013,Shruti Praful Ambadkar,76.9,3.7,8.1,33.1,80.5,Good
+MLU24F014,Rani Pradip Chaudhari,93.6,4.7,9.1,43.7,87.7,Excellent
+MLU24F016,Sakshi Santosh Gajare,87.4,3.7,8.1,34.4,73.2,Good
+MLU24F018,Sayali Anil Banait,84.3,4.0,8.7,47.3,82.6,Excellent
+MLU24F019,Shreya Gajananrao Kale,87.0,4.7,8.6,43.1,91.3,Excellent
+MLU24F020,Shreya Pravin Kshirsagar,86.2,3.9,9.2,45.8,89.5,Excellent
+MLU24F021,Sneha Gajanan Manwar,94.6,4.5,8.6,43.5,91.1,Excellent
+MLU24F022,Srushti Sadanand Raut,94.3,4.7,9.9,50.0,92.5,Excellent
+MLU24F023,Taniksha Rajendra Nagpure,86.9,4.9,9.1,43.0,91.4,Excellent
+MLU24F024,Tanuja Sudamdev Chalge,84.0,4.8,9.9,43.5,94.8,Excellent
+MLU24F026,Utkarsha Rajkumar Gedam,90.5,4.3,9.7,42.7,83.9,Excellent
+MLU24F027,Utkarsha Prakash Mahulkar,87.3,4.9,9.2,50.0,87.1,Excellent
+MLU24F028,Vaishnavi Sanjay Ganjiwale,79.4,2.9,8.4,36.2,75.8,Good
+MLU24F029,Yashashri Santosh Kawalkar,93.6,4.0,8.8,49.4,94.5,Excellent
+MLU24F030,Aaradhay Nandu Kalmegh,91.7,4.2,9.7,43.5,82.9,Excellent
+MLU24F032,Aditya Bharat Jaybhaye,95.8,4.7,8.7,42.2,83.6,Excellent
+MLU24F033,Aditya Pramod Kakade,87.1,4.9,10.0,43.8,83.3,Excellent
+MLU24F034,Aditya Santosh Kandalkar,78.0,2.1,6.1,24.9,68.0,Average
+MLU24F035,Ali Shaban Zafar Ali,85.2,3.4,7.6,38.0,77.3,Good
+MLU24F036,Atharva Sureshkumar Rathor,48.5,1.5,3.1,8.0,45.3,Needs Improvement
+MLU24F037,Atharva Vinodrao Sisat,91.8,4.6,9.6,49.2,89.4,Excellent
+MLU24F038,Ayush Navneetrao Nimbhorkar,71.6,2.3,6.4,31.0,58.5,Average
+MLU24F039,Bhushan Umesh Darne,75.9,2.8,7.3,27.8,66.4,Average
+MLU24F040,Devashish Ganesh Deshmukh,81.8,2.8,8.0,35.9,78.7,Good
+MLU24F041,Gitesh Ajitkumar Mishra,82.4,3.0,7.6,39.2,73.5,Good
+MLU24F042,Harshal Khushal Dahake,58.2,2.1,3.6,8.0,49.9,Needs Improvement
+MLU24F043,Jeet Sunil Arjune,82.2,2.8,8.3,37.6,73.0,Good
+MLU24F044,Ketan Dharmesh Awachar,82.3,3.2,8.3,39.8,75.3,Good
+MLU24F045,Ketan Sunil Raut,89.9,4.6,9.1,49.8,84.5,Excellent
+MLU24F046,Krishna Ghanshyam Lekurwale,84.2,3.4,8.3,38.0,79.5,Good
+MLU24F047,Lalit Rajesh Bhade,87.0,5.0,9.3,46.2,86.3,Excellent
+MLU24F048,Maaz Hashir Mohammad Irshad,95.0,4.6,8.9,42.8,94.0,Excellent
+MLU24F049,Mohd. Sufiyan M. Riyaz Gigani,87.3,4.4,9.7,42.9,90.6,Excellent
+MLU24F050,Omkar Pradumna Bhakare,79.9,3.8,7.5,34.4,77.8,Good
+MLU24F051,Piyush Rajendra Jamodkar,80.6,3.5,8.3,32.9,71.0,Good
+MLU24F052,Piyush Umesh Uke,62.2,2.2,4.3,13.1,58.3,Needs Improvement
+MLU24F053,Pranav Prabhakar Borkar,82.6,3.8,7.7,33.7,69.9,Good
+MLU24F054,Pranay Sharad Chandurkar,92.8,4.7,9.3,49.4,94.4,Excellent
+MLU24F055,Prem Baliram Dhamodkar,90.4,3.9,9.0,42.5,95.4,Excellent
+MLU24F056,Rushabh Anil Shambharkar,68.1,2.1,7.2,25.4,58.2,Average
+MLU24F057,Sahil Sanjay Waghmare,76.8,2.1,7.0,28.6,61.1,Average
+MLU24F058,Shamuil Mohd. Shahid Tikki,47.2,1.0,4.8,8.0,57.6,Needs Improvement
+MLU24F059,Shavez Khan Azim Khan,58.8,1.5,4.8,8.0,45.6,Needs Improvement
+MLU24F060,Shivraj Vishwas Adhau,89.3,4.3,8.9,46.0,91.8,Excellent
+MLU24F061,Siddhesh Sunil Thakare,81.3,3.2,8.6,35.8,69.8,Good
+MLU24F062,Sumit Gajanan Dubey,92.6,5.1,8.6,50.0,85.1,Excellent
+MLU24F063,Tanuj Sharad Thote,77.5,2.9,8.9,39.4,76.7,Good
+MLU24F064,Vaibhav Sakharam Garkar,83.2,3.2,8.3,36.8,80.3,Good
+MLU24F065,Vaibhav Mahadeo Hiradeve,69.4,2.9,7.3,25.4,61.9,Average
+MLU24F066,Vedant Jayprakash Deshmukh,80.9,3.8,7.5,40.5,80.7,Good
+MLU24F067,Vedant Devanand Jambhalikar,85.6,3.5,7.7,37.9,74.0,Good
+MLU24F068,Vishal Chunnilal Jambekar,88.2,4.0,9.2,46.4,94.6,Excellent
+MLU24F069,Yash Gajanan Sakharkar,87.1,4.3,9.4,49.6,80.0,Excellent
+MLU25S207,Apurva Anil Jawanjal,80.2,3.4,8.9,37.5,68.1,Good
+MLU25S208,Manthan Sanjay Rajas,53.8,1.6,3.7,8.0,43.3,Needs Improvement
+MLU25S210,Himanshu Anil Jajoo,85.1,5.2,9.6,50.0,90.6,Excellent
+MLU25S211,Vansh Vasant Tarpe,91.4,4.4,9.6,49.5,91.6,Excellent
+MLU25S212,Manjusha Laxmikant Naik,88.7,4.0,9.8,49.3,81.3,Excellent
+MLU25S213,Lavanya Laxmikant Gaikwad,88.8,4.3,9.6,46.4,84.4,Excellent
+MLU25S214,Tarang Sunil Chavhan,79.1,3.9,7.9,38.8,81.6,Good
+MLU25S215,Tejas Sunil Padole,87.7,3.9,9.2,42.6,80.3,Excellent
+MLU25S216,Sumit Pradip Gajghate,82.9,3.6,8.7,35.6,78.4,Good
+MLU25S217,Atharv Rajkumar Kevatkar,89.8,4.7,8.9,46.7,83.1,Excellent
+MLU25S218,Sadhana Devidas Landgekar,92.0,5.1,9.6,50.0,82.6,Excellent

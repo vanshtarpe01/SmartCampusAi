@@ -1,6 +1,11 @@
 import streamlit as st
-from supabase import create_client, Client
 import os
+
+try:
+    from supabase import create_client, Client
+except ImportError:
+    create_client = None
+    Client = None
 
 @st.cache_resource
 def get_supabase_client() -> Client:

@@ -133,7 +133,7 @@ Your intelligent personal tutor for Artificial Intelligence, search algorithms, 
     query_to_process = selected_quick_prompt or user_query
 
     if query_to_process:
-        active_sid = st.session_state.get("selected_student_id", "SC-2026-001")
+        active_sid = st.session_state.get("selected_student_id", "MLU25S211")
         now_str = datetime.datetime.now().strftime("%I:%M %p")
         # Append User Message
         st.session_state.chat_messages.append({

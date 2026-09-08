@@ -24,6 +24,9 @@ from ai.assistant import get_ai_response as ai_get_response
 
 from database.connection import get_supabase_client
 
+# Path to local student dataset CSV
+STUDENTS_CSV_PATH = os.path.join(os.path.dirname(__file__), "data", "students.csv")
+
 # We maintain a cached DataFrame for existing ML/Rule engines if needed, 
 # but fetch it from Supabase primarily.
 _students_df_cache: Optional[pd.DataFrame] = None
@@ -31,47 +34,68 @@ _students_df_cache: Optional[pd.DataFrame] = None
 def get_db():
     return get_supabase_client()
 
-def load_students_df() -> pd.DataFrame:
-    """Loads and returns the student records dataframe from Supabase."""
-    global _students_df_cache
-    db = get_db()
-    if not db:
-        if _students_df_cache is not None:
-            return _students_df_cache
+def _clean_student_dataframe(df: pd.DataFrame) -> pd.DataFrame:
+    """Standardizes types and handles missing values for student dataframe."""
+    df = df.copy()
+    if df.empty:
         return pd.DataFrame(columns=["student_id", "name", "attendance", "study_hours", "assignment_marks", "internal_marks", "previous_marks", "performance_level"])
-        
-    try:
-        response = db.table("students").select("*").execute()
-        df = pd.DataFrame(response.data)
-        if df.empty:
-            df = pd.DataFrame(columns=["student_id", "name", "attendance", "study_hours", "assignment_marks", "internal_marks", "previous_marks", "performance_level"])
-            _students_df_cache = df
-            return df
-            
+    
+    if "student_id" in df.columns:
         df = df.dropna(subset=["student_id"])
         df["student_id"] = df["student_id"].astype(str)
-        if "name" in df.columns:
-            df["name"] = df["name"].fillna("Unknown").astype(str)
-        else:
-            df["name"] = "Unknown"
-        if "performance_level" in df.columns:
-            df["performance_level"] = df["performance_level"].fillna("Unknown").astype(str)
-        else:
-            df["performance_level"] = "Unknown"
-            
-        df["attendance"] = df["attendance"].fillna(0).astype(float)
-        df["study_hours"] = df["study_hours"].fillna(0).astype(float)
-        df["assignment_marks"] = df["assignment_marks"].fillna(0).astype(float)
-        df["internal_marks"] = df["internal_marks"].fillna(0).astype(float)
-        df["previous_marks"] = df["previous_marks"].fillna(0).astype(float)
+    
+    if "name" in df.columns:
+        df["name"] = df["name"].fillna("Unknown").astype(str)
+    else:
+        df["name"] = "Unknown"
         
-        _students_df_cache = df
-        return df
-    except Exception as e:
-        print(f"Error loading students from DB: {e}")
-        if _students_df_cache is not None:
-            return _students_df_cache
-        return pd.DataFrame(columns=["student_id", "name", "attendance", "study_hours", "assignment_marks", "internal_marks", "previous_marks", "performance_level"])
+    if "performance_level" in df.columns:
+        df["performance_level"] = df["performance_level"].fillna("Average").astype(str)
+    else:
+        df["performance_level"] = "Average"
+        
+    for col in ["attendance", "study_hours", "assignment_marks", "internal_marks", "previous_marks"]:
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0.0).astype(float)
+        else:
+            df[col] = 0.0
+
+    return df
+
+def load_students_df() -> pd.DataFrame:
+    """Loads and returns the student records dataframe from Supabase, with automatic CSV fallback."""
+    global _students_df_cache
+    db = get_db()
+    
+    # 1. Try Supabase
+    if db:
+        try:
+            response = db.table("students").select("*").execute()
+            if response.data and len(response.data) > 0:
+                df = pd.DataFrame(response.data)
+                df = _clean_student_dataframe(df)
+                if not df.empty:
+                    _students_df_cache = df
+                    return df
+        except Exception as e:
+            print(f"Notice: Supabase fetch error ({e}), loading local dataset.")
+            
+    # 2. Check memory cache if already populated
+    if _students_df_cache is not None and not _students_df_cache.empty:
+        return _students_df_cache
+
+    # 3. Fail-safe Fallback to data/students.csv
+    if os.path.exists(STUDENTS_CSV_PATH):
+        try:
+            df = pd.read_csv(STUDENTS_CSV_PATH)
+            df = _clean_student_dataframe(df)
+            if not df.empty:
+                _students_df_cache = df
+                return df
+        except Exception as e:
+            print(f"Notice: CSV fallback read error: {e}")
+
+    return pd.DataFrame(columns=["student_id", "name", "attendance", "study_hours", "assignment_marks", "internal_marks", "previous_marks", "performance_level"])
 
 def save_students_df(df: pd.DataFrame):
     """Saves the student records dataframe to Supabase and updates cache."""
@@ -97,6 +121,28 @@ def save_students_df(df: pd.DataFrame):
     except Exception as e:
         print(f"Error saving students to DB: {e}")
 
+def update_student_study_hours(student_id: str, study_hours: float) -> bool:
+    """Updates only the student's study hours in Supabase and local cache."""
+    global _students_df_cache
+    try:
+        hrs = round(float(study_hours), 1)
+        db = get_db()
+        if db:
+            db.table("students").update({"study_hours": hrs}).eq("student_id", student_id).execute()
+            
+        if _students_df_cache is not None and not _students_df_cache.empty:
+            _students_df_cache.loc[_students_df_cache["student_id"] == student_id, "study_hours"] = hrs
+            
+        if os.path.exists(STUDENTS_CSV_PATH):
+            df_csv = pd.read_csv(STUDENTS_CSV_PATH)
+            if "student_id" in df_csv.columns and "study_hours" in df_csv.columns:
+                df_csv.loc[df_csv["student_id"] == student_id, "study_hours"] = hrs
+                df_csv.to_csv(STUDENTS_CSV_PATH, index=False)
+        return True
+    except Exception as e:
+        print(f"Error updating study hours: {e}")
+        return False
+
 def get_student_raw(student_id: str) -> Dict[str, Any]:
     df = load_students_df()
     if df.empty:
@@ -109,20 +155,37 @@ def get_student_raw(student_id: str) -> Dict[str, Any]:
 def get_student_data(student_id: str) -> Dict[str, Any]:
     raw_data = get_student_raw(student_id)
     if not raw_data:
-        return {"student_id": student_id, "full_name": "Unknown", "name": "Unknown", "level": "Unknown", "risk": "Unknown", "attendance": 0, "performance": 0, "study_hours": 0}
+        return {
+            "student_id": student_id,
+            "full_name": "Unknown",
+            "name": "Unknown",
+            "level": "Unknown",
+            "risk": "Unknown",
+            "attendance": 0,
+            "performance": 0,
+            "study_hours": 0,
+            "weak_areas": [],
+            "strengths": []
+        }
         
     analysis = analyze_student(raw_data)
-    rules_eval = evaluate_student_rules(raw_data)
     
     return {
-        "student_id": raw_data["student_id"],
-        "full_name": raw_data["name"],
-        "attendance": raw_data["attendance"],
-        "study_hours": raw_data["study_hours"],
-        "performance": analysis["overall_score"],
-        "level": raw_data["performance_level"],
-        "risk": rules_eval["risk_level"],
-        "weak_areas": analysis["weak_areas"]
+        "student_id": raw_data.get("student_id", student_id),
+        "full_name": raw_data.get("name", "Unknown"),
+        "name": raw_data.get("name", "Unknown"),
+        "attendance": raw_data.get("attendance", 0),
+        "study_hours": raw_data.get("study_hours", 0),
+        "assignment_marks": raw_data.get("assignment_marks", 0),
+        "internal_marks": raw_data.get("internal_marks", 0),
+        "previous_marks": raw_data.get("previous_marks", 0),
+        "performance": analysis.get("overall", analysis.get("performance", 0)),
+        "level": raw_data.get("performance_level", analysis.get("level", "Average")),
+        "risk": analysis.get("risk", "LOW"),
+        "weak_areas": analysis.get("weaknesses", []),
+        "strengths": analysis.get("strengths", []),
+        "warnings": analysis.get("warnings", []),
+        "observations": analysis.get("observations", [])
     }
 
 def get_all_student_summaries() -> List[Dict[str, Any]]:
@@ -399,7 +462,7 @@ def get_performance_data(student_id: str) -> Dict[str, Any]:
     raw_data = get_student_raw(student_id)
     return analyze_student(raw_data)
 
-def get_recommendations(priority_filter: str = "All", student_id: str = "SC-2026-001") -> List[Dict[str, Any]]:
+def get_recommendations(priority_filter: str = "All", student_id: str = "MLU25S211") -> List[Dict[str, Any]]:
     raw_data = get_student_raw(student_id)
     recs = ai_generate_recommendations(raw_data)
     if priority_filter == "All":
@@ -409,6 +472,27 @@ def get_recommendations(priority_filter: str = "All", student_id: str = "SC-2026
 def get_ai_response(query: str) -> str:
     return ai_get_response(query)
 
-def generate_study_plan(student_id: str) -> Dict[str, Any]:
-    raw_data = get_student_raw(student_id)
-    return ai_generate_study_plan(raw_data)
+def generate_study_plan(exam_date_or_sid=None, available_hours=3.5, subject="Artificial Intelligence", weak_topic="BFS & DFS Graph Traversals", difficulty="Intermediate", **kwargs) -> Dict[str, Any]:
+    import datetime
+    if isinstance(exam_date_or_sid, str) and not kwargs and "exam_date" not in kwargs:
+        student = get_student_data(exam_date_or_sid)
+        today = datetime.date.today()
+        return ai_generate_study_plan(
+            exam_date=today + datetime.timedelta(days=14),
+            available_hours=float(student.get("study_hours", 3.5)),
+            subject="Artificial Intelligence",
+            weak_topic="Core Fundamentals",
+            difficulty="Intermediate"
+        )
+    
+    exam_date = kwargs.get("exam_date", exam_date_or_sid)
+    if exam_date is None:
+        exam_date = datetime.date.today() + datetime.timedelta(days=14)
+        
+    return ai_generate_study_plan(
+        exam_date=exam_date,
+        available_hours=available_hours,
+        subject=subject,
+        weak_topic=weak_topic,
+        difficulty=difficulty
+    )

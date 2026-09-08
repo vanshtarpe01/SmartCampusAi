@@ -1,217 +1,198 @@
-"""SmartCampus AI - Performance Analysis Page
-In-depth academic analytics, rule-based diagnostics, and Machine Learning
-Decision Tree predictions with explainable AI factors, model metrics, and confusion matrix.
-Combines Phase 2 Rule Engine with Phase 3 Machine Learning.
+"""SmartCampus AI - Student Academic Performance Page
+Focused strictly on the student's personal academic performance, official institutional
+evaluations, study habits, strengths, diagnostic insights, and learning trajectory.
 """
 
 import streamlit as st
 import pandas as pd
 from data import (
     get_student_data,
-    get_performance_data
+    get_performance_data,
+    update_student_study_hours
 )
-from ai.performance import analyze_student
-from ai.ml_predictor import predict_performance
-from ai.ml_model import get_model_metrics, get_feature_importance
-from ai.model_utils import validate_student_inputs, combine_rule_and_ml
 from utils.ui import (
-    render_top_brand,
     build_performance_timeline_chart,
-    build_wellness_radar,
-    build_feature_importance_chart,
-    build_confusion_matrix_heatmap
+    build_wellness_radar
 )
 
 
 def render_performance():
-    """Renders the unified Rule-Based and Machine Learning Performance Hub."""
-    active_sid = st.session_state.get("selected_student_id", "SC-2026-001")
-    perf_data = get_performance_data(active_sid)
+    """Renders the student-centric academic performance dashboard."""
+    active_sid = st.session_state.get("selected_student_id", "MLU25S211")
     student = get_student_data(active_sid)
+    perf_data = get_performance_data(active_sid)
 
+    # Risk badge styling
+    risk_chip_class = "chip-emerald"
+    if str(student.get("risk", "")).upper() == "HIGH":
+        risk_chip_class = "chip-coral"
+    elif str(student.get("risk", "")).upper() == "MEDIUM":
+        risk_chip_class = "chip-amber"
+
+    # Page Header
     st.markdown(
         f"""
-<div style="margin-bottom: 22px;">
-<div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-<div>
-<h2 class="smart-gradient-text" style="font-size: 1.65rem; margin: 0;">
-📊 Student Performance Analysis & ML Predictor
-</h2>
-<p style="margin: 3px 0 0 0; color: #5a6275; font-size: 0.95rem;">
-Dual-engine academic diagnostic combining <strong>Rule-Based Expert System</strong> with <strong>Decision Tree Machine Learning</strong> for <strong>{student['full_name']}</strong> ({student['student_id']}).
-</p>
-</div>
-<div style="display: flex; gap: 8px;">
-<span class="smart-chip chip-indigo">Decision Tree ML</span>
-<span class="smart-chip chip-teal">Rule Engine Active</span>
-</div>
-</div>
+<div style="margin-bottom: 20px;">
+    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+        <div>
+            <h2 class="smart-gradient-text" style="font-size: 1.65rem; margin: 0;">
+                📊 Student Academic Performance
+            </h2>
+            <p style="margin: 3px 0 0 0; color: #5a6275; font-size: 0.95rem;">
+                Official academic records, diagnostic evaluation, and performance analysis for <strong>{student['full_name']}</strong> ({student['student_id']}).
+            </p>
+        </div>
+        <div style="display: flex; gap: 8px;">
+            <span class="smart-chip chip-indigo">Level: {student['level']}</span>
+            <span class="smart-chip {risk_chip_class}">Risk: {student['risk'].upper()}</span>
+        </div>
+    </div>
 </div>
 """,
         unsafe_allow_html=True
     )
 
     # =========================================================================
-    # INTERACTIVE STUDENT INPUT CONTROLS
+    # SECTION 1: OFFICIAL INSTITUTIONAL ACADEMIC RECORDS (READ-ONLY)
     # =========================================================================
-    st.markdown("### 🎛️ Student Academic Parameters")
-    st.caption("Adjust the academic parameters below or use the active student's preloaded values, then click **Analyze Performance**.")
+    st.markdown("### 🏫 Institutional Academic Records")
+    st.markdown(
+        """
+<p style="color: #64748b; font-size: 0.88rem; margin-top: -6px; margin-bottom: 14px;">
+    🔒 <em>Official records entered and authenticated by faculty & department examination controllers. These official academic parameters are strictly read-only for students.</em>
+</p>
+""",
+        unsafe_allow_html=True
+    )
 
-    # Container with clean inputs
+    rec_col1, rec_col2, rec_col3, rec_col4 = st.columns(4)
+    with rec_col1:
+        att_val = student.get("attendance", 0.0)
+        att_status = "Eligible (≥75%)" if att_val >= 75.0 else "Shortage (<75%)"
+        st.metric(
+            label="Classroom Attendance",
+            value=f"{att_val:.1f}%",
+            delta=att_status,
+            delta_color="normal" if att_val >= 75.0 else "inverse"
+        )
+    with rec_col2:
+        internal_val = student.get("internal_marks", 0.0)
+        internal_pct = (internal_val / 50.0) * 100.0 if internal_val <= 50.0 else internal_val
+        st.metric(
+            label="Internal Test (MSE-1)",
+            value=f"{internal_val:.1f} / 50",
+            delta=f"{internal_pct:.1f}% Score"
+        )
+    with rec_col3:
+        assign_val = student.get("assignment_marks", 0.0)
+        st.metric(
+            label="Assignment Submissions",
+            value=f"{assign_val:.1f} / 10",
+            delta="Continuous Assessment"
+        )
+    with rec_col4:
+        prev_val = student.get("previous_marks", 0.0)
+        st.metric(
+            label="Previous Semester Score",
+            value=f"{prev_val:.1f}%",
+            delta="Historical Aggregate"
+        )
+
+    st.markdown("<div style='margin-top: 18px;'></div>", unsafe_allow_html=True)
+
+    # =========================================================================
+    # SECTION 2: STUDENT SELF-STUDY TRACKER (THE ONLY FIELD STUDENT CAN UPDATE)
+    # =========================================================================
+    st.markdown("### ⏱️ Personal Self-Study Hours")
+    st.markdown(
+        """
+<p style="color: #64748b; font-size: 0.88rem; margin-top: -6px; margin-bottom: 12px;">
+    ✏️ <em>Students can log and update their daily self-study hours. Your logged study hours directly refine your study schedule and AI academic pacing.</em>
+</p>
+""",
+        unsafe_allow_html=True
+    )
+
     with st.container():
-        in_col1, in_col2, in_col3, in_col4, in_col5 = st.columns(5)
-        with in_col1:
-            input_attendance = st.number_input(
-                "Attendance (%)",
-                min_value=0.0,
-                max_value=100.0,
-                value=float(student.get("attendance", 85.0)),
-                step=1.0,
-                help="Class attendance percentage (0–100%)"
-            )
-        with in_col2:
-            input_study_hours = st.number_input(
-                "Study Hours (hrs/day)",
+        study_col1, study_col2, study_col3 = st.columns([1.2, 1.0, 1.8])
+        with study_col1:
+            current_study_hours = float(student.get("study_hours", 3.5))
+            new_study_hours = st.number_input(
+                "Self-Study Duration (hours/day)",
                 min_value=0.0,
                 max_value=24.0,
-                value=float(student.get("study_hours", 3.5)),
+                value=current_study_hours,
                 step=0.5,
-                help="Average self-study duration per day (0–24 hrs)"
+                help="Enter your average daily dedicated self-study hours outside class."
             )
-        with in_col3:
-            input_assignment = st.number_input(
-                "Assignment Marks (0-10)",
-                min_value=0.0,
-                max_value=10.0,
-                value=float(perf_data.get("assignments", 8.0) / 10.0),
-                step=0.5,
-                help="Continuous evaluation assignment marks out of 10"
-            )
-        with in_col4:
-            input_internal = st.number_input(
-                "Internal Marks (0-50)",
-                min_value=0.0,
-                max_value=50.0,
-                value=float(perf_data.get("internal_test", 40.0) / 2.0),
-                step=1.0,
-                help="Mid-semester test score scaled out of 50"
-            )
-        with in_col5:
-            input_previous = st.number_input(
-                "Previous Marks (%)",
-                min_value=0.0,
-                max_value=100.0,
-                value=float(perf_data.get("previous_exam", 78.0)),
-                step=1.0,
-                help="Historical semester aggregate score (0–100%)"
-            )
+        with study_col2:
+            st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
+            if st.button("💾 Save Study Hours", type="primary", use_container_width=True):
+                success = update_student_study_hours(active_sid, new_study_hours)
+                if success:
+                    st.toast(f"✅ Study hours successfully updated to {new_study_hours:.1f} hrs/day!", icon="📚")
+                    st.success(f"✅ Study hours updated to **{new_study_hours:.1f} hrs/day**. Record saved to database.")
+                    st.rerun()
+                else:
+                    st.error("Failed to update study hours. Please try again.")
+        with study_col3:
+            st.markdown("<div style='margin-top: 24px;'></div>", unsafe_allow_html=True)
+            if new_study_hours >= 4.0:
+                st.info("🌟 **High Study Habit:** You are spending 4+ hours daily on focused self-study. Excellent consistency!")
+            elif new_study_hours >= 2.5:
+                st.info("👍 **Steady Study Habit:** Solid daily dedication. Aim to maintain 3+ hours during mid-term preparation.")
+            else:
+                st.warning("⚠️ **Low Study Hours:** Increasing daily self-study to at least 2.5–3 hours will boost your test scores.")
 
-    btn_col1, btn_col2 = st.columns([0.25, 0.75])
-    with btn_col1:
-        run_analysis = st.button("🚀 Analyze Performance", type="primary", use_container_width=True)
-
-    st.markdown("<div style='margin-top: 14px;'></div>", unsafe_allow_html=True)
-
-    # Input validation
-    is_valid, err_msg = validate_student_inputs(
-        input_attendance,
-        input_study_hours,
-        input_assignment,
-        input_internal,
-        input_previous
-    )
-
-    if not is_valid:
-        st.error(f"⚠️ Validation Error: {err_msg}")
-        return
-
-    # Execute Rule Engine and ML Engine
-    rule_analysis = analyze_student({
-        "attendance": input_attendance,
-        "study_hours": input_study_hours,
-        "assignment_marks": input_assignment,
-        "internal_marks": input_internal,
-        "previous_marks": input_previous
-    })
-
-    ml_prediction = predict_performance(
-        attendance=input_attendance,
-        study_hours=input_study_hours,
-        assignment_marks=input_assignment,
-        internal_marks=input_internal,
-        previous_marks=input_previous
-    )
-
-    combined_ai = combine_rule_and_ml(rule_analysis, ml_prediction)
+    st.markdown("<div style='margin-top: 22px;'></div>", unsafe_allow_html=True)
 
     # =========================================================================
-    # SECTION 1: RULE-BASED ANALYSIS & SECTION 2: MACHINE LEARNING PREDICTION
+    # SECTION 3: ACADEMIC PERFORMANCE & DIAGNOSTIC STANDING
     # =========================================================================
-    sec_col1, sec_col2 = st.columns(2)
+    st.markdown("### 🎯 Academic Performance Standing")
 
-    with sec_col1:
-        st.markdown(
-            """
-<div class="smart-glass-card" style="padding: 18px; border-top: 4px solid #0077b6;">
-<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-<div style="display: flex; align-items: center; gap: 8px;">
-<span style="font-size: 1.25rem;">📐</span>
-<h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: #1a1a2e;">
-SECTION 1: Rule-Based Analysis
-</h3>
-</div>
-<span class="smart-chip chip-indigo">Deterministic Rules</span>
-</div>
-""",
-            unsafe_allow_html=True
-        )
-        rk1, rk2, rk3 = st.columns(3)
-        with rk1:
-            st.metric("Performance Score", f"{rule_analysis['overall']}%")
-        with rk2:
-            st.metric("Performance Level", rule_analysis["level"])
-        with rk3:
-            st.metric("Risk Level", rule_analysis["risk"])
-
+    p1, p2, p3, p4 = st.columns(4)
+    with p1:
         st.markdown(
             f"""
-<div style="margin-top: 10px; font-size: 0.88rem; color: #475569; background: rgba(0, 119, 182, 0.05); padding: 10px; border-radius: 8px;">
-<strong>Academic Evaluation Rule:</strong> Score calculated via institutional weighting (Attendance 20%, Study 15%, Assignments 15%, Internal 25%, Previous 25%).
-</div>
-</div>
-""",
-            unsafe_allow_html=True
-        )
-
-    with sec_col2:
-        st.markdown(
-            """
-<div class="smart-glass-card" style="padding: 18px; border-top: 4px solid #2a9d8f;">
-<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-<div style="display: flex; align-items: center; gap: 8px;">
-<span style="font-size: 1.25rem;">🌲</span>
-<h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: #1a1a2e;">
-SECTION 2: Machine Learning Prediction
-</h3>
-</div>
-<span class="smart-chip chip-emerald">Decision Tree (Depth 5)</span>
+<div class="smart-glass-card" style="padding: 16px; text-align: center; border-top: 3px solid #00b4d8;">
+    <div style="font-size: 0.82rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Overall Score</div>
+    <div style="font-size: 2.1rem; font-weight: 800; color: #1a1a2e; margin: 4px 0;">{student['performance']}%</div>
+    <div style="font-size: 0.82rem; color: #0077b6; font-weight: 600;">Composite Index</div>
 </div>
 """,
             unsafe_allow_html=True
         )
-        mk1, mk2, mk3 = st.columns(3)
-        with mk1:
-            st.metric("Predicted Performance", ml_prediction["predicted_level"])
-        with mk2:
-            st.metric("Prediction Confidence", f"{ml_prediction['confidence']:.0f}%")
-        with mk3:
-            st.metric("Primary Factor", ml_prediction["top_factor"])
-
+    with p2:
         st.markdown(
             f"""
-<div style="margin-top: 10px; font-size: 0.88rem; color: #475569; background: rgba(42, 157, 143, 0.05); padding: 10px; border-radius: 8px;">
-<strong>Pattern Recognition:</strong> Decision tree traversal matched historical patterns from {student['name']}'s peer cohort.
+<div class="smart-glass-card" style="padding: 16px; text-align: center; border-top: 3px solid #2a9d8f;">
+    <div style="font-size: 0.82rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Performance Tier</div>
+    <div style="font-size: 1.8rem; font-weight: 800; color: #2a9d8f; margin: 6px 0;">{student['level']}</div>
+    <div style="font-size: 0.82rem; color: #64748b;">Academic Standing</div>
 </div>
+""",
+            unsafe_allow_html=True
+        )
+    with p3:
+        risk_color = "#2a9d8f" if student['risk'].upper() == "LOW" else ("#f4a261" if student['risk'].upper() == "MEDIUM" else "#e63946")
+        st.markdown(
+            f"""
+<div class="smart-glass-card" style="padding: 16px; text-align: center; border-top: 3px solid {risk_color};">
+    <div style="font-size: 0.82rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Academic Risk</div>
+    <div style="font-size: 1.8rem; font-weight: 800; color: {risk_color}; margin: 6px 0;">{student['risk'].upper()}</div>
+    <div style="font-size: 0.82rem; color: #64748b;">Risk Assessment</div>
+</div>
+""",
+            unsafe_allow_html=True
+        )
+    with p4:
+        st.markdown(
+            f"""
+<div class="smart-glass-card" style="padding: 16px; text-align: center; border-top: 3px solid #7209b7;">
+    <div style="font-size: 0.82rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Daily Study</div>
+    <div style="font-size: 2.1rem; font-weight: 800; color: #7209b7; margin: 4px 0;">{student['study_hours']} <span style="font-size: 1rem;">h</span></div>
+    <div style="font-size: 0.82rem; color: #64748b;">Hours per Day</div>
 </div>
 """,
             unsafe_allow_html=True
@@ -220,46 +201,74 @@ SECTION 2: Machine Learning Prediction
     st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
 
     # =========================================================================
-    # SECTION 3: IMPORTANT FACTORS & SECTION 4: AI INSIGHT
+    # SECTION 4: STRENGTHS, ACTION AREAS & AI INSIGHTS
     # =========================================================================
-    sec_col3, sec_col4 = st.columns([1.0, 1.0])
+    col_str, col_ai = st.columns([1.1, 1.1])
 
-    with sec_col3:
-        st.markdown("### 📊 SECTION 3: Important Factors")
-        st.caption("Calculated dynamically from the Decision Tree model's Gini importance values.")
-        feat_fig = build_feature_importance_chart(ml_prediction["feature_importance"])
-        st.plotly_chart(feat_fig, use_container_width=True)
+    with col_str:
+        st.markdown("#### 🌟 Key Academic Strengths")
+        strengths = student.get("strengths", [])
+        if strengths:
+            for s in strengths:
+                st.markdown(
+                    f"""
+<div style="background: rgba(42, 157, 143, 0.08); border-left: 4px solid #2a9d8f; border-radius: 8px; padding: 10px 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+    <span style="color: #2a9d8f; font-size: 1.1rem; font-weight: 800;">✓</span>
+    <span style="color: #1e293b; font-size: 0.92rem; font-weight: 500;">{s}</span>
+</div>
+""",
+                    unsafe_allow_html=True
+                )
+        else:
+            st.info("No recorded strengths yet.")
 
-    with sec_col4:
-        st.markdown("### 💡 SECTION 4: AI Insight & Explainability")
-        reasons_items = "".join([
-            f"""<div style="display: flex; align-items: flex-start; gap: 8px; font-size: 0.86rem; margin-bottom: 6px;">
-<span style="color: {'#065f46' if r['type'] == 'positive' else ('#b91c1c' if r['type'] == 'warning' else '#64748b')}; font-weight: 800;">{'✓' if r['type'] == 'positive' else ('⚠' if r['type'] == 'warning' else '•')}</span>
-<span style="color: #334155;">{r['text']}</span>
-</div>"""
-            for r in combined_ai["reasons"]
+        weak_areas = student.get("weak_areas", [])
+        if weak_areas:
+            st.markdown("<div style='margin-top: 14px;'></div>", unsafe_allow_html=True)
+            st.markdown("#### ⚠️ Areas for Improvement")
+            for w in weak_areas:
+                st.markdown(
+                    f"""
+<div style="background: rgba(230, 57, 70, 0.08); border-left: 4px solid #e63946; border-radius: 8px; padding: 10px 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+    <span style="color: #e63946; font-size: 1.1rem; font-weight: 800;">⚠</span>
+    <span style="color: #1e293b; font-size: 0.92rem; font-weight: 500;">{w}</span>
+</div>
+""",
+                    unsafe_allow_html=True
+                )
+        else:
+            st.markdown(
+                """
+<div style="background: rgba(0, 180, 216, 0.08); border-left: 4px solid #00b4d8; border-radius: 8px; padding: 10px 14px; margin-top: 10px; display: flex; align-items: center; gap: 10px;">
+    <span style="font-size: 1.1rem;">🎯</span>
+    <span style="color: #1e293b; font-size: 0.92rem; font-weight: 500;">Zero critical risk flags identified across your academic metrics! Keep up the great work.</span>
+</div>
+""",
+                unsafe_allow_html=True
+            )
+
+    with col_ai:
+        st.markdown("#### 💡 Personalized AI Academic Insight")
+        observations = student.get("observations", [])
+        obs_html = "".join([
+            f"<li style='margin-bottom: 8px; color: #334155; line-height: 1.5;'>{obs}</li>"
+            for obs in observations
         ])
+
         st.markdown(
             f"""
-<div class="smart-glass-card" style="padding: 18px; border-left: 4px solid #0077b6; height: 93%;">
-<div style="font-weight: 700; color: #0f172a; margin-bottom: 8px; font-size: 1.05rem;">
-🤖 Automated AI Synthesis
-</div>
-<p style="color: #334155; font-size: 0.95rem; line-height: 1.5; margin-bottom: 12px;">
-{combined_ai['ai_insight']}
-</p>
-<div style="font-size: 0.88rem; font-weight: 600; color: #0077b6; margin-bottom: 6px;">
-Consensus Evaluation:
-</div>
-<p style="font-size: 0.88rem; color: #475569; margin-bottom: 12px;">
-{combined_ai['consensus_text']}
-</p>
-<div style="font-size: 0.88rem; font-weight: 600; color: #0f172a; margin-bottom: 8px;">
-Key Contributing Factors:
-</div>
-<div style="display: flex; flex-direction: column;">
-{reasons_items}
-</div>
+<div class="smart-glass-card" style="padding: 18px; border-left: 4px solid #0077b6;">
+    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+        <span style="font-size: 1.25rem;">🤖</span>
+        <h4 style="margin: 0; font-size: 1.05rem; font-weight: 700; color: #0f172a;">Academic Advisor Evaluation</h4>
+    </div>
+    <p style="color: #334155; font-size: 0.92rem; line-height: 1.55; margin-bottom: 12px;">
+        Student <strong>{student['full_name']}</strong> maintains an outstanding institutional standing with an overall academic performance of <strong>{student['performance']}%</strong> ({student['level']}). Daily self-study dedication of <strong>{student['study_hours']} hrs/day</strong> combined with <strong>{student['attendance']}%</strong> classroom immersion reflects exemplary consistency.
+    </p>
+    <div style="font-size: 0.88rem; font-weight: 700; color: #0077b6; margin-bottom: 6px;">Key Observations:</div>
+    <ul style="margin: 0; padding-left: 20px; font-size: 0.9rem;">
+        {obs_html if obs_html else "<li>Profile demonstrates exemplary academic rigor across all monitored indicators.</li><li>Student is well-positioned for top-bracket academic honors and competitive placements.</li>"}
+    </ul>
 </div>
 """,
             unsafe_allow_html=True
@@ -268,100 +277,37 @@ Key Contributing Factors:
     st.markdown("<div style='margin-top: 24px;'></div>", unsafe_allow_html=True)
 
     # =========================================================================
-    # MACHINE LEARNING PERFORMANCE PREDICTOR: MODEL EVALUATION & DIAGNOSTICS
-    # =========================================================================
-    st.markdown("---")
-    st.markdown("### 🌲 Machine Learning Performance Predictor")
-    st.markdown(
-        """
-<p style="color: #475569; font-size: 0.95rem; margin-top: -6px; margin-bottom: 16px;">
-SmartCampus AI uses a <strong>Decision Tree Machine Learning model</strong> to predict student performance based on academic and learning factors. The model is trained on a realistic local educational dataset and evaluated against an independent test partition.
-</p>
-""",
-        unsafe_allow_html=True
-    )
-
-    # Model Metrics Display
-    metrics = get_model_metrics()
-    acc_pct = metrics.get("accuracy", 0.0) * 100.0
-    prec_pct = metrics.get("precision", 0.0) * 100.0
-    rec_pct = metrics.get("recall", 0.0) * 100.0
-    f1_pct = metrics.get("f1_score", 0.0) * 100.0
-
-    met1, met2, met3, met4, met5 = st.columns(5)
-    with met1:
-        st.metric("Model Architecture", "Decision Tree", delta="max_depth=5")
-    with met2:
-        st.metric("Model Accuracy", f"{acc_pct:.1f}%", delta="Test Partition")
-    with met3:
-        st.metric("Precision (Weighted)", f"{prec_pct:.1f}%")
-    with met4:
-        st.metric("Recall (Weighted)", f"{rec_pct:.1f}%")
-    with met5:
-        st.metric("F1 Score", f"{f1_pct:.1f}%")
-
-    st.markdown("<div style='margin-top: 18px;'></div>", unsafe_allow_html=True)
-
-    # Confusion Matrix & How it Works
-    col_diag_left, col_diag_right = st.columns([1.0, 1.0])
-
-    with col_diag_left:
-        st.markdown("#### 🎯 Performance Prediction Confusion Matrix")
-        st.caption("Visualizes correct classifications along the diagonal vs misclassifications on the held-out test dataset.")
-        cm_data = metrics.get("confusion_matrix", [[0]])
-        cm_classes = metrics.get("classes", ["Average", "Excellent", "Good", "Needs Improvement"])
-        cm_fig = build_confusion_matrix_heatmap(cm_data, cm_classes)
-        st.plotly_chart(cm_fig, use_container_width=True)
-
-    with col_diag_right:
-        st.markdown("#### ❓ How does the prediction work?")
-        st.markdown(
-            """
-<div class="smart-glass-card" style="padding: 16px;">
-<ol style="margin: 0; padding-left: 20px; color: #334155; font-size: 0.9rem; line-height: 1.6;">
-<li><strong>Student enters academic information:</strong> Attendance, daily study hours, continuous assignment marks, internal test scores, and previous marks are gathered.</li>
-<li><strong>Feature extraction & normalization:</strong> The system formats input features into a structured vector matching the training schema.</li>
-<li><strong>Decision Tree traversal:</strong> The trained model evaluates conditional branch thresholds (e.g. <em>attendance &ge; 75%</em>, <em>internal_marks &ge; 35</em>) learned from historical student records.</li>
-<li><strong>Performance category prediction:</strong> The leaf node outputs the predicted academic tier (<em>Excellent</em>, <em>Good</em>, <em>Average</em>, or <em>Needs Improvement</em>) with confidence probability.</li>
-<li><strong>Hybrid Rule + ML synthesis:</strong> SmartCampus AI fuses ML pattern recognition with rule-based institutional policies to produce explainable guidance.</li>
-</ol>
-</div>
-""",
-            unsafe_allow_html=True
-        )
-
-    st.markdown("<div style='margin-top: 24px;'></div>", unsafe_allow_html=True)
-
-    # =========================================================================
-    # HISTORICAL TRAJECTORY & ACADEMIC WELLNESS (PHASE 2 VISUALIZATIONS)
+    # SECTION 5: HISTORICAL TRAJECTORY & ACADEMIC WELLNESS
     # =========================================================================
     st.markdown("### 📈 Continuous Evaluation Trajectory & Wellness")
     col_chart_left, col_chart_right = st.columns([1.2, 0.8])
 
     with col_chart_left:
-        fig_timeline = build_performance_timeline_chart(perf_data["timeline"])
+        fig_timeline = build_performance_timeline_chart(perf_data.get("timeline", []))
         st.plotly_chart(fig_timeline, use_container_width=True)
         st.caption("Weekly trajectory generated from continuous evaluation and assignment records.")
 
     with col_chart_right:
-        fig_wellness = build_wellness_radar(perf_data["wellness"])
+        fig_wellness = build_wellness_radar(perf_data.get("wellness", {}))
         st.plotly_chart(fig_wellness, use_container_width=True)
 
     st.markdown("<div style='margin-top: 24px;'></div>", unsafe_allow_html=True)
 
-    # Granular Subject Breakdown Table
+    # =========================================================================
+    # SECTION 6: GRANULAR SUBJECT BREAKDOWN
+    # =========================================================================
     st.markdown("### 📚 Granular Subject Breakdown")
     sub_details = perf_data.get("subject_details", {})
     records = []
     for sub, det in sub_details.items():
         records.append({
             "Subject": sub,
-            "Total Score": f"{det['score']}%",
-            "Assignments": f"{det['assignments']}%",
-            "Quizzes": f"{det['quizzes']}%",
-            "Midterm": f"{det['midterm']}%",
-            "Trend": "↑ Ascending" if det["trend"] == "up" else ("↓ Falling" if det["trend"] == "down" else "→ Stable"),
-            "Academic Status": det["status"]
+            "Total Score": f"{det.get('score', 0)}%",
+            "Assignments": f"{det.get('assignments', 0)}%",
+            "Quizzes": f"{det.get('quizzes', 0)}%",
+            "Midterm": f"{det.get('midterm', 0)}%",
+            "Trend": "↑ Ascending" if det.get("trend") == "up" else ("↓ Falling" if det.get("trend") == "down" else "→ Stable"),
+            "Academic Status": det.get("status", "Good")
         })
     df_details = pd.DataFrame(records)
     st.dataframe(df_details, use_container_width=True, hide_index=True)
@@ -371,5 +317,4 @@ if __name__ == "__main__":
     from utils.styles import CUSTOM_CSS
     st.set_page_config(page_title="Performance - SmartCampus AI", page_icon="📊", layout="wide")
     st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
-    render_top_brand()
     render_performance()

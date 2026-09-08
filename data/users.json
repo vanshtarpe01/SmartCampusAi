@@ -1,7 +1,422 @@
 {
-  "admin": {"password": "admin123", "role": "admin", "name": "Administrator"},
-  "SC-2026-001": {"password": "student123", "role": "student", "name": "Aarav Sharma"},
-  "SC-2026-002": {"password": "student123", "role": "student", "name": "Rohan Verma"},
-  "SC-2026-003": {"password": "student123", "role": "student", "name": "Kavita Rao"},
-  "SC-2026-004": {"password": "student123", "role": "student", "name": "Priya Patel"}
+  "admin": {
+    "password": "admin123",
+    "role": "admin",
+    "name": "Administrator"
+  },
+  "NCM": {
+    "password": "teacher123",
+    "role": "teacher",
+    "name": "Dr. N. C. Mhala"
+  },
+  "SSK": {
+    "password": "teacher123",
+    "role": "teacher",
+    "name": "Prof. S. S. Khatri"
+  },
+  "API": {
+    "password": "teacher123",
+    "role": "teacher",
+    "name": "Prof. A. P. Ingle"
+  },
+  "RAK": {
+    "password": "teacher123",
+    "role": "teacher",
+    "name": "Prof. R. A. Kalamkar"
+  },
+  "VBK": {
+    "password": "teacher123",
+    "role": "teacher",
+    "name": "Dr. V. B. Kute"
+  },
+  "ZIK": {
+    "password": "teacher123",
+    "role": "teacher",
+    "name": "Dr. Z. I. Khan"
+  },
+  "TCH-001": {
+    "password": "teacher123",
+    "role": "teacher",
+    "name": "Faculty Coordinator"
+  },
+  "MLU24F001": {
+    "password": "student123",
+    "role": "student",
+    "name": "Archita Rajesh Tiwari"
+  },
+  "MLU24F002": {
+    "password": "student123",
+    "role": "student",
+    "name": "Avani Yogesh Sawarkar"
+  },
+  "MLU24F003": {
+    "password": "student123",
+    "role": "student",
+    "name": "Babita Manoj Zunzunwala"
+  },
+  "MLU24F004": {
+    "password": "student123",
+    "role": "student",
+    "name": "Dhanashri Gajanan Tayade"
+  },
+  "MLU24F005": {
+    "password": "student123",
+    "role": "student",
+    "name": "Gauri Arun Bhivagade"
+  },
+  "MLU24F006": {
+    "password": "student123",
+    "role": "student",
+    "name": "Gayatri Santosh Pathare"
+  },
+  "MLU24F007": {
+    "password": "student123",
+    "role": "student",
+    "name": "Gayatri Chandrashekhar Thokal"
+  },
+  "MLU24F008": {
+    "password": "student123",
+    "role": "student",
+    "name": "Kasturi Dilip Tidke"
+  },
+  "MLU24F009": {
+    "password": "student123",
+    "role": "student",
+    "name": "Krutika Vijay Deshmukh"
+  },
+  "MLU24F010": {
+    "password": "student123",
+    "role": "student",
+    "name": "Manasvi Sudhir Wankhade"
+  },
+  "MLU24F011": {
+    "password": "student123",
+    "role": "student",
+    "name": "Namrata Rajesh Pise"
+  },
+  "MLU24F012": {
+    "password": "student123",
+    "role": "student",
+    "name": "Parul Sushil Sahu"
+  },
+  "MLU24F013": {
+    "password": "student123",
+    "role": "student",
+    "name": "Shruti Praful Ambadkar"
+  },
+  "MLU24F014": {
+    "password": "student123",
+    "role": "student",
+    "name": "Rani Pradip Chaudhari"
+  },
+  "MLU24F016": {
+    "password": "student123",
+    "role": "student",
+    "name": "Sakshi Santosh Gajare"
+  },
+  "MLU24F018": {
+    "password": "student123",
+    "role": "student",
+    "name": "Sayali Anil Banait"
+  },
+  "MLU24F019": {
+    "password": "student123",
+    "role": "student",
+    "name": "Shreya Gajananrao Kale"
+  },
+  "MLU24F020": {
+    "password": "student123",
+    "role": "student",
+    "name": "Shreya Pravin Kshirsagar"
+  },
+  "MLU24F021": {
+    "password": "student123",
+    "role": "student",
+    "name": "Sneha Gajanan Manwar"
+  },
+  "MLU24F022": {
+    "password": "student123",
+    "role": "student",
+    "name": "Srushti Sadanand Raut"
+  },
+  "MLU24F023": {
+    "password": "student123",
+    "role": "student",
+    "name": "Taniksha Rajendra Nagpure"
+  },
+  "MLU24F024": {
+    "password": "student123",
+    "role": "student",
+    "name": "Tanuja Sudamdev Chalge"
+  },
+  "MLU24F026": {
+    "password": "student123",
+    "role": "student",
+    "name": "Utkarsha Rajkumar Gedam"
+  },
+  "MLU24F027": {
+    "password": "student123",
+    "role": "student",
+    "name": "Utkarsha Prakash Mahulkar"
+  },
+  "MLU24F028": {
+    "password": "student123",
+    "role": "student",
+    "name": "Vaishnavi Sanjay Ganjiwale"
+  },
+  "MLU24F029": {
+    "password": "student123",
+    "role": "student",
+    "name": "Yashashri Santosh Kawalkar"
+  },
+  "MLU24F030": {
+    "password": "student123",
+    "role": "student",
+    "name": "Aaradhay Nandu Kalmegh"
+  },
+  "MLU24F032": {
+    "password": "student123",
+    "role": "student",
+    "name": "Aditya Bharat Jaybhaye"
+  },
+  "MLU24F033": {
+    "password": "student123",
+    "role": "student",
+    "name": "Aditya Pramod Kakade"
+  },
+  "MLU24F034": {
+    "password": "student123",
+    "role": "student",
+    "name": "Aditya Santosh Kandalkar"
+  },
+  "MLU24F035": {
+    "password": "student123",
+    "role": "student",
+    "name": "Ali Shaban Zafar Ali"
+  },
+  "MLU24F036": {
+    "password": "student123",
+    "role": "student",
+    "name": "Atharva Sureshkumar Rathor"
+  },
+  "MLU24F037": {
+    "password": "student123",
+    "role": "student",
+    "name": "Atharva Vinodrao Sisat"
+  },
+  "MLU24F038": {
+    "password": "student123",
+    "role": "student",
+    "name": "Ayush Navneetrao Nimbhorkar"
+  },
+  "MLU24F039": {
+    "password": "student123",
+    "role": "student",
+    "name": "Bhushan Umesh Darne"
+  },
+  "MLU24F040": {
+    "password": "student123",
+    "role": "student",
+    "name": "Devashish Ganesh Deshmukh"
+  },
+  "MLU24F041": {
+    "password": "student123",
+    "role": "student",
+    "name": "Gitesh Ajitkumar Mishra"
+  },
+  "MLU24F042": {
+    "password": "student123",
+    "role": "student",
+    "name": "Harshal Khushal Dahake"
+  },
+  "MLU24F043": {
+    "password": "student123",
+    "role": "student",
+    "name": "Jeet Sunil Arjune"
+  },
+  "MLU24F044": {
+    "password": "student123",
+    "role": "student",
+    "name": "Ketan Dharmesh Awachar"
+  },
+  "MLU24F045": {
+    "password": "student123",
+    "role": "student",
+    "name": "Ketan Sunil Raut"
+  },
+  "MLU24F046": {
+    "password": "student123",
+    "role": "student",
+    "name": "Krishna Ghanshyam Lekurwale"
+  },
+  "MLU24F047": {
+    "password": "student123",
+    "role": "student",
+    "name": "Lalit Rajesh Bhade"
+  },
+  "MLU24F048": {
+    "password": "student123",
+    "role": "student",
+    "name": "Maaz Hashir Mohammad Irshad"
+  },
+  "MLU24F049": {
+    "password": "student123",
+    "role": "student",
+    "name": "Mohd. Sufiyan M. Riyaz Gigani"
+  },
+  "MLU24F050": {
+    "password": "student123",
+    "role": "student",
+    "name": "Omkar Pradumna Bhakare"
+  },
+  "MLU24F051": {
+    "password": "student123",
+    "role": "student",
+    "name": "Piyush Rajendra Jamodkar"
+  },
+  "MLU24F052": {
+    "password": "student123",
+    "role": "student",
+    "name": "Piyush Umesh Uke"
+  },
+  "MLU24F053": {
+    "password": "student123",
+    "role": "student",
+    "name": "Pranav Prabhakar Borkar"
+  },
+  "MLU24F054": {
+    "password": "student123",
+    "role": "student",
+    "name": "Pranay Sharad Chandurkar"
+  },
+  "MLU24F055": {
+    "password": "student123",
+    "role": "student",
+    "name": "Prem Baliram Dhamodkar"
+  },
+  "MLU24F056": {
+    "password": "student123",
+    "role": "student",
+    "name": "Rushabh Anil Shambharkar"
+  },
+  "MLU24F057": {
+    "password": "student123",
+    "role": "student",
+    "name": "Sahil Sanjay Waghmare"
+  },
+  "MLU24F058": {
+    "password": "student123",
+    "role": "student",
+    "name": "Shamuil Mohd. Shahid Tikki"
+  },
+  "MLU24F059": {
+    "password": "student123",
+    "role": "student",
+    "name": "Shavez Khan Azim Khan"
+  },
+  "MLU24F060": {
+    "password": "student123",
+    "role": "student",
+    "name": "Shivraj Vishwas Adhau"
+  },
+  "MLU24F061": {
+    "password": "student123",
+    "role": "student",
+    "name": "Siddhesh Sunil Thakare"
+  },
+  "MLU24F062": {
+    "password": "student123",
+    "role": "student",
+    "name": "Sumit Gajanan Dubey"
+  },
+  "MLU24F063": {
+    "password": "student123",
+    "role": "student",
+    "name": "Tanuj Sharad Thote"
+  },
+  "MLU24F064": {
+    "password": "student123",
+    "role": "student",
+    "name": "Vaibhav Sakharam Garkar"
+  },
+  "MLU24F065": {
+    "password": "student123",
+    "role": "student",
+    "name": "Vaibhav Mahadeo Hiradeve"
+  },
+  "MLU24F066": {
+    "password": "student123",
+    "role": "student",
+    "name": "Vedant Jayprakash Deshmukh"
+  },
+  "MLU24F067": {
+    "password": "student123",
+    "role": "student",
+    "name": "Vedant Devanand Jambhalikar"
+  },
+  "MLU24F068": {
+    "password": "student123",
+    "role": "student",
+    "name": "Vishal Chunnilal Jambekar"
+  },
+  "MLU24F069": {
+    "password": "student123",
+    "role": "student",
+    "name": "Yash Gajanan Sakharkar"
+  },
+  "MLU25S207": {
+    "password": "student123",
+    "role": "student",
+    "name": "Apurva Anil Jawanjal"
+  },
+  "MLU25S208": {
+    "password": "student123",
+    "role": "student",
+    "name": "Manthan Sanjay Rajas"
+  },
+  "MLU25S210": {
+    "password": "student123",
+    "role": "student",
+    "name": "Himanshu Anil Jajoo"
+  },
+  "MLU25S211": {
+    "password": "student123",
+    "role": "student",
+    "name": "Vansh Vasant Tarpe"
+  },
+  "MLU25S212": {
+    "password": "student123",
+    "role": "student",
+    "name": "Manjusha Laxmikant Naik"
+  },
+  "MLU25S213": {
+    "password": "student123",
+    "role": "student",
+    "name": "Lavanya Laxmikant Gaikwad"
+  },
+  "MLU25S214": {
+    "password": "student123",
+    "role": "student",
+    "name": "Tarang Sunil Chavhan"
+  },
+  "MLU25S215": {
+    "password": "student123",
+    "role": "student",
+    "name": "Tejas Sunil Padole"
+  },
+  "MLU25S216": {
+    "password": "student123",
+    "role": "student",
+    "name": "Sumit Pradip Gajghate"
+  },
+  "MLU25S217": {
+    "password": "student123",
+    "role": "student",
+    "name": "Atharv Rajkumar Kevatkar"
+  },
+  "MLU25S218": {
+    "password": "student123",
+    "role": "student",
+    "name": "Sadhana Devidas Landgekar"
+  }
 }

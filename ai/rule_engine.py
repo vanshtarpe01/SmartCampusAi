@@ -8,24 +8,28 @@ from typing import Dict, List, Any
 
 
 def evaluate_student_rules(
-    attendance: float,
-    study_hours: float,
-    assignment_marks: float,
-    internal_marks: float,
-    previous_marks: float
+    attendance: Any = None,
+    study_hours: float = 2.5,
+    assignment_marks: float = 7.0,
+    internal_marks: float = 35.0,
+    previous_marks: float = 70.0
 ) -> Dict[str, List[str]]:
     """Evaluates rule-based expert logic on a student's academic metrics.
-
-Args:
-attendance: Float percentage (0 to 100)
-study_hours: Daily study hours (e.g. 1.0 to 6.0)
-assignment_marks: Assignment score on 0-10 scale
-internal_marks: Internal test score on 0-50 scale
-previous_marks: Previous semester score on 0-100 scale
-
-Returns:
-Dict containing lists of 'strengths', 'weaknesses', 'warnings', and 'observations'.
-"""
+    Accepts either a student dict as the first argument, or individual floats.
+    """
+    if isinstance(attendance, dict):
+        d = attendance
+        attendance = float(d.get("attendance", 75.0))
+        study_hours = float(d.get("study_hours", 2.5))
+        assignment_marks = float(d.get("assignment_marks", 7.0))
+        internal_marks = float(d.get("internal_marks", 35.0))
+        previous_marks = float(d.get("previous_marks", 70.0))
+    else:
+        attendance = float(attendance if attendance is not None else 75.0)
+        study_hours = float(study_hours)
+        assignment_marks = float(assignment_marks)
+        internal_marks = float(internal_marks)
+        previous_marks = float(previous_marks)
     strengths: List[str] = []
     weaknesses: List[str] = []
     warnings: List[str] = []

@@ -17,29 +17,8 @@ COLOR_CORAL = "#e63946"
 COLOR_BG_CARD = "rgba(255, 255, 255, 0.85)"
 
 def render_top_brand():
-    """Renders the top branding and header section."""
-    st.markdown(
-        """
-<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-<div style="display: flex; align-items: center; gap: 14px;">
-<div style="width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, #1a1a2e, #00b4d8); display: flex; align-items: center; justify-content: center; font-size: 22px; color: white; box-shadow: 0 4px 14px rgba(0, 180, 216, 0.35);">
-🤖
-</div>
-<div>
-<h1 class="smart-gradient-text" style="font-size: 2rem; margin: 0; line-height: 1.1;">SmartCampus AI</h1>
-<p style="margin: 0; color: #5a6275; font-size: 0.95rem; font-weight: 500;">
-Intelligent Student Learning & Decision Support System
-</p>
-</div>
-</div>
-<div style="display: flex; align-items: center; gap: 10px;">
-<span class="smart-chip chip-teal">⚡ Phase 1: Prototype</span>
-<span class="smart-chip chip-indigo">🎓 SC-2026</span>
-</div>
-</div>
-""",
-        unsafe_allow_html=True
-    )
+    """Deprecated: Header is now handled cleanly per page and via sidebar."""
+    pass
 
 def render_greeting(student_name: str = "Student"):
     """Renders personalized greeting banner."""
