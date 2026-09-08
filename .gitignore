@@ -1,12 +1,49 @@
-node_modules/
+# Streamlit Secrets (KEEP PRIVATE - NEVER COMMIT)
+.streamlit/secrets.toml
+.streamlit/secrets.toml.*
+!.streamlit/secrets.toml.example
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Packaging & Builds
 build/
 dist/
-coverage/
-.DS_Store
-*.log
-.env*
-!.env.example
-.streamlit/secrets.toml
-__pycache__/
-*.pyc
+*.egg-info/
+node_modules/
 
+# Logs & Temporary Files
+*.log
+logs/
+*.tmp
+*.bak
+
+# Testing & Coverage
+coverage/
+.coverage
+.pytest_cache/
+
+# Editor & OS Files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
