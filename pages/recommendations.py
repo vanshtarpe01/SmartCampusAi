@@ -4,7 +4,7 @@ impact/effort matrix tags, and filterable priority levels.
 """
 
 import streamlit as st
-from data import get_recommendations, get_student_data
+from data import get_recommendations, get_student_data, get_admin_recommendation
 from utils.ui import render_top_brand
 
 def render_recommendations():
@@ -33,6 +33,30 @@ Data-driven interventions prioritized for <strong>{student['full_name']}</strong
 """,
         unsafe_allow_html=True
     )
+
+    # -----------------------------------------------------------------
+    # ADMIN ACADEMIC RECOMMENDATION (STUDY HOURS GUIDANCE)
+    # -----------------------------------------------------------------
+    admin_rec = get_admin_recommendation(active_sid)
+    if admin_rec:
+        st.markdown(
+            f"""
+            <div style="background: rgba(42, 157, 143, 0.08); border: 1px solid #2a9d8f; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+                <h3 style="margin-top: 0; color: #2a9d8f; display: flex; align-items: center; gap: 8px;">
+                    <span>👨‍🏫</span> Faculty / Mentor Guidance
+                </h3>
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px;">
+                    <div><strong>Recommended Study Time:</strong> <span style="background: white; padding: 2px 8px; border-radius: 6px; border: 1px solid #ddd;">{admin_rec.get('recommended_hours', 'N/A')} hours/day</span></div>
+                    <div><strong>Identified Weak Area:</strong> <span style="background: white; padding: 2px 8px; border-radius: 6px; border: 1px solid #ddd;">{admin_rec.get('weak_area', 'N/A')}</span></div>
+                </div>
+                <p style="color: #334155; margin: 0 0 10px 0; font-style: italic;">"{admin_rec.get('guidance', '')}"</p>
+                <div style="font-size: 0.8rem; color: #64748b; border-top: 1px solid rgba(42, 157, 143, 0.2); padding-top: 8px;">
+                    <strong>Note:</strong> This is a recommendation to help you plan your studies. You control your own study schedule.
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     # Filter Control Row
     col_filter, col_stat = st.columns([1.2, 2.8])

@@ -1,0 +1,27 @@
+{
+  "Software Developer": {
+    "core_skills": ["Java", "Python", "C++", "Algorithms", "Data Structures"],
+    "recommended_skills": ["Git", "SQL", "Testing", "System Design"],
+    "example_projects": ["Library Management System", "Chat Application"]
+  },
+  "Backend Developer": {
+    "core_skills": ["Python", "Java", "Node.js", "SQL", "REST API"],
+    "recommended_skills": ["Docker", "NoSQL", "Redis", "Cloud Services", "Git & GitHub", "Testing"],
+    "example_projects": ["E-commerce API", "Authentication Service", "URL Shortener"]
+  },
+  "Frontend Developer": {
+    "core_skills": ["HTML", "CSS", "JavaScript", "React", "Vue", "Angular"],
+    "recommended_skills": ["TypeScript", "Tailwind", "Responsive Design", "State Management"],
+    "example_projects": ["Portfolio Website", "Weather App", "Task Board"]
+  },
+  "Android Developer": {
+    "core_skills": ["Java", "Kotlin", "Android SDK", "XML"],
+    "recommended_skills": ["Firebase", "REST APIs", "Room DB", "MVVM"],
+    "example_projects": ["Student Management App", "To-Do List", "Expense Tracker"]
+  },
+  "Data Analyst": {
+    "core_skills": ["Python", "SQL", "Excel", "Pandas", "Data Visualization"],
+    "recommended_skills": ["Tableau", "PowerBI", "Statistics", "Machine Learning"],
+    "example_projects": ["Sales Dashboard", "Customer Churn Analysis"]
+  }
+}

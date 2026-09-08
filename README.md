@@ -3,92 +3,91 @@
 ## Description
 SmartCampus AI is an intelligent student learning and decision-support application built using **Python and Streamlit**. It provides academic analytics, time-blocked study scheduling, personalized recommendations, and curriculum guidance for students in Artificial Intelligence and Computer Science courses.
 
-This frontend prototype features an **Academic meets Futuristic** UI design with glass-morphism cards, interactive Plotly visualizations, responsive layouts, and a dedicated AI Study Companion.
+This application is powered by **Supabase PostgreSQL** for persistent multi-user data storage and uses **Scikit-learn Decision Trees** alongside a **Rule-Based Expert System** to deliver smart academic insights.
 
 ---
 
 ## Features
-- 🏠 **Academic Dashboard**: High-level Academic Health Meter displaying overall index (78%), attendance (82%), study pace (3.2 hrs/day), and risk level (LOW).
-- 📊 **Interactive Analytics**: Knowledge Radar and Subject Performance graphs covering Mathematics, Artificial Intelligence, DBMS, and Networking, alongside weekly study hours tracking.
-- 🤖 **AI Study Companion**: Natural chat interface featuring structured explanations for algorithms (BFS, DFS, A*, Minimax, Alpha-Beta Pruning, Expert Systems) and quick prompt chips.
-- 📚 **Smart Study Planner**: Time-blocked revision timetable generator with spaced repetition, difficulty tailoring, and interactive task status checkboxes.
-- 🎯 **Personalized Recommendations**: Priority-filtered intervention cards categorized into High, Medium, and Low priorities with impact and effort metrics.
-- 📖 **AI Knowledge Explorer**: Curriculum encyclopedia detailing formal definitions, key concepts, applications, and computational complexity for 12 foundational AI topics.
-- ℹ️ **About & Roadmap**: Project specification and architectural comparison detailing the evolution from React to Python/Streamlit.
+- 👥 **Multi-Role Access**: Dedicated panels for Students, Teachers, and Admins.
+- 🏠 **Academic Dashboard**: High-level Academic Health Meter displaying overall index, attendance, and risk level.
+- 📊 **Interactive Analytics**: Knowledge Radar and Subject Performance graphs.
+- 🛠️ **Skills & Projects**: Students can manage their skills, public/private projects, and get motivated via "I'm Inspired".
+- 🤖 **AI Study Companion**: Natural chat interface featuring structured explanations for algorithms.
+- 📚 **Smart Study Planner**: Time-blocked revision timetable generator.
+- 🎯 **Personalized Recommendations**: Priority-filtered intervention cards and Career/Skill-Gap Analysis.
+- 📄 **PDF Reports**: Automated generation of comprehensive student analysis reports.
 
 ---
 
 ## Technology Stack
-- **Programming Language**: Python 3.10+
-- **Frontend Framework**: Streamlit (v1.28+)
+- **Backend & Frontend**: Python 3.10+, Streamlit
+- **Database**: Supabase PostgreSQL
 - **Data Manipulation**: Pandas, NumPy
-- **Interactive Visualizations**: Plotly (Radar charts, Bar charts, Area curves)
-- **Design System**: Glass-morphism, custom CSS gradients, and responsive card layouts
+- **Machine Learning**: Scikit-learn, Joblib
+- **Visualizations**: Plotly
+- **PDF Generation**: ReportLab
 
 ---
 
-## Project Structure
-```text
-SmartCampusAI/
-│
-├── app.py                     # Main application entry point & sidebar navigation
-├── data.py                    # Mock student data, knowledge topics, and AI responses
-├── requirements.txt           # Python dependencies
-├── README.md                  # Project documentation & run guide
-├── MIGRATION_REPORT.md        # Architecture migration log (React -> Streamlit)
-│
-├── .streamlit/
-│   └── config.toml           # Streamlit server and theme configuration
-│
-├── pages/
-│   ├── dashboard.py          # Dashboard view & Academic Health Meter
-│   ├── assistant.py          # AI Study Companion chat interface
-│   ├── performance.py        # Granular assessment analytics & wellness radar
-│   ├── planner.py            # AI Study Planner & timeline generator
-│   ├── recommendations.py    # Priority-filtered recommendation cards
-│   ├── knowledge.py          # AI Knowledge Explorer curriculum encyclopedia
-│   └── about.py              # Project overview, tech stack & future scope
-│
-└── utils/
-    ├── __init__.py           # Package marker
-    ├── styles.py             # Custom CSS styling (Glass-morphism & Gradients)
-    ├── ui.py                 # Reusable UI components & Plotly visualizers
-    └── helpers.py            # Session state and formatting utilities
+## Database Architecture
+The application uses Supabase PostgreSQL for persistent data. The database schema (see `database/schema.sql`) includes:
+- `users`: Core authentication table with roles (admin, teacher, student).
+- `students`: Profile and academic performance records.
+- `skills`: Student capabilities and proficiencies.
+- `projects`: Student portfolios with visibility toggles (Private/Public).
+- `project_inspirations`: Tracking for the peer-motivation feature.
+- `notifications`: Alerts for new public projects.
+- `recommendations`: Custom guidance generated per student.
+
+**Role Permissions**:
+- **Admin**: Full access. Can manage users, students, and view global analytics.
+- **Teacher**: Can manage assigned students and view their academic/project performance.
+- **Student**: Isolated access. Can manage own skills/projects, toggle project visibility, and view public project feeds.
+
+---
+
+## Setup & Installation
+
+### 1. Create Supabase Project
+1. Create a free project at [Supabase](https://supabase.com).
+2. Go to the SQL Editor and execute the contents of `database/schema.sql` to build the tables.
+
+### 2. Configure Streamlit Secrets
+Do NOT put real credentials in your code! The application uses Streamlit Secrets.
+Create a `.streamlit/secrets.toml` file in the project root:
+
+```toml
+[supabase]
+URL = "https://your-project-ref.supabase.co"
+KEY = "your-anon-key"
 ```
 
----
-
-## Installation
-Ensure you have Python 3.10 or higher installed, then install the dependencies:
-
+### 3. Install Requirements
 ```bash
 pip install -r requirements.txt
 ```
 
----
+### 4. Seed Demo Data & Migrate (Optional)
+If you have existing CSV/JSON demo data from the previous version, run the migration script to populate your new Supabase database:
+```bash
+python scripts/migrate_data.py
+```
 
-## Run Application
-Launch the application with a single command:
-
+### 5. Run Application
 ```bash
 streamlit run app.py
 ```
 
-Open your browser to `http://localhost:3000` or the port displayed in your terminal.
+---
+
+## Deployment to Streamlit Community Cloud
+This application is fully compatible with Streamlit Community Cloud without needing Docker or a separate backend server.
+1. Push this repository to GitHub.
+2. Link the repository to Streamlit Community Cloud.
+3. In the Streamlit Cloud dashboard, go to **App Settings > Secrets** and paste your `secrets.toml` configuration there.
+4. Deploy!
 
 ---
 
-## Current Development Phase
-**Phase 1: Frontend Prototype**
-- High-fidelity interactive UI constructed with native Streamlit components.
-- Structured mock data stored in `data.py` with bridge functions ready for ML model integration.
-- Zero dependencies on Node.js, React, npm, or external paid APIs.
-
----
-
-## Future Scope (Phase 2 Roadmap)
-1. **Decision Tree ML Classifier**: Train supervised Decision Tree models using Scikit-learn on student academic histories to predict letter grades and early-warning flags.
-2. **Rule-Based Expert System**: Implement forward/backward chaining inference engines to automate academic interventions based on attendance and test drops.
-3. **Recommendation Engine**: Dynamic prioritization algorithms that adapt study hour schedules according to student performance trends.
-4. **Knowledge Base Expansion**: Expand curriculum topics with practice quizzes and automated flashcards.
-5. **Study Planner Optimization**: Integrate algorithmic schedule optimization based on student circadian rhythm and topic complexity curves.
+## Future Scope (ERP Integration)
+Currently, academic data is managed manually through the Admin and Teacher panels. In a future implementation, the system is designed to integrate with a college ERP through secure APIs so that attendance, internal marks, and external marks can be fetched and populated automatically into Supabase, driving real-time AI analysis.

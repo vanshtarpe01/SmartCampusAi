@@ -97,7 +97,7 @@ Automated time-blocked revision schedules optimized for active recall and exam r
                 index=1
             )
 
-        btn_clicked = st.button("🚀 Generate AI Study Plan", type="primary", width="stretch")
+        btn_clicked = st.button("🚀 Generate AI Study Plan", type="primary", use_container_width=True)
 
     if btn_clicked:
         st.session_state.generated_plan = generate_study_plan(

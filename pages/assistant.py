@@ -63,7 +63,7 @@ Your intelligent personal tutor for Artificial Intelligence, search algorithms, 
     selected_quick_prompt = None
     for idx, (col, chip_text) in enumerate(zip(chip_cols, chips)):
         with col:
-            if st.button(chip_text, key=f"quick_chip_{idx}", width="stretch"):
+            if st.button(chip_text, key=f"quick_chip_{idx}", use_container_width=True):
                 selected_quick_prompt = chip_text
 
     st.markdown("<hr style='border: none; border-top: 1px solid rgba(0, 180, 216, 0.15); margin: 16px 0;'>", unsafe_allow_html=True)
@@ -71,7 +71,7 @@ Your intelligent personal tutor for Artificial Intelligence, search algorithms, 
     # Controls row: Clear chat & Export
     col_ctrl1, col_ctrl2, col_info = st.columns([1, 1, 3])
     with col_ctrl1:
-        if st.button("🗑️ Clear Conversation", width="stretch"):
+        if st.button("🗑️ Clear Conversation", use_container_width=True):
             st.session_state.chat_messages = [
                 {
                     "role": "assistant",
@@ -85,7 +85,7 @@ Your intelligent personal tutor for Artificial Intelligence, search algorithms, 
     with col_ctrl2:
         if "show_export_log" not in st.session_state:
             st.session_state.show_export_log = False
-        if st.button("📥 Export Chat Log", width="stretch"):
+        if st.button("📥 Export Chat Log", use_container_width=True):
             st.session_state.show_export_log = not st.session_state.show_export_log
 
     with col_info:

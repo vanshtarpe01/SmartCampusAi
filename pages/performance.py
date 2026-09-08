@@ -108,7 +108,7 @@ Dual-engine academic diagnostic combining <strong>Rule-Based Expert System</stro
 
     btn_col1, btn_col2 = st.columns([0.25, 0.75])
     with btn_col1:
-        run_analysis = st.button("🚀 Analyze Performance", type="primary", width="stretch")
+        run_analysis = st.button("🚀 Analyze Performance", type="primary", use_container_width=True)
 
     st.markdown("<div style='margin-top: 14px;'></div>", unsafe_allow_html=True)
 
@@ -228,7 +228,7 @@ SECTION 2: Machine Learning Prediction
         st.markdown("### 📊 SECTION 3: Important Factors")
         st.caption("Calculated dynamically from the Decision Tree model's Gini importance values.")
         feat_fig = build_feature_importance_chart(ml_prediction["feature_importance"])
-        st.plotly_chart(feat_fig, width="stretch")
+        st.plotly_chart(feat_fig, use_container_width=True)
 
     with sec_col4:
         st.markdown("### 💡 SECTION 4: AI Insight & Explainability")
@@ -311,7 +311,7 @@ SmartCampus AI uses a <strong>Decision Tree Machine Learning model</strong> to p
         cm_data = metrics.get("confusion_matrix", [[0]])
         cm_classes = metrics.get("classes", ["Average", "Excellent", "Good", "Needs Improvement"])
         cm_fig = build_confusion_matrix_heatmap(cm_data, cm_classes)
-        st.plotly_chart(cm_fig, width="stretch")
+        st.plotly_chart(cm_fig, use_container_width=True)
 
     with col_diag_right:
         st.markdown("#### ❓ How does the prediction work?")
@@ -340,12 +340,12 @@ SmartCampus AI uses a <strong>Decision Tree Machine Learning model</strong> to p
 
     with col_chart_left:
         fig_timeline = build_performance_timeline_chart(perf_data["timeline"])
-        st.plotly_chart(fig_timeline, width="stretch")
+        st.plotly_chart(fig_timeline, use_container_width=True)
         st.caption("Weekly trajectory generated from continuous evaluation and assignment records.")
 
     with col_chart_right:
         fig_wellness = build_wellness_radar(perf_data["wellness"])
-        st.plotly_chart(fig_wellness, width="stretch")
+        st.plotly_chart(fig_wellness, use_container_width=True)
 
     st.markdown("<div style='margin-top: 24px;'></div>", unsafe_allow_html=True)
 
@@ -364,7 +364,7 @@ SmartCampus AI uses a <strong>Decision Tree Machine Learning model</strong> to p
             "Academic Status": det["status"]
         })
     df_details = pd.DataFrame(records)
-    st.dataframe(df_details, width="stretch", hide_index=True)
+    st.dataframe(df_details, use_container_width=True, hide_index=True)
 
 
 if __name__ == "__main__":

@@ -136,17 +136,17 @@ def render_dashboard():
         chart_tab1, chart_tab2 = st.tabs(["📈 Bar Chart", "🧭 Knowledge Radar"])
         with chart_tab1:
             fig_bar = build_subject_bar_chart(subject_perf)
-            st.plotly_chart(fig_bar, width="stretch")
+            st.plotly_chart(fig_bar, use_container_width=True)
         with chart_tab2:
             fig_radar = build_subject_radar_chart(subject_perf)
-            st.plotly_chart(fig_radar, width="stretch")
+            st.plotly_chart(fig_radar, use_container_width=True)
 
         # Subject breakdown table
         sub_df = pd.DataFrame([
             {"Subject": k, "Score": f"{v}%", "Target": "75%", "Status": "On Track" if v >= 74 else "Action Needed"}
             for k, v in subject_perf.items()
         ])
-        st.dataframe(sub_df, width="stretch", hide_index=True)
+        st.dataframe(sub_df, use_container_width=True, hide_index=True)
 
     with col_chart2:
         st.markdown(
@@ -161,14 +161,14 @@ def render_dashboard():
             unsafe_allow_html=True
         )
         fig_week = build_weekly_activity_chart(weekly_activity)
-        st.plotly_chart(fig_week, width="stretch")
+        st.plotly_chart(fig_week, use_container_width=True)
 
         # Weekly Activity summary table
         week_df = pd.DataFrame([
             {"Day": d, "Hours": f"{h:.1f} hrs", "Goal Status": "✓ Met" if h >= 2.5 else "⚠ Review"}
             for d, h in weekly_activity.items()
         ])
-        st.dataframe(week_df, width="stretch", hide_index=True)
+        st.dataframe(week_df, use_container_width=True, hide_index=True)
 
     st.markdown("<div style='margin-top: 24px;'></div>", unsafe_allow_html=True)
 
@@ -227,21 +227,21 @@ Jump directly into high-impact academic actions curated by your AI companion.
 
         b1, b2 = st.columns(2)
         with b1:
-            if st.button("📝 Start Study Session", width="stretch"):
+            if st.button("📝 Start Study Session", use_container_width=True):
                 st.session_state.current_page = "Study Planner"
                 st.rerun()
         with b2:
-            if st.button("🤖 Ask AI Assistant", width="stretch"):
+            if st.button("🤖 Ask AI Assistant", use_container_width=True):
                 st.session_state.current_page = "AI Assistant"
                 st.rerun()
 
         b3, b4 = st.columns(2)
         with b3:
-            if st.button("📊 View Performance", width="stretch"):
+            if st.button("📊 View Performance", use_container_width=True):
                 st.session_state.current_page = "Performance"
                 st.rerun()
         with b4:
-            if st.button("🎯 Priority Focus", width="stretch"):
+            if st.button("🎯 Priority Focus", use_container_width=True):
                 st.session_state.current_page = "Recommendations"
                 st.rerun()
 

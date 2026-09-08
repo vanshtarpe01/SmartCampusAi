@@ -165,11 +165,11 @@ Illustrative Academic Example
         st.markdown("<div style='margin-top: 18px;'></div>", unsafe_allow_html=True)
         qa1, qa2 = st.columns(2)
         with qa1:
-            if st.button(f"💬 Ask AI Study Companion about {topic_info['title']}", width="stretch"):
+            if st.button(f"💬 Ask AI Study Companion about {topic_info['title']}", use_container_width=True):
                 st.session_state.current_page = "AI Assistant"
                 st.rerun()
         with qa2:
-            if st.button(f"📅 Add {topic_info['title']} to Study Planner", width="stretch"):
+            if st.button(f"📅 Add {topic_info['title']} to Study Planner", use_container_width=True):
                 st.session_state.current_page = "Study Planner"
                 st.rerun()
 
