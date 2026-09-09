@@ -33,7 +33,6 @@ from pages.assistant import render_assistant
 from pages.performance import render_performance
 from pages.planner import render_planner
 from pages.recommendations import render_recommendations
-from pages.knowledge import render_knowledge
 from pages.about import render_about
 from pages.skills import render_skills
 from pages.projects import render_projects
@@ -97,7 +96,6 @@ else:
         "📊 Performance": render_performance,
         "📚 Study Planner": render_planner,
         "🎯 Recommendations": render_recommendations,
-        "📖 AI Knowledge": render_knowledge,
         "🛠️ Skills": render_skills,
         "📁 My Projects": render_projects,
         "🌍 Student Projects": render_student_projects,
