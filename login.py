@@ -8,7 +8,8 @@ Features:
 """
 
 import streamlit as st
-from auth import authenticate_user, create_session_token
+from auth import authenticate_user
+from utils.helpers import create_session_token
 
 def set_credentials(uid: str, pwd: str):
     """Callback to reliably update session state input widgets."""

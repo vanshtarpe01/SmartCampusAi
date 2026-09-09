@@ -26,7 +26,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Import Pages & Utilities
-from utils.helpers import init_session_state
+from utils.helpers import init_session_state, create_session_token, verify_session_token, get_user_profile
 from utils.ui import render_top_brand
 from pages.dashboard import render_dashboard
 from pages.assistant import render_assistant
@@ -54,12 +54,11 @@ if not st.session_state.get("logged_in", False):
     session_token = st.query_params.get("session") or cookie_token
 
     if session_token:
-        from auth import verify_session_token, get_user
         session_data = verify_session_token(session_token)
         if session_data:
             uid = session_data.get("uid")
             role = session_data.get("role")
-            user_info = get_user(uid)
+            user_info = get_user_profile(uid)
             if user_info and user_info.get("role") == role:
                 st.session_state["logged_in"] = True
                 st.session_state["role"] = role
@@ -84,7 +83,6 @@ current_uid = st.session_state.get("user_id", "")
 current_role = st.session_state.get("role", "")
 if current_uid and current_role:
     import streamlit.components.v1 as components
-    from auth import create_session_token
     curr_token = create_session_token(current_uid, current_role)
     components.html(
         f"""
