@@ -44,8 +44,32 @@ from data import get_student_data, get_all_student_summaries
 init_session_state()
 
 # ------------------------------------------------------------
-# AUTHENTICATION CHECK
+# SESSION RESTORATION & AUTHENTICATION CHECK
 # ------------------------------------------------------------
+# Check for persistent session token in query params to survive browser reloads
+if not st.session_state.get("logged_in", False):
+    session_token = st.query_params.get("session")
+    if session_token:
+        from auth import verify_session_token, get_user
+        session_data = verify_session_token(session_token)
+        if session_data:
+            uid = session_data.get("uid")
+            role = session_data.get("role")
+            user_info = get_user(uid)
+            if user_info and user_info.get("role") == role:
+                st.session_state["logged_in"] = True
+                st.session_state["role"] = role
+                st.session_state["user_id"] = uid
+                st.session_state["user_name"] = user_info.get("name", uid)
+                if role == "student":
+                    st.session_state["student_id"] = uid
+                    st.session_state["selected_student_id"] = uid
+
+                # Restore previous page if saved in query params
+                saved_page = st.query_params.get("page")
+                if saved_page:
+                    st.session_state["current_page"] = saved_page
+
 if not st.session_state.get("logged_in", False):
     from login import render_login_page
     render_login_page()
@@ -131,6 +155,7 @@ with st.sidebar:
         btn_type = "primary" if is_active else "secondary"
         if st.button(page_key, key=f"nav_btn_{page_key}", use_container_width=True, type=btn_type):
             st.session_state.current_page = page_key
+            st.query_params["page"] = page_key
             st.rerun()
 
     # Sidebar Student Profile Selector & Active Record
@@ -179,6 +204,8 @@ with st.sidebar:
         st.session_state["selected_student_id"] = None
         st.session_state["role"] = None
         st.session_state["user_id"] = None
+        st.session_state["user_name"] = None
+        st.query_params.clear()
         st.rerun()
 
     st.markdown(

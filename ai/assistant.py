@@ -29,10 +29,42 @@ Dict with 'title', 'category', 'difficulty', 'response', and optional metadata.
         }
 
     # ------------------------------------------------------------
+    # 0. STUDENT IDENTITY & NAME INTENT
+    # ------------------------------------------------------------
+    if any(p in clean_q for p in ["who am i", "my name", "what is my name", "show my name", "my profile", "my details", "my id", "tell me my name"]):
+        if student_context:
+            name = student_context.get("full_name") or student_context.get("name") or "Student"
+            sid = student_context.get("student_id", "N/A")
+            first_name = name.split()[0] if name else "Student"
+            return {
+                "title": f"Student Profile – {name}",
+                "category": "Student Advisory",
+                "difficulty": "Personalized",
+                "response": (
+                    f"Hello! You are logged in as **{name}** (Student ID: `{sid}`).\n\n"
+                    f"• **Current Academic Standing:** **{student_context.get('level', 'Good')}**\n"
+                    f"• **Overall Performance:** **{student_context.get('performance', 75)}%**\n"
+                    f"• **Attendance Record:** **{student_context.get('attendance', 80)}%**\n"
+                    f"• **Daily Study Hours:** **{student_context.get('study_hours', 3.0)} hrs/day**\n"
+                    f"• **Academic Risk Tier:** **{student_context.get('risk', 'LOW')}**\n\n"
+                    f"How can I assist you with your studies today, {first_name}?"
+                )
+            }
+        else:
+            return {
+                "title": "Student Identification",
+                "category": "Student Advisory",
+                "difficulty": "General",
+                "response": "You are currently logged into SmartCampus AI. Please check your active profile in the sidebar for complete academic details."
+            }
+
+    # ------------------------------------------------------------
     # 1. PERSONAL PERFORMANCE & ADVISORY INTENT
     # ------------------------------------------------------------
     if any(p in clean_q for p in ["how am i doing", "my performance", "my grades", "my score", "am i at risk", "my standing"]):
         if student_context:
+            name = student_context.get("full_name") or student_context.get("name") or "Student"
+            sid = student_context.get("student_id", "")
             score = student_context.get("performance", 75)
             level = student_context.get("level", "Good")
             risk = student_context.get("risk", "LOW")
@@ -40,7 +72,7 @@ Dict with 'title', 'category', 'difficulty', 'response', and optional metadata.
             weaknesses = student_context.get("weaknesses", [])
             
             resp_lines = [
-                f"### Your Academic Status Overview",
+                f"### Academic Status Overview for {name} (`{sid}`)",
                 f"• **Overall Score:** {score}% ({level} Standing)",
                 f"• **Academic Risk Tier:** **{risk}**",
                 f"• **Attendance:** {student_context.get('attendance', 80)}%",
@@ -53,7 +85,7 @@ Dict with 'title', 'category', 'difficulty', 'response', and optional metadata.
             resp_lines.append("\nCheck the **Recommendations** and **Study Planner** tabs for customized daily study schedules.")
             
             return {
-                "title": "Academic Health Diagnostic",
+                "title": f"Academic Health Diagnostic – {name}",
                 "category": "Student Advisory",
                 "difficulty": "Personalized",
                 "response": "\n".join(resp_lines)

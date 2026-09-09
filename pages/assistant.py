@@ -5,13 +5,18 @@ data structures, and curriculum subjects. Designed for Phase 2 ML backend integr
 
 import streamlit as st
 import datetime
-from data import get_ai_response
+from data import get_ai_response, get_student_data
 from utils.ui import render_top_brand
 
 def render_assistant():
     """Renders the AI Study Companion chat interface."""
+    active_sid = st.session_state.get("selected_student_id") or st.session_state.get("student_id") or "MLU25S211"
+    student = get_student_data(active_sid)
+    student_name = student.get("full_name") or student.get("name") or st.session_state.get("user_name", "Student")
+    first_name = student_name.split()[0] if student_name else "Student"
+
     st.markdown(
-        """
+        f"""
 <div style="margin-bottom: 20px;">
 <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
 <div>
@@ -22,9 +27,9 @@ def render_assistant():
 Your intelligent personal tutor for Artificial Intelligence, search algorithms, and academic diagnostics.
 </p>
 </div>
-<div style="display: flex; gap: 8px;">
-<span class="smart-chip chip-teal">⚡ Local AI Assistant</span>
-<span class="smart-chip chip-indigo">Deterministic Rule & KB Engine</span>
+<div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+<span class="smart-chip chip-teal">👤 Student: <strong>{student_name}</strong> ({active_sid})</span>
+<span class="smart-chip chip-indigo">⚡ AI Study Companion</span>
 </div>
 </div>
 </div>
@@ -32,20 +37,36 @@ Your intelligent personal tutor for Artificial Intelligence, search algorithms, 
         unsafe_allow_html=True
     )
 
-    # Initialize messages in session state if not present
-    if "chat_messages" not in st.session_state:
+    # Initialize messages in session state if not present or if active student changed
+    if "chat_messages" not in st.session_state or not st.session_state.chat_messages:
         st.session_state.chat_messages = [
             {
                 "role": "assistant",
                 "content": (
-                    "Hello! I am your SmartCampus AI Study Companion.\n\n"
+                    f"Hello **{student_name}**! I am your SmartCampus AI Study Companion.\n\n"
                     "Ask me any question about Artificial Intelligence, search algorithms, "
-                    r"or exam subjects (e.g. *What is BFS?*, *Explain A*\*). How can I assist you today?"
+                    r"or exam subjects (e.g. *What is BFS?*, *Explain A*\*). You can also ask *How is my performance?* or *What is my name?*!"
                 ),
                 "timestamp": datetime.datetime.now().strftime("%I:%M %p"),
                 "category": "Welcome"
             }
         ]
+        st.session_state["chat_current_student"] = active_sid
+    elif st.session_state.get("chat_current_student") != active_sid:
+        st.session_state["chat_current_student"] = active_sid
+        if len(st.session_state.chat_messages) <= 1:
+            st.session_state.chat_messages = [
+                {
+                    "role": "assistant",
+                    "content": (
+                        f"Hello **{student_name}**! I am your SmartCampus AI Study Companion.\n\n"
+                        "Ask me any question about Artificial Intelligence, search algorithms, "
+                        r"or exam subjects (e.g. *What is BFS?*, *Explain A*\*). You can also ask *How is my performance?* or *What is my name?*!"
+                    ),
+                    "timestamp": datetime.datetime.now().strftime("%I:%M %p"),
+                    "category": "Welcome"
+                }
+            ]
 
     # Quick Suggestion Chips
     st.markdown("<div style='font-size: 0.85rem; font-weight: 700; color: #475569; margin-bottom: 8px;'>💡 Quick Topics to Explore:</div>", unsafe_allow_html=True)
@@ -55,8 +76,8 @@ Your intelligent personal tutor for Artificial Intelligence, search algorithms, 
         "What is BFS?",
         "Explain DFS",
         "How does A* work?",
-        "Minimax algorithm",
         "How is my performance?",
+        "What is my name?",
         "What is my risk level?"
     ]
     
@@ -75,7 +96,7 @@ Your intelligent personal tutor for Artificial Intelligence, search algorithms, 
             st.session_state.chat_messages = [
                 {
                     "role": "assistant",
-                    "content": "Conversation cleared. Feel free to ask another question!",
+                    "content": f"Conversation cleared. How can I assist you with your studies, **{first_name}**?",
                     "timestamp": datetime.datetime.now().strftime("%I:%M %p"),
                     "category": "System"
                 }
@@ -93,7 +114,7 @@ Your intelligent personal tutor for Artificial Intelligence, search algorithms, 
 
     if st.session_state.get("show_export_log", False):
         export_text = "\n\n".join([
-            f"[{msg.get('timestamp', '')}] {msg['role'].upper()}: {msg['content']}"
+            f"[{msg.get('timestamp', '')}] {msg.get('sender_name', msg['role']).upper()}: {msg['content']}"
             for msg in st.session_state.chat_messages
         ])
         with st.expander("📄 Exported Chat Transcript", expanded=True):
@@ -112,11 +133,13 @@ Your intelligent personal tutor for Artificial Intelligence, search algorithms, 
     with chat_container:
         for msg in st.session_state.chat_messages:
             if msg["role"] == "user":
-                with st.chat_message("user", avatar="👤"):
+                sender_label = msg.get("sender_name") or student_name
+                with st.chat_message(sender_label, avatar="👤"):
+                    st.markdown(f"<div style='font-size: 0.82rem; font-weight: 700; color: #0077b6; margin-bottom: 2px;'>{sender_label}</div>", unsafe_allow_html=True)
                     st.write(msg["content"])
                     st.caption(f"Sent at {msg.get('timestamp', '')}")
             else:
-                with st.chat_message("assistant", avatar="🤖"):
+                with st.chat_message("SmartCampus AI", avatar="🤖"):
                     st.markdown(msg["content"])
                     meta = []
                     if "category" in msg:
@@ -133,11 +156,11 @@ Your intelligent personal tutor for Artificial Intelligence, search algorithms, 
     query_to_process = selected_quick_prompt or user_query
 
     if query_to_process:
-        active_sid = st.session_state.get("selected_student_id", "MLU25S211")
         now_str = datetime.datetime.now().strftime("%I:%M %p")
-        # Append User Message
+        # Append User Message with sender_name
         st.session_state.chat_messages.append({
             "role": "user",
+            "sender_name": student_name,
             "content": query_to_process,
             "timestamp": now_str
         })

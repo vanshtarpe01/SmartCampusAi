@@ -469,8 +469,11 @@ def get_recommendations(priority_filter: str = "All", student_id: str = "MLU25S2
         return recs
     return [r for r in recs if r.get("priority", "") + " Priority" == priority_filter or r.get("priority") == priority_filter]
 
-def get_ai_response(query: str) -> str:
-    return ai_get_response(query)
+def get_ai_response(query: str, student_id: Optional[str] = None) -> Dict[str, Any]:
+    context = None
+    if student_id:
+        context = get_student_data(student_id)
+    return ai_get_response(query, student_context=context)
 
 def generate_study_plan(exam_date_or_sid=None, available_hours=3.5, subject="Artificial Intelligence", weak_topic="BFS & DFS Graph Traversals", difficulty="Intermediate", **kwargs) -> Dict[str, Any]:
     import datetime

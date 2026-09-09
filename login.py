@@ -8,7 +8,7 @@ Features:
 """
 
 import streamlit as st
-from auth import authenticate_user
+from auth import authenticate_user, create_session_token
 
 def set_credentials(uid: str, pwd: str):
     """Callback to reliably update session state input widgets."""
@@ -19,19 +19,30 @@ def perform_direct_login(uid: str, pwd: str):
     """Directly authenticates and transitions to user's role page."""
     auth_result = authenticate_user(uid, pwd)
     if auth_result:
+        role = auth_result["role"]
         st.session_state["logged_in"] = True
-        st.session_state["role"] = auth_result["role"]
+        st.session_state["role"] = role
         st.session_state["user_id"] = uid
         st.session_state["user_name"] = auth_result.get("name", uid)
 
-        if auth_result["role"] == "student":
+        # Generate persistent session token to prevent logout on browser reload
+        token = create_session_token(uid, role)
+        if token:
+            st.query_params["session"] = token
+
+        if role == "student":
             st.session_state["student_id"] = uid
             st.session_state["selected_student_id"] = uid
-            st.session_state["current_page"] = "Dashboard"
-        elif auth_result["role"] == "admin":
-            st.session_state["current_page"] = "Admin Dashboard"
-        elif auth_result["role"] == "teacher":
-            st.session_state["current_page"] = "Teacher Dashboard"
+            target_page = "Dashboard"
+        elif role == "admin":
+            target_page = "Admin Dashboard"
+        elif role == "teacher":
+            target_page = "Teacher Dashboard"
+        else:
+            target_page = "Dashboard"
+
+        st.session_state["current_page"] = target_page
+        st.query_params["page"] = target_page
 
         st.rerun()
     else:

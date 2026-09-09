@@ -3,7 +3,60 @@ Uses Supabase PostgreSQL for persistent user storage."""
 
 import json
 import os
+import hmac
+import hashlib
+import base64
+from typing import Optional, Dict, Any
 from database.connection import get_supabase_client
+
+# Secret key used for signing session tokens
+SESSION_SECRET = "smartcampus-ai-session-key-2026"
+
+def create_session_token(user_id: str, role: str) -> str:
+    """Generates a secure HMAC-signed session token for browser persistence."""
+    try:
+        payload = json.dumps({"uid": str(user_id), "role": str(role)})
+        payload_b64 = base64.urlsafe_b64encode(payload.encode("utf-8")).decode("utf-8")
+        sig = hmac.new(SESSION_SECRET.encode("utf-8"), payload_b64.encode("utf-8"), hashlib.sha256).hexdigest()[:16]
+        return f"{payload_b64}.{sig}"
+    except Exception as e:
+        print(f"Error creating session token: {e}")
+        return ""
+
+def verify_session_token(token: str) -> Optional[Dict[str, str]]:
+    """Verifies HMAC signature on session token and returns dict if valid."""
+    if not token or "." not in token:
+        return None
+    try:
+        payload_b64, sig = token.split(".", 1)
+        expected_sig = hmac.new(SESSION_SECRET.encode("utf-8"), payload_b64.encode("utf-8"), hashlib.sha256).hexdigest()[:16]
+        if hmac.compare_digest(sig, expected_sig):
+            raw_bytes = base64.urlsafe_b64decode(payload_b64.encode("utf-8"))
+            data = json.loads(raw_bytes.decode("utf-8"))
+            if isinstance(data, dict) and "uid" in data and "role" in data:
+                return data
+    except Exception as e:
+        print(f"Error verifying session token: {e}")
+    return None
+
+def get_user(user_id: str) -> Optional[Dict[str, Any]]:
+    """Retrieves user details by user ID from Supabase or fallback users.json."""
+    db = get_db()
+    if db:
+        try:
+            res = db.table("users").select("*").eq("username", user_id).execute()
+            if res.data and len(res.data) > 0:
+                u = res.data[0]
+                if u.get("is_active", True):
+                    return {"role": u["role"], "user_id": user_id, "name": u.get("name", user_id)}
+        except Exception as e:
+            print(f"DB get_user error: {e}")
+    users = load_users_fallback()
+    u = users.get(user_id)
+    if u:
+        return {"role": u["role"], "user_id": user_id, "name": u.get("name", user_id)}
+    return None
+
 
 # Local fallback for tests if Supabase is unavailable
 USERS_JSON_PATH = os.path.join(os.path.dirname(__file__), "data", "users.json")

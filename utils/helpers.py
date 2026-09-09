@@ -12,18 +12,7 @@ def init_session_state():
         st.session_state.current_page = "Dashboard"
 
     if "chat_messages" not in st.session_state:
-        st.session_state.chat_messages = [
-            {
-                "role": "assistant",
-                "content": (
-                    "Hello Aarav! I am your SmartCampus AI Study Companion.\n\n"
-                    "You can ask me questions on topics like **BFS, DFS, A* Search, Minimax, "
-                    "Alpha-Beta Pruning, Expert Systems**, or ask for revision tips on Networking and DBMS!"
-                ),
-                "timestamp": "09:00 AM",
-                "category": "Welcome"
-            }
-        ]
+        st.session_state.chat_messages = []
 
     if "generated_plan" not in st.session_state:
         st.session_state.generated_plan = None
