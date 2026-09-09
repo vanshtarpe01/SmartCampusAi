@@ -46,9 +46,13 @@ init_session_state()
 # ------------------------------------------------------------
 # SESSION RESTORATION & AUTHENTICATION CHECK
 # ------------------------------------------------------------
-# Check for persistent session token in query params to survive browser reloads
+# Check for persistent session token in cookies or query params to survive browser reloads
 if not st.session_state.get("logged_in", False):
-    session_token = st.query_params.get("session")
+    cookie_token = None
+    if hasattr(st, "context") and hasattr(st.context, "cookies"):
+        cookie_token = st.context.cookies.get("smartcampus_session")
+    session_token = st.query_params.get("session") or cookie_token
+
     if session_token:
         from auth import verify_session_token, get_user
         session_data = verify_session_token(session_token)
@@ -74,6 +78,29 @@ if not st.session_state.get("logged_in", False):
     from login import render_login_page
     render_login_page()
     st.stop()
+
+# Synchronize active session token to browser client storage
+current_uid = st.session_state.get("user_id", "")
+current_role = st.session_state.get("role", "")
+if current_uid and current_role:
+    import streamlit.components.v1 as components
+    from auth import create_session_token
+    curr_token = create_session_token(current_uid, current_role)
+    components.html(
+        f"""
+        <script>
+        try {{
+            let win = (window.parent && window.parent !== window) ? window.parent : window;
+            try {{ win.localStorage.setItem("smartcampus_session", "{curr_token}"); }} catch(e) {{}}
+            try {{ localStorage.setItem("smartcampus_session", "{curr_token}"); }} catch(e) {{}}
+            document.cookie = "smartcampus_session={curr_token}; path=/; max-age=2592000; SameSite=Lax";
+            try {{ win.document.cookie = "smartcampus_session={curr_token}; path=/; max-age=2592000; SameSite=Lax"; }} catch(e) {{}}
+        }} catch(e) {{}}
+        </script>
+        """,
+        height=0,
+        width=0
+    )
 
 role = st.session_state.get("role", "student")
 
@@ -206,6 +233,7 @@ with st.sidebar:
         st.session_state["user_id"] = None
         st.session_state["user_name"] = None
         st.query_params.clear()
+        st.query_params["logout"] = "1"
         st.rerun()
 
     st.markdown(
