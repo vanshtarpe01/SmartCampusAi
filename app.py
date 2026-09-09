@@ -82,23 +82,24 @@ if not st.session_state.get("logged_in", False):
 current_uid = st.session_state.get("user_id", "")
 current_role = st.session_state.get("role", "")
 if current_uid and current_role:
-    import streamlit.components.v1 as components
     curr_token = create_session_token(current_uid, current_role)
-    components.html(
-        f"""
-        <script>
-        try {{
-            let win = (window.parent && window.parent !== window) ? window.parent : window;
-            try {{ win.localStorage.setItem("smartcampus_session", "{curr_token}"); }} catch(e) {{}}
-            try {{ localStorage.setItem("smartcampus_session", "{curr_token}"); }} catch(e) {{}}
-            document.cookie = "smartcampus_session={curr_token}; path=/; max-age=2592000; SameSite=Lax";
-            try {{ win.document.cookie = "smartcampus_session={curr_token}; path=/; max-age=2592000; SameSite=Lax"; }} catch(e) {{}}
-        }} catch(e) {{}}
-        </script>
-        """,
-        height=0,
-        width=0
-    )
+    if curr_token:
+        if st.query_params.get("session") != curr_token:
+            st.query_params["session"] = curr_token
+        st.html(
+            f"""
+            <script>
+            (function() {{
+                try {{
+                    localStorage.setItem("smartcampus_session", "{curr_token}");
+                    sessionStorage.setItem("smartcampus_session", "{curr_token}");
+                    document.cookie = "smartcampus_session={curr_token}; path=/; max-age=2592000; SameSite=Lax";
+                }} catch(e) {{}}
+            }})();
+            </script>
+            """,
+            unsafe_allow_javascript=True
+        )
 
 role = st.session_state.get("role", "student")
 
@@ -181,6 +182,10 @@ with st.sidebar:
         if st.button(page_key, key=f"nav_btn_{page_key}", use_container_width=True, type=btn_type):
             st.session_state.current_page = page_key
             st.query_params["page"] = page_key
+            if current_uid and current_role:
+                curr_token = create_session_token(current_uid, current_role)
+                if curr_token:
+                    st.query_params["session"] = curr_token
             st.rerun()
 
     # Sidebar Student Profile Selector & Active Record

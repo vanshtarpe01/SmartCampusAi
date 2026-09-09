@@ -52,32 +52,26 @@ def perform_direct_login(uid: str, pwd: str):
 import streamlit.components.v1 as components
 
 def render_login_page():
-    # Handle auto-restoration or logout cleanup in browser storage via components.html
+    # Handle auto-restoration or logout cleanup in browser storage via st.html
     is_logout = st.query_params.get("logout") == "1"
-    components.html(
+    st.html(
         f"""
         <script>
         (function() {{
             try {{
-                let win = (window.parent && window.parent !== window) ? window.parent : window;
                 if ({"true" if is_logout else "false"}) {{
-                    try {{ win.localStorage.removeItem("smartcampus_session"); }} catch(e) {{}}
                     try {{ localStorage.removeItem("smartcampus_session"); }} catch(e) {{}}
+                    try {{ sessionStorage.removeItem("smartcampus_session"); }} catch(e) {{}}
                     document.cookie = "smartcampus_session=; path=/; max-age=0; SameSite=Lax";
-                    try {{ win.document.cookie = "smartcampus_session=; path=/; max-age=0; SameSite=Lax"; }} catch(e) {{}}
                     return;
                 }}
                 let token = null;
-                try {{ token = win.localStorage.getItem("smartcampus_session"); }} catch(e) {{}}
-                if (!token) {{
-                    try {{ token = localStorage.getItem("smartcampus_session"); }} catch(e) {{}}
-                }}
+                try {{ token = localStorage.getItem("smartcampus_session") || sessionStorage.getItem("smartcampus_session"); }} catch(e) {{}}
                 if (token && token.length > 10) {{
-                    let targetLoc = win.location;
-                    if (!targetLoc.search.includes("session=" + encodeURIComponent(token))) {{
-                        let u = new URL(targetLoc.href);
-                        u.searchParams.set("session", token);
-                        targetLoc.replace(u.href);
+                    let curUrl = new URL(window.location.href);
+                    if (curUrl.searchParams.get("session") !== token) {{
+                        curUrl.searchParams.set("session", token);
+                        window.location.replace(curUrl.href);
                     }}
                 }}
             }} catch(err) {{
@@ -86,8 +80,7 @@ def render_login_page():
         }})();
         </script>
         """,
-        height=0,
-        width=0
+        unsafe_allow_javascript=True
     )
 
     # Hide sidebar on login screen and apply custom login background
